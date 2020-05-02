@@ -3,13 +3,22 @@ function getPage()
 {
 
     $lesPages['accueil'] = "actionAccueil";
-    $lesPages['salles'] = "actionSalles";
+    $lesPages['ajoutCollabo'] = "actionAjoutCollabo";
+    $lesPages['listeCollabo'] = "actionListeCollabo";
+    $lesPages['gestionSalle'] = "actionGestionSalle";
+    $lesPages['gestionOption'] = "actionGestionOption";
+    $lesPages['gestionAssos'] = "actionGestionAssos";
+    $lesPages['tableReservation'] = "actionTableReservation";
+    $lesPages['reserver'] = "actionReserver";
+    $lesPages['aPropos'] = "actionAPropos";
+    $lesPages['mentions'] = "actionMentions";
 
 
-    $contenu = $lesPages['accueil'];
+
     if(isset($_GET['page'])){
         $page = $_GET['page'];
-    } else{
+    }
+    else{
         $page = 'accueil';
     }
     if (!isset($lesPages[$page])){
@@ -17,9 +26,5 @@ function getPage()
     }
 
     $contenu = $lesPages[$page];
-
-    return $contenu;
-
-}
-
+    return $contenu; }
 ?>
