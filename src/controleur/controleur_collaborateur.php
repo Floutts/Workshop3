@@ -1,6 +1,6 @@
 <?php
 
-function actionAjoutCollabo($twig) {
+function actionAjoutCollaborateur($twig) {
     $form = array();
     if (isset($_POST['btAjouter'])) {
         $form['valide'] = true;
@@ -21,8 +21,8 @@ function actionAjoutCollabo($twig) {
         }
     }
 
-    echo $twig->render('ajoutCollabo.html.twig', array('form'=>$form));
+    echo $twig->render('ajoutCollaborateur.html.twig', array('form'=>$form));
 }
-function actionListeCollabo($twig) {
-    echo $twig->render('listeCollabo.html.twig', array());
+function actionListeCollaborateur($twig) {
+    echo $twig->render('listeCollaborateur.html.twig', array());
 }
