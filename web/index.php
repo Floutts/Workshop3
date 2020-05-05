@@ -10,7 +10,8 @@ require_once '../src/config/parametres.php';
 
 $loader = new Twig_Loader_Filesystem('../src/vue/');
 $twig = new Twig_Environment($loader, array());
-$contenu = getPage();
+$db = connect($config);
+$contenu = getPage($db);
 // Exécution de la fonction souhaitée 
-$contenu($twig);
+$contenu($twig,$db);
 ?>

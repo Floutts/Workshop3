@@ -14,5 +14,7 @@ function actionMentions($twig) {
     echo $twig->render('mentions.html.twig', array());
 }
 
-
+function actionMaintenance($twig) {
+    echo $twig->render('maintenance.html.twig', array());
+}
 
