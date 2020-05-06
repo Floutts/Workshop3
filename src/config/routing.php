@@ -3,11 +3,10 @@ function getPage($db)
 {
 
     $lesPages['accueil'] = "actionAccueil";
-    $lesPages['ajoutCollaborateur'] = "actionAjoutCollaborateur";
-    $lesPages['listeCollaborateur'] = "actionListeCollaborateur";
     $lesPages['gestionSalle'] = "actionGestionSalle";
     $lesPages['gestionOption'] = "actionGestionOption";
-    $lesPages['gestionAssociation'] = "actionGestionAssociation";
+    $lesPages['listeAssociation'] = "actionListeAssociation";
+    $lesPages['ajoutAssociation'] = "actionAjoutAssociation";
     $lesPages['tableReservation'] = "actionTableReservation";
     $lesPages['reserver'] = "actionReserver";
     $lesPages['aPropos'] = "actionAPropos";

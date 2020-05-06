@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Ajout Association {% endblock %}
+{% block contenu %}
+
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussie</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'association : {{form.nomAssos}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom du gérant : {{form.nom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le prénom du gérant : {{form.prenom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son email : {{form.email}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son numéro de téléphone : {{form.tel}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son adresse : {{form.adresse}}</h1>
+
+        {% else %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=acceuil" >Retourner sur la page d'acceuil</a></h1>
+            </div>
+        {% endif %}
+    {% else %}
+
+        <form class="text-center" method="POST" action="index.php?page=ajoutAssociation">
+
+            <div class="mx-auto" style="width: 800px;">
+                <h3 style="text-align: center"> Ajouter une association </h3>
+                <br/><br/>
+                <div class="form-group row">
+                    <label for="nom" class="sr-only"></label>
+                    <div class="col-sm-12">
+                        <input type="text" id="nomAssos" name="nomAssos" class="form-control" placeholder="Nom de l'association" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nom" class="sr-only"></label>
+                    <div class="col-sm-12">
+                        <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="prenom" class="sr-only"></label>
+                    <div class="col-sm-12">
+                        <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom"  required >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmailcom" class="sr-only"></label>
+                    <div class="col-sm-12">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputMessage" class="sr-only"></label>
+                    <div class="col-sm-12">
+                        <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse"  required >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmailcom" class="sr-only">Email:</label>
+                    <div class="col-sm-12">
+                        <input type="number" id="confMdp" name="tel" class="form-control" placeholder="Numero de téléphone" required >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAjouter">Ajouter</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
