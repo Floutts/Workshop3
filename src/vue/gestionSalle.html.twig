@@ -4,38 +4,40 @@
 
     {% if form.valide is defined %}
     {% if form.valide == true %}
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussie</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de la salle : {{form.nom}}</h1>
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}}</h1>
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici sa superficie {{form.superficie}}</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le prix de la salle : {{form.prix}} € </h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici la superficie de la salle : {{form.superficie}} m²</h1>
 
     {% else %}
         <div class="mx-auto" style="width: 400px;">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=acceuil" >Retourner sur la page d'acceuil</a></h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=getsionSalle" >Retourner sur la page de gestion des salles</a></h1>
         </div>
     {% endif %}
     {% else %}
+ <br/><br/>
+    <h3 style="text-align: center"> Liste des salles </h3>
+        <br/><br/>
 
-    Liste des salles
-    <div class="mx-auto" style="width: 1000px;">
+        <div class="mx-auto" style="width: 1000px;">
 
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Nom de la salle</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Superficie</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>Salle 1</td>
+                <td> 100 </td>
+                <td> 50 </td>
+
             </tr>
 
             </tbody>

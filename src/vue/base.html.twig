@@ -17,7 +17,7 @@
     <body class="bg-light">
     {% block body %}
         <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-            <a class="navbar-brand" href=index.php?page=acceuil>Navbar</a>
+            <a class="navbar-brand" href=index.php?page=acceuil>房間項目</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,18 +27,23 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.php?page=acceuil">Acceuil <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Administration
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="index.php?page=ajoutAssociation"> Ajouter une association </a>
-                            <a class="dropdown-item" href="index.php?page=listeAssociation"> liste des associations </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index.php?page=gestionSalle"> Gestion des salles </a>
-                            <a class="dropdown-item" href="index.php?page=gestionOption"> Gestion des options</a>
-                        </div>
-                    </li>
+                    {%if session.login is defined %}
+                        {%if session.role == 1 %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administration
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="index.php?page=ajoutAssociation"> Ajouter une association </a>
+                                    <a class="dropdown-item" href="index.php?page=listeAssociation"> liste des associations </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="index.php?page=gestionSalle"> Gestion des salles </a>
+                                    <a class="dropdown-item" href="index.php?page=gestionOption"> Gestion des options</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Salles
@@ -56,8 +61,27 @@
                         <a class="nav-link" href="index.php?page=mentions"> Mentions légales </a>
                     </li>
 
-                </ul>
 
+
+                </ul>
+                <ul class="nav nav-tabs">
+                    {%if session.login is defined %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php?page=deconnexion">Deconnexion</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php?page=connexion">Se connecter</a>
+                        </li>
+                    {% endif %}
+                    {%if session.login is defined %}
+                        <li class="nav-item">
+                        <a class="nav-link active" href="#">{{session.login}}</a>
+                        </li>
+
+                    {% endif %}
+
+                </ul>
             </div>
         </nav>
 

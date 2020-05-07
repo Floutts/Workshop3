@@ -1,4 +1,38 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }} Gestion Association {% endblock %}
 {% block contenu %}
+
+    <br/><br/>
+    <h3 style="text-align: center"> Liste des associations </h3>
+    <br/><br/>
+
+    <div class="mx-auto" style="width: 1000px;">
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom de l'association</th>
+                <th scope="col">Nom du réferant</th>
+                <th scope="col">Email du réferent</th>
+                <th scope="col">adresse</th>
+                <th scope="col">téléphone</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Salle 1</td>
+                <td> 100 </td>
+                <td> 50 </td>
+                <td> 50 </td>
+                <td> 50 </td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
 {% endblock %}
