@@ -33,12 +33,14 @@
             </tr>
             </thead>
             <tbody>
+                {% for s in liste %}
             <tr>
-                <td>Salle 1</td>
-                <td> 100 </td>
-                <td> 50 </td>
+                <td>{{ s.libelle }}</td>
+                <td>{{ s.prix }}</td>
+                <td>{{ s.superficie }}</td>
 
             </tr>
+            {% endfor %}
 
             </tbody>
         </table>
