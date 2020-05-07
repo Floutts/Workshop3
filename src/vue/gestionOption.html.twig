@@ -1,4 +1,95 @@
 {% extends "base.html.twig" %}
-{% block title %} {{ parent() }} Gestion Options {% endblock %}
+{% block title %} {{ parent() }} Gestion des options {% endblock %}
 {% block contenu %}
+
+    {% if form.valide is defined %}
+        {% if form.valide == true %}
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'option : {{form.nom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
+
+        {% else %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
+            </div>
+        {% endif %}
+    {% else %}
+
+        <br/><br/>
+        <h3 style="text-align: center"> Liste des Options </h3>
+        <br/><br/>
+        <div class="mx-auto" style="width: 1000px;">
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    {% for o in liste %}
+                    <tr>
+                        <td>{{ o.libelle }}</td>
+                        <td>{{ o.prix }}</td>
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="mx-auto" style="text-align: center;">
+            <h3> Ajouter une nouvelle option :</h3>
+        </div>
+        <br/><br/>
+        <div class="mx-auto" style="width: 500px">
+            <form class="text-center" method="POST" action="index.php?page=gestionOption">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " required >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Salle 1
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Salle 2
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Salle 3
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
+            </form>
+
+        </div>
+    {% endif %}
 {% endblock %}
