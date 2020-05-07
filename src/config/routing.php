@@ -11,7 +11,10 @@ function getPage($db)
     $lesPages['reserver'] = "actionReserver";
     $lesPages['aPropos'] = "actionAPropos";
     $lesPages['mentions'] = "actionMentions";
+    $lesPages['connexion'] = "actionConnexion";
+    $lesPages['deconnexion'] = "actionDeconnexion";
     $lesPages['maintenance'] = "actionMaintenance";
+
 
 
 if ($db != null) {

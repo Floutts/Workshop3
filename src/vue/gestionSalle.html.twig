@@ -4,10 +4,10 @@
 
     {% if form.valide is defined %}
     {% if form.valide == true %}
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussie</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de la salle : {{form.nom}}</h1>
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}}</h1>
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici sa superficie {{form.superficie}}</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le prix de la salle : {{form.prix}} € </h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici la superficie de la salle : {{form.superficie}} m²</h1>
 
     {% else %}
         <div class="mx-auto" style="width: 400px;">
@@ -17,9 +17,11 @@
         </div>
     {% endif %}
     {% else %}
+ <br/><br/>
+    <h3 style="text-align: center"> Liste des salles </h3>
+        <br/><br/>
 
-    Liste des salles
-    <div class="mx-auto" style="width: 1000px;">
+        <div class="mx-auto" style="width: 1000px;">
 
         <table class="table">
             <thead class="thead-dark">

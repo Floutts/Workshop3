@@ -10,6 +10,7 @@ require_once '../src/config/parametres.php';
 
 $loader = new Twig_Loader_Filesystem('../src/vue/');
 $twig = new Twig_Environment($loader, array());
+$twig->addGlobal('session', $_SESSION);
 $db = connect($config);
 $contenu = getPage($db);
 // Exécution de la fonction souhaitée 
