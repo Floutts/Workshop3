@@ -27,6 +27,8 @@
                 <tr>
                     <th scope="col">Nom</th>
                     <th scope="col">Prix</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +37,8 @@
                     <tr>
                         <td>{{ o.libelle }}</td>
                         <td>{{ o.prix }}</td>
+                        <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+                        <td><i class="fa fa-trash" aria-hidden="true"></i></td>
                     </tr>
                     {% endfor %}
 
