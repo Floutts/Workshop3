@@ -192,7 +192,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,6 +201,7 @@ CREATE TABLE `salle` (
 
 LOCK TABLES `salle` WRITE;
 /*!40000 ALTER TABLE `salle` DISABLE KEYS */;
+INSERT INTO `salle` VALUES (3,'salle 1',100,50,1);
 /*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +216,7 @@ CREATE TABLE `statut` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,6 +225,7 @@ CREATE TABLE `statut` (
 
 LOCK TABLES `statut` WRITE;
 /*!40000 ALTER TABLE `statut` DISABLE KEYS */;
+INSERT INTO `statut` VALUES (1,'bloque');
 /*!40000 ALTER TABLE `statut` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-07  9:25:22
+-- Dump completed on 2020-05-07 10:03:59
