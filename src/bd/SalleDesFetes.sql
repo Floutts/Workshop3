@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Association`
+-- Table structure for table `association`
 --
 
-DROP TABLE IF EXISTS `Association`;
+DROP TABLE IF EXISTS `association`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Association` (
+CREATE TABLE `association` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `NomAssociation` varchar(100) NOT NULL,
   `Nom` varchar(100) NOT NULL,
@@ -35,22 +35,22 @@ CREATE TABLE `Association` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Association`
+-- Dumping data for table `association`
 --
 
-LOCK TABLES `Association` WRITE;
-/*!40000 ALTER TABLE `Association` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Association` ENABLE KEYS */;
+LOCK TABLES `association` WRITE;
+/*!40000 ALTER TABLE `association` DISABLE KEYS */;
+/*!40000 ALTER TABLE `association` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Locataire`
+-- Table structure for table `locataire`
 --
 
-DROP TABLE IF EXISTS `Locataire`;
+DROP TABLE IF EXISTS `locataire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Locataire` (
+CREATE TABLE `locataire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -58,74 +58,75 @@ CREATE TABLE `Locataire` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Locataire`
+-- Dumping data for table `locataire`
 --
 
-LOCK TABLES `Locataire` WRITE;
-/*!40000 ALTER TABLE `Locataire` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Locataire` ENABLE KEYS */;
+LOCK TABLES `locataire` WRITE;
+/*!40000 ALTER TABLE `locataire` DISABLE KEYS */;
+/*!40000 ALTER TABLE `locataire` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Option`
+-- Table structure for table `option`
 --
 
-DROP TABLE IF EXISTS `Option`;
+DROP TABLE IF EXISTS `option`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Option` (
+CREATE TABLE `option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   `prix` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Option`
+-- Dumping data for table `option`
 --
 
-LOCK TABLES `Option` WRITE;
-/*!40000 ALTER TABLE `Option` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Option` ENABLE KEYS */;
+LOCK TABLES `option` WRITE;
+/*!40000 ALTER TABLE `option` DISABLE KEYS */;
+INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de ménage',30),(3,'Parking',40);
+/*!40000 ALTER TABLE `option` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `OptionsSalle`
+-- Table structure for table `optionsSalle`
 --
 
-DROP TABLE IF EXISTS `OptionsSalle`;
+DROP TABLE IF EXISTS `optionsSalle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `OptionsSalle` (
+CREATE TABLE `optionsSalle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idSalle` int(11) NOT NULL,
   `idOption` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
   KEY `idOption` (`idOption`),
-  CONSTRAINT `OptionsSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `Salle` (`id`),
-  CONSTRAINT `OptionsSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `Option` (`id`)
+  CONSTRAINT `optionsSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
+  CONSTRAINT `optionsSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `OptionsSalle`
+-- Dumping data for table `optionsSalle`
 --
 
-LOCK TABLES `OptionsSalle` WRITE;
-/*!40000 ALTER TABLE `OptionsSalle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `OptionsSalle` ENABLE KEYS */;
+LOCK TABLES `optionsSalle` WRITE;
+/*!40000 ALTER TABLE `optionsSalle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `optionsSalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Reservation`
+-- Table structure for table `reservation`
 --
 
-DROP TABLE IF EXISTS `Reservation`;
+DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Reservation` (
+CREATE TABLE `reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idSalle` int(11) NOT NULL,
   `idLocataire` int(11) NOT NULL,
@@ -136,29 +137,53 @@ CREATE TABLE `Reservation` (
   KEY `idSalle` (`idSalle`),
   KEY `idLocataire` (`idLocataire`),
   KEY `idOptionsSalle` (`idOptionsSalle`),
-  CONSTRAINT `Reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `OptionsSalle` (`id`),
-  CONSTRAINT `Reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `Salle` (`id`),
-  CONSTRAINT `Reservation_ibfk_3` FOREIGN KEY (`idLocataire`) REFERENCES `Locataire` (`id`)
+  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `optionsSalle` (`id`),
+  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
+  CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`idLocataire`) REFERENCES `locataire` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Reservation`
+-- Dumping data for table `reservation`
 --
 
-LOCK TABLES `Reservation` WRITE;
-/*!40000 ALTER TABLE `Reservation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Reservation` ENABLE KEYS */;
+LOCK TABLES `reservation` WRITE;
+/*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Salle`
+-- Table structure for table `role`
 --
 
-DROP TABLE IF EXISTS `Salle`;
+DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Salle` (
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'Administrateur'),(2,'Employe');
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `salle`
+--
+
+DROP TABLE IF EXISTS `salle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `salle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   `superficie` int(11) NOT NULL,
@@ -166,27 +191,27 @@ CREATE TABLE `Salle` (
   `idStatut` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
-  CONSTRAINT `Salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `Statut` (`id`)
+  CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Salle`
+-- Dumping data for table `salle`
 --
 
-LOCK TABLES `Salle` WRITE;
-/*!40000 ALTER TABLE `Salle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Salle` ENABLE KEYS */;
+LOCK TABLES `salle` WRITE;
+/*!40000 ALTER TABLE `salle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Statut`
+-- Table structure for table `statut`
 --
 
-DROP TABLE IF EXISTS `Statut`;
+DROP TABLE IF EXISTS `statut`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Statut` (
+CREATE TABLE `statut` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -194,39 +219,43 @@ CREATE TABLE `Statut` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Statut`
+-- Dumping data for table `statut`
 --
 
-LOCK TABLES `Statut` WRITE;
-/*!40000 ALTER TABLE `Statut` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Statut` ENABLE KEYS */;
+LOCK TABLES `statut` WRITE;
+/*!40000 ALTER TABLE `statut` DISABLE KEYS */;
+/*!40000 ALTER TABLE `statut` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Utilisateur`
+-- Table structure for table `utilisateur`
 --
 
-DROP TABLE IF EXISTS `Utilisateur`;
+DROP TABLE IF EXISTS `utilisateur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Utilisateur` (
+CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `prenom` varchar(100) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `mdp` varchar(100) NOT NULL,
+  `idRole` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `email` (`email`),
+  KEY `idRole` (`idRole`),
+  CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`idRole`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
-LOCK TABLES `Utilisateur` WRITE;
-/*!40000 ALTER TABLE `Utilisateur` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Utilisateur` ENABLE KEYS */;
+LOCK TABLES `utilisateur` WRITE;
+/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+INSERT INTO `utilisateur` VALUES (3,'Jean','Bon','jean.bon@gmail.com','jambon',1),(4,'Harry','Covert','harry.covert@gmail.com','haricotvert',2);
+/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -238,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-06  9:32:47
+-- Dump completed on 2020-05-07  9:25:22
