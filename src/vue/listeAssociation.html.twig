@@ -20,16 +20,15 @@
             </tr>
             </thead>
             <tbody>
+            {% for a in liste %}
             <tr>
-                <td>Salle 1</td>
-                <td> 100 </td>
-                <td> 50 </td>
-                <td> 50 </td>
-                <td> 50 </td>
-
-
+                <td> {{ a.NomAssociation }} </td>
+                <td> {{ a.Nom }} </td>
+                <td> {{ a.Email }} </td>
+                <td> {{ a.Adresse }} </td>
+                <td> {{ a.NumTelephone }} </td>
             </tr>
-
+            {% endfor %}
             </tbody>
         </table>
 

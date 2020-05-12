@@ -3,6 +3,7 @@ function actionGestionOption($twig,$db) {
     $form = array();
     $option = new Option($db);
     $liste = $option-> select();
+
     if (isset($_POST['btAjouter'])) {
         $form['valide'] = true;
         $nom = $_POST['nom'];

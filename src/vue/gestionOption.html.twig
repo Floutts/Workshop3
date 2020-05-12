@@ -37,8 +37,13 @@
                     <tr>
                         <td>{{ o.libelle }}</td>
                         <td>{{ o.prix }}</td>
-                        <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-                        <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+                       <td>
+                           <ul class="nav justify-content-end">
+                               <a href="index.php?page=gestionOption&id={{ o.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
+                               <a href="#" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+
+                        </ul>
+                       </td>
                     </tr>
                     {% endfor %}
 
