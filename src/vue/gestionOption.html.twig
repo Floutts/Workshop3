@@ -4,18 +4,34 @@
 
     {% if form.valide is defined %}
         {% if form.valide == true %}
+
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'option : {{form.nom}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
 
         {% else %}
+
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
             </div>
         {% endif %}
-    {% else %}
+    {% elseif form.modifier is defined %}
+        {% if form.modifier == true %}
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie </h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'option : {{form.nom}}</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
+
+        {% else %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
+            </div>
+        {% endif %}
+        {% else %}
+
 
         <br/><br/>
         <h3 style="text-align: center"> Liste des Options </h3>
@@ -54,19 +70,38 @@
 
         </div>
         <div class="mx-auto" style="text-align: center;">
+    {% if form.modif is defined %}
+    {% if form.modif == true %}
             <h3> Ajouter une nouvelle option :</h3>
+    {% else %}
+        <h3> Modifier l'option :</h3>
+
+    {% endif %}
+    {% endif %}
         </div>
         <br/><br/>
         <div class="mx-auto" style="width: 500px">
-            <form class="text-center" method="POST" action="index.php?page=gestionOption">
+            <form class="text-center" method="POST" action="index.php?page=gestionOption&id={{ option.id }}">
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" required autofocus>
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" required autofocus>
+                            {% else %}
+                                <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" value="{{ option.libelle }}" required autofocus>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " required >
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " required >
+                            {% else %}
+                                <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " value="{{ option.prix }}" required >
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row">
@@ -82,7 +117,13 @@
                     {% endfor%}
                 </div>
                 <br/><br/>
+    {% if form.modif is defined %}
+    {% if form.modif == true %}
                 <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
+        {% else %}
+            <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>
+    {% endif %}
+    {% endif %}
             </form>
 
         </div>

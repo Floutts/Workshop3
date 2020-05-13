@@ -6,6 +6,8 @@ class Option{
     private $select;
     private $ajoutSalle;
     private $selectByNom;
+    private $selectById;
+    private $update;
 
     public function __construct($db){
         $this->db = $db;
@@ -13,6 +15,8 @@ class Option{
         $this->select = $db->prepare("select * from option");
         $this->ajoutSalle = $db->prepare("insert into optionSalle(idSalle,idOption) values (:idSalle,:idOption)");
         $this->selectByNom = $db->prepare("select * from option where libelle=:libelle");
+        $this->selectById = $db->prepare("select * from option where id=:id");
+        $this->update = $db->prepare("UPDATE option SET libelle=:libelle,prix=:prix where id=:id");
     }
 
     public function insert($nom,$prix){
@@ -36,10 +40,31 @@ class Option{
 
     public function ajoutSalle($idSalle,$idOption){
         $r = true;
-        $this->ajoutSalle->execute(array(':idSalle'=>$idSalle, ':idOption'=>$idOption));
-        if ($this->ajoutSalle->errorCode()!=0){
+        $this->ajoutSalle->execute(array(':idSalle' => $idSalle, ':idOption' => $idOption));
+        if ($this->ajoutSalle->errorCode() != 0) {
             print_r($this->ajoutSalle->errorInfo());
-            $r=false;
+            $r = false;
+        }
+        return $r;
+    }
+
+    public function selectById($id)
+    {
+        $this->selectById->execute(array(':id' => $id));
+        if ($this->selectById->errorCode() != 0) {
+            print_r($this->selectById->errorInfo());
+        }
+        return $this->selectById->fetch();
+
+
+    }
+    public function update($nom,$prix,$id)
+    {
+        $r = true;
+        $this->update->execute(array(':libelle' => $nom, ':prix' => $prix, ':id' => $id));
+        if ($this->update->errorCode() != 0) {
+            print_r($this->update->errorInfo());
+            $r = false;
         }
         return $r;
     }
