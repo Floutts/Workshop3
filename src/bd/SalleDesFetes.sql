@@ -31,7 +31,7 @@ CREATE TABLE `association` (
   `Email` varchar(100) NOT NULL,
   `NumTelephone` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,6 @@ CREATE TABLE `association` (
 
 LOCK TABLES `association` WRITE;
 /*!40000 ALTER TABLE `association` DISABLE KEYS */;
-INSERT INTO `association` VALUES (3,'vegetalus','harry','covert','bonduel','haricovert@gmail.com',680338562);
 /*!40000 ALTER TABLE `association` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +78,7 @@ CREATE TABLE `option` (
   `libelle` varchar(100) NOT NULL,
   `prix` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,36 +87,36 @@ CREATE TABLE `option` (
 
 LOCK TABLES `option` WRITE;
 /*!40000 ALTER TABLE `option` DISABLE KEYS */;
-INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de ménage',30),(3,'Parking',40);
+INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de ménage',30),(3,'Parking',40),(6,'Extérieur',45),(13,'Assistant',35),(14,'Estrade',20),(15,'Micro',25);
 /*!40000 ALTER TABLE `option` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `optionsSalle`
+-- Table structure for table `optionSalle`
 --
 
-DROP TABLE IF EXISTS `optionsSalle`;
+DROP TABLE IF EXISTS `optionSalle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `optionsSalle` (
+CREATE TABLE `optionSalle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idSalle` int(11) NOT NULL,
   `idOption` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
   KEY `idOption` (`idOption`),
-  CONSTRAINT `optionsSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
-  CONSTRAINT `optionsSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `optionSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
+  CONSTRAINT `optionSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `optionsSalle`
+-- Dumping data for table `optionSalle`
 --
 
-LOCK TABLES `optionsSalle` WRITE;
-/*!40000 ALTER TABLE `optionsSalle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `optionsSalle` ENABLE KEYS */;
+LOCK TABLES `optionSalle` WRITE;
+/*!40000 ALTER TABLE `optionSalle` DISABLE KEYS */;
+/*!40000 ALTER TABLE `optionSalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -138,7 +137,7 @@ CREATE TABLE `reservation` (
   KEY `idSalle` (`idSalle`),
   KEY `idLocataire` (`idLocataire`),
   KEY `idOptionsSalle` (`idOptionsSalle`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `optionsSalle` (`id`),
+  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `optionSalle` (`id`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
   CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`idLocataire`) REFERENCES `locataire` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -193,7 +192,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +201,7 @@ CREATE TABLE `salle` (
 
 LOCK TABLES `salle` WRITE;
 /*!40000 ALTER TABLE `salle` DISABLE KEYS */;
-INSERT INTO `salle` VALUES (3,'salle 1',100,50,1);
+INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(6,'Salle Etai',175,95,1),(7,'Salle Adier',125,75,1),(8,'Salle aire',265,125,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1);
 /*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-12  9:44:56
+-- Dump completed on 2020-05-13  9:58:04
