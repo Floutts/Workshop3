@@ -4,7 +4,7 @@
 
     {% if form.valide is defined %}
         {% if form.valide == true %}
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussie</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'association : {{form.nomAssociation}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom du gérant : {{form.nom}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le prénom du gérant : {{form.prenom}}</h1>
@@ -16,55 +16,121 @@
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=acceuil" >Retourner sur la page d'acceuil</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation&id=0" >Retourner sur l'ajout des association</a></h1>
+            </div>
+        {% endif %}
+    {% elseif form.modifier is defined %}
+        {% if form.modifier == true %}
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie </h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'association : {{form.nomAssociation}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom du gérant : {{form.nom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le prénom du gérant : {{form.prenom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son email : {{form.email}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son numéro de téléphone : {{form.tel}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son adresse : {{form.adresse}}</h1>
+
+        {% else %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation&id=0" >Retourner sur l'ajout des associations</a></h1>
             </div>
         {% endif %}
     {% else %}
 
-        <form class="text-center" method="POST" action="index.php?page=ajoutAssociation">
+        <form class="text-center" method="POST" action="index.php?page=ajoutAssociation&id={{ association.id }}">
 
             <div class="mx-auto" style="width: 800px;">
-                <h3 style="text-align: center"> Ajouter une association </h3>
+                {% if form.modif is defined %}
+                    {% if form.modif == true %}
+                        <h3 style="text-align: center"> Ajouter une association </h3>
+                    {% else %}
+                        <h3 style="text-align: center"> Modifier une association </h3>
+
+                    {% endif %}
+                {% endif %}
                 <br/><br/>
                 <div class="form-group row">
                     <label for="nom" class="sr-only"></label>
                     <div class="col-sm-12">
-                        <input type="text" id="nomAssociation" name="nomAssociation" class="form-control" placeholder="Nom de l'association" required autofocus>
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="text" id="nomAssociation" name="nomAssociation" class="form-control" placeholder="Nom de l'association"  required autofocus>
+                            {% else %}
+                                <input type="text" id="nomAssociation" name="nomAssociation" class="form-control" placeholder="Nom de l'association" value="{{ association.NomAssociation }}" required autofocus>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nom" class="sr-only"></label>
                     <div class="col-sm-12">
-                        <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" required autofocus>
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" required autofocus>
+                            {% else %}
+                                <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" value="{{ association.Nom }}" required autofocus>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="prenom" class="sr-only"></label>
                     <div class="col-sm-12">
-                        <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom"  required >
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom"  required >
+                            {% else %}
+                                <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom" value="{{ association.Prenom}}" required >
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmailcom" class="sr-only"></label>
                     <div class="col-sm-12">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required >
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required >
+                            {% else %}
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ association.Email }}" required >
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputMessage" class="sr-only"></label>
                     <div class="col-sm-12">
-                        <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse"  required >
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse"  required >
+                            {% else %}
+                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse" value="{{ association.Adresse }}"  required >
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmailcom" class="sr-only">Email:</label>
                     <div class="col-sm-12">
-                        <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" required >
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" required >
+                            {% else %}
+                                <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" value="{{ association.NumTelephone }}" required >
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAjouter">Ajouter</button>
+                        {% if form.modif is defined %}
+                            {% if form.modif == true %}
+                                <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
+                            {% else %}
+                                <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
 

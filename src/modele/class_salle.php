@@ -8,6 +8,8 @@ class Salle
     private $select;
     private $ajoutOption;
     private $selectByNom;
+    private $selectById;
+    private $update;
 
     public function __construct($db){
         $this->db = $db;
@@ -15,6 +17,10 @@ class Salle
         $this->select = $db->prepare("select * from salle");
         $this->ajoutOption = $db->prepare("insert into optionSalle(idSalle,idOption) values (:idSalle,:idOption)");
         $this->selectByNom = $db->prepare("select * from salle where libelle=:libelle");
+        $this->selectById = $db->prepare("select * from salle where id=:id");
+        $this->update = $db->prepare("UPDATE salle SET libelle=:libelle,prix=:prix,superficie=:superficie where id=:id");
+
+
     }
 
     public function insert($nom,$superficie,$prix){
@@ -53,6 +59,26 @@ class Salle
         }
         return $this->selectByNom->fetch();
 
+    }
+    public function selectById($id)
+    {
+        $this->selectById->execute(array(':id' => $id));
+        if ($this->selectById->errorCode() != 0) {
+            print_r($this->selectById->errorInfo());
+        }
+        return $this->selectById->fetch();
+
+
+    }
+    public function update($nom,$prix,$superficie,$id)
+    {
+        $r = true;
+        $this->update->execute(array(':libelle' => $nom, ':prix' => $prix, ':superficie'=> $superficie,':id' => $id));
+        if ($this->update->errorCode() != 0) {
+            print_r($this->update->errorInfo());
+            $r = false;
+        }
+        return $r;
     }
 }
 
