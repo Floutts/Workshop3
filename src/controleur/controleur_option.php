@@ -15,7 +15,7 @@ function actionGestionOption($twig,$db) {
 
     }else{
             $form['modif'] = false;
-            $unOption = $option->selectById($id);
+        $unOption = $option->selectById($id);
 
     }
     if (isset($_POST['btModifier'])) {

@@ -13,15 +13,29 @@
         <div class="mx-auto" style="width: 400px;">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=getsionSalle" >Retourner sur la page de gestion des salles</a></h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=getsionSalle&id=0" >Retourner sur la page de gestion des salles</a></h1>
         </div>
     {% endif %}
+    {% elseif form.modifier is defined %}
+        {% if form.modifier == true %}
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie </h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de la salle : {{form.nom}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici la superficie de la salle : {{form.superficie}} m²</h1>
+
+        {% else %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionSalle&id=0" >Retourner sur la gestion des salles</a></h1>
+            </div>
+        {% endif %}
     {% else %}
  <br/><br/>
     <h3 style="text-align: center"> Liste des salles </h3>
         <br/><br/>
 
-        <div class="mx-auto" style="width: 1000px;">
+        <div class="mx-auto" style="width: 900px;">
 
         <table class="table">
             <thead class="thead-dark">
@@ -29,6 +43,8 @@
                 <th scope="col">Nom de la salle</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Superficie</th>
+                <th></th>
+                <th></th>
 
             </tr>
             </thead>
@@ -39,6 +55,14 @@
                 <td>{{ s.prix }}</td>
                 <td>{{ s.superficie }}</td>
 
+                <td>
+                    <ul class="nav justify-content-end">
+                        <a href="index.php?page=gestionSalle&id={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
+                        <a href="#" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+
+                    </ul>
+                </td>
+
             </tr>
             {% endfor %}
 
@@ -48,24 +72,48 @@
 
     </div>
     <div class="mx-auto" style="text-align: center;">
-        <h3> Ajouter une nouvelle salle :</h3>
+        {% if form.modif is defined %}
+            {% if form.modif == true %}
+                <h3> Ajouter une nouvelle salle :</h3>
+            {% else %}
+                <h3> Modifier la salle :</h3>
+            {% endif %}
+        {% endif %}
     </div>
     <br/><br/>
     <div class="mx-auto" style="width: 500px">
-    <form class="text-center" method="POST" action="index.php?page=gestionSalle">
+    <form class="text-center" method="POST" action="index.php?page=gestionSalle&id={{ salle.id }}">
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de la salle" required autofocus>
+                    {% if form.modif is defined %}
+                        {% if form.modif == true %}
+                            <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de la salle" required autofocus>
+                        {% else %}
+                            <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de la salle" value="{{ salle.libelle }}" required autofocus>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         <div class="form-group row">
             <div class="col-sm-12">
-                <input type="number" id="prix" name="prix" class="form-control" placeholder="Son prix " required >
+                {% if form.modif is defined %}
+                    {% if form.modif == true %}
+                        <input type="number" id="prix" name="prix" class="form-control" placeholder="Son prix " required >
+                    {% else %}
+                        <input type="number" id="prix" name="prix" class="form-control" placeholder="Son prix " value="{{ salle.prix }}" required >
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
-                <input type="number" id="superficie" name="superficie" class="form-control" placeholder="Sa superficie ( en m² )" required >
+                {% if form.modif is defined %}
+                    {% if form.modif == true %}
+                        <input type="number" id="superficie" name="superficie" class="form-control" placeholder="Sa superficie ( en m² )" required >
+                    {% else %}
+                        <input type="number" id="superficie" name="superficie" class="form-control" placeholder="Sa superficie ( en m² )" value="{{ salle.superficie }}" required >
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
 
@@ -82,7 +130,13 @@
                 {% endfor %}
             </div>
         <br/><br/>
-            <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
+        {% if form.modif is defined %}
+            {% if form.modif == true %}
+                <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
+            {% else %}
+                <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>
+            {% endif %}
+        {% endif %}
         </form>
 
     </div>

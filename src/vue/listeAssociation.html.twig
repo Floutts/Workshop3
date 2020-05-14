@@ -16,6 +16,7 @@
                 <th scope="col">Email du réferent</th>
                 <th scope="col">adresse</th>
                 <th scope="col">téléphone</th>
+                <th></th>
 
             </tr>
             </thead>
@@ -27,6 +28,13 @@
                 <td> {{ a.Email }} </td>
                 <td> {{ a.Adresse }} </td>
                 <td> {{ a.NumTelephone }} </td>
+                <td>
+                    <ul class="nav justify-content-end">
+                        <a href="index.php?page=ajoutAssociation&id={{ a.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
+                        <a href="#" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+
+                    </ul>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
