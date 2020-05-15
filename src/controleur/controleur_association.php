@@ -6,13 +6,14 @@ function actionAjoutAssociation($twig,$db) {
     $form = array();
     $association = new Association($db);
     $uneAssociation=NULL;
-    $id = $_GET['id'];
-    $form['id'] = $id;
-    if (($_GET['id']) == 0) {
+
+    if (isset($_GET['id'])) {
         $form['modif'] = true;
+        $id = $_GET['id'];
+        $form['id'] = $id;
+        $uneAssociation = $association->selectById($id);
     }else{
         $form['modif'] = false;
-        $uneAssociation = $association->selectById($id);
     }
 
     if (isset($_POST['btModifier'])) {
@@ -66,15 +67,15 @@ function actionAjoutAssociation($twig,$db) {
 function actionListeAssociation($twig,$db) {
     $association = new Association($db);
     $liste = $association-> select();
-    if(isset($_GET['id'])){
-        $exec=$association->delete($_GET['id']);
+    if(isset($_GET['idsup'])){
+        $exec=$association->delete($_GET['idsup']);
         if (!$exec){
-            $form['modifier'] = false;
+            $form['supprimer'] = false;
             $form['message'] = 'Problème de suppression dans la table produit';
         }
         else{
-            $form['modifier'] = true;
-            $form['message'] = 'Produit supprimé avec succès';
+            $form['supprimer'] = true;
+            $form['message'] = 'Association supprimée avec succès';
         }
     }
 

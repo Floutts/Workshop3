@@ -8,13 +8,14 @@
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'option : {{form.nom}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
 
         {% else %}
 
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption&id=" >Retourner sur la gestion des options</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
             </div>
         {% endif %}
     {% elseif form.modifier is defined %}
@@ -22,12 +23,13 @@
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie </h1>
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici le nom de l'option : {{form.nom}}</h1>
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son prix : {{form.prix}} €</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
 
         {% else %}
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption&id=" >Retourner sur la gestion des options</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionOption" >Retourner sur la gestion des options</a></h1>
             </div>
         {% endif %}
         {% else %}

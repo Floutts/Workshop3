@@ -11,12 +11,13 @@
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son email : {{form.email}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son numéro de téléphone : {{form.tel}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son adresse : {{form.adresse}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des association</a></h1>
 
         {% else %}
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation&id=" >Retourner sur l'ajout des association</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des association</a></h1>
             </div>
         {% endif %}
     {% elseif form.modifier is defined %}
@@ -28,12 +29,14 @@
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son email : {{form.email}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son numéro de téléphone : {{form.tel}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son adresse : {{form.adresse}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des association</a></h1>
+
 
         {% else %}
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation&id=" >Retourner sur l'ajout des associations</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des associations</a></h1>
             </div>
         {% endif %}
 
@@ -43,7 +46,7 @@
 
             <div class="mx-auto" style="width: 800px;">
                 {% if form.modif is defined %}
-                    {% if form.modif == true %}
+                    {% if form.modif == false %}
                         <h3 style="text-align: center"> Ajouter une association </h3>
                     {% else %}
                         <h3 style="text-align: center"> Modifier une association </h3>
@@ -55,7 +58,7 @@
                     <label for="nom" class="sr-only"></label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="text" id="nomAssociation" name="nomAssociation" class="form-control" placeholder="Nom de l'association"  required autofocus>
                             {% else %}
                                 <input type="text" id="nomAssociation" name="nomAssociation" class="form-control" placeholder="Nom de l'association" value="{{ association.NomAssociation }}" required autofocus>
@@ -67,7 +70,7 @@
                     <label for="nom" class="sr-only"></label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" required autofocus>
                             {% else %}
                                 <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" value="{{ association.Nom }}" required autofocus>
@@ -79,7 +82,7 @@
                     <label for="prenom" class="sr-only"></label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom"  required >
                             {% else %}
                                 <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom" value="{{ association.Prenom}}" required >
@@ -91,7 +94,7 @@
                     <label for="inputEmailcom" class="sr-only"></label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="email" id="email" name="email" class="form-control" placeholder="Email" required >
                             {% else %}
                                 <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ association.Email }}" required >
@@ -103,7 +106,7 @@
                     <label for="inputMessage" class="sr-only"></label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse"  required >
                             {% else %}
                                 <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse" value="{{ association.Adresse }}"  required >
@@ -115,7 +118,7 @@
                     <label for="inputEmailcom" class="sr-only">Email:</label>
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" required >
                             {% else %}
                                 <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" value="{{ association.NumTelephone }}" required >
@@ -126,7 +129,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
                             {% else %}
                                 <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>

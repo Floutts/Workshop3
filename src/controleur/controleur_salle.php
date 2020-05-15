@@ -16,7 +16,7 @@ function actionGestionSalle($twig,$db) {
         $uneSalle = $salle->selectById($id);
         echo "vrai";
     }else{
-        $from['modif'] = false;
+        $form['modif'] = false;
 
     }
 
@@ -28,7 +28,7 @@ function actionGestionSalle($twig,$db) {
         }
         else{
             $form['supprimer'] = true;
-            $form['message'] = 'Produit supprimé avec succès';
+            $form['message'] = 'Salle supprimée avec succès';
         }
     }
 

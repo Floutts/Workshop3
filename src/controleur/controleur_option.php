@@ -30,14 +30,14 @@ function actionGestionOption($twig,$db) {
         }
         else{
             $form['supprimer'] = true;
-            $form['message'] = 'Produit supprimé avec succès';
+            $form['message'] = 'Option supprimée avec succès';
         }
     }
 
 
 
 
-        if (isset($_POST['btModifier'])) {
+    if (isset($_POST['btModifier'])) {
 
         $form['modifier'] = true;
         $nom = $_POST['nom'];
