@@ -30,6 +30,15 @@
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionSalle&id=" >Retourner sur la gestion des salles</a></h1>
             </div>
         {% endif %}
+
+    {% elseif form.supprimer is defined %}
+        {% if form.supprimer == true %}
+            <h1 class="h3 mb-3 font-weight-normal">{{ form.message }}</h1>
+        {% else %}
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionSalle&id=0" >Retourner sur la gestion des salles</a></h1>
+        {% endif %}
     {% else %}
  <br/><br/>
     <h3 style="text-align: center"> Liste des salles </h3>
@@ -58,7 +67,7 @@
                 <td>
                     <ul class="nav justify-content-end">
                         <a href="index.php?page=gestionSalle&id={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
-                        <a href="#" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+                        <a href="index.php?page=gestionSalle&idsup={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
 
                     </ul>
                 </td>
@@ -73,7 +82,7 @@
     </div>
     <div class="mx-auto" style="text-align: center;">
         {% if form.modif is defined %}
-            {% if form.modif == true %}
+            {% if form.modif == false %}
                 <h3> Ajouter une nouvelle salle :</h3>
             {% else %}
                 <h3> Modifier la salle :</h3>
@@ -86,7 +95,7 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     {% if form.modif is defined %}
-                        {% if form.modif == true %}
+                        {% if form.modif == false %}
                             <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de la salle" required autofocus>
                         {% else %}
                             <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de la salle" value="{{ salle.libelle }}" required autofocus>
@@ -97,7 +106,7 @@
         <div class="form-group row">
             <div class="col-sm-12">
                 {% if form.modif is defined %}
-                    {% if form.modif == true %}
+                    {% if form.modif == false %}
                         <input type="number" id="prix" name="prix" class="form-control" placeholder="Son prix " required >
                     {% else %}
                         <input type="number" id="prix" name="prix" class="form-control" placeholder="Son prix " value="{{ salle.prix }}" required >
@@ -108,7 +117,7 @@
         <div class="form-group row">
             <div class="col-sm-12">
                 {% if form.modif is defined %}
-                    {% if form.modif == true %}
+                    {% if form.modif == false %}
                         <input type="number" id="superficie" name="superficie" class="form-control" placeholder="Sa superficie ( en m² )" required >
                     {% else %}
                         <input type="number" id="superficie" name="superficie" class="form-control" placeholder="Sa superficie ( en m² )" value="{{ salle.superficie }}" required >
@@ -131,7 +140,7 @@
             </div>
         <br/><br/>
         {% if form.modif is defined %}
-            {% if form.modif == true %}
+            {% if form.modif == false %}
                 <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
             {% else %}
                 <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>

@@ -10,6 +10,7 @@ class Salle
     private $selectByNom;
     private $selectById;
     private $update;
+    private $delete;
 
     public function __construct($db){
         $this->db = $db;
@@ -19,6 +20,7 @@ class Salle
         $this->selectByNom = $db->prepare("select * from salle where libelle=:libelle");
         $this->selectById = $db->prepare("select * from salle where id=:id");
         $this->update = $db->prepare("UPDATE salle SET libelle=:libelle,prix=:prix,superficie=:superficie where id=:id");
+        $this->delete = $db->prepare("delete from salle where id=:id");
 
 
     }
@@ -60,6 +62,7 @@ class Salle
         return $this->selectByNom->fetch();
 
     }
+
     public function selectById($id)
     {
         $this->selectById->execute(array(':id' => $id));
@@ -70,6 +73,7 @@ class Salle
 
 
     }
+
     public function update($nom,$prix,$superficie,$id)
     {
         $r = true;
@@ -77,6 +81,16 @@ class Salle
         if ($this->update->errorCode() != 0) {
             print_r($this->update->errorInfo());
             $r = false;
+        }
+        return $r;
+    }
+
+    public function delete($id){
+        $r = true;
+        $this->delete->execute(array(':id'=>$id));
+        if ($this->delete->errorCode()!=0){
+            print_r($this->delete->errorInfo());
+            $r=false;
         }
         return $r;
     }

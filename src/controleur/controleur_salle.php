@@ -7,18 +7,31 @@ function actionGestionSalle($twig,$db) {
     $option = new Option($db);
     $listeSalle = $salle-> select();
     $listeOption = $option-> select();
-    $id = $_GET['id'];
-    $form['id'] = $id;
 
-    if (($_GET['id']) == 0) {
+
+    if (isset($_GET['id'])) {
         $form['modif'] = true;
+        $id = $_GET['id'];
+        $form['id'] = $id;
+        $uneSalle = $salle->selectById($id);
         echo "vrai";
     }else{
-        $form['modif'] = false;
-        $uneSalle = $salle->selectById($id);
-        echo "faux";
+        $from['modif'] = false;
 
     }
+
+    if(isset($_GET['idsup'])){
+        $exec=$salle->delete($_GET['idsup']);
+        if (!$exec){
+            $form['supprimer'] = false;
+            $form['message'] = 'Problème de suppression dans la table produit';
+        }
+        else{
+            $form['supprimer'] = true;
+            $form['message'] = 'Produit supprimé avec succès';
+        }
+    }
+
 
     if (isset($_POST['btModifier'])) {
 

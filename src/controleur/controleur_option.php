@@ -10,14 +10,15 @@ function actionGestionOption($twig,$db) {
     $listeSalle = $salle-> select();
 
 
-    if(isset($_GET['id'])){
-        echo "test";
+    if (isset($_GET['id'])) {
+        $form['modif'] = true;
         $id = $_GET['id'];
         $form['id'] = $id;
-        $form['modif']= true;
         $unOption = $option->selectById($id);
+
     }else{
-        $form['modif'] = false;
+            $form['modif'] = false;
+        //$unOption = $option->selectById($id);
 
     }
 

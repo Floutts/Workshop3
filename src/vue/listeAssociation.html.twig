@@ -2,6 +2,14 @@
 {% block title %} {{ parent() }} Gestion Association {% endblock %}
 {% block contenu %}
 
+    {% if form.modifier is defined %}
+        {% if form.modifier == true %}
+            <h1 class="h3 mb-3 font-weight-normal">{{ form.message }}</h1>
+        {% else %}
+            <h1 class="alert alert-danger" role="alert">{{ form.message }}</h1>
+        {% endif %}
+    {% endif %}
+
     <br/><br/>
     <h3 style="text-align: center"> Liste des associations </h3>
     <br/><br/>
@@ -31,7 +39,7 @@
                 <td>
                     <ul class="nav justify-content-end">
                         <a href="index.php?page=ajoutAssociation&id={{ a.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
-                        <a href="#" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+                        <a href="index.php?page=ajoutAssociation&idsup={{a.id}}" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
 
                     </ul>
                 </td>

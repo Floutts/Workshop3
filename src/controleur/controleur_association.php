@@ -66,5 +66,17 @@ function actionAjoutAssociation($twig,$db) {
 function actionListeAssociation($twig,$db) {
     $association = new Association($db);
     $liste = $association-> select();
+    if(isset($_GET['id'])){
+        $exec=$association->delete($_GET['id']);
+        if (!$exec){
+            $form['modifier'] = false;
+            $form['message'] = 'Problème de suppression dans la table produit';
+        }
+        else{
+            $form['modifier'] = true;
+            $form['message'] = 'Produit supprimé avec succès';
+        }
+    }
+
     echo $twig->render('listeAssociation.html.twig', array('liste'=>$liste ));
 }
