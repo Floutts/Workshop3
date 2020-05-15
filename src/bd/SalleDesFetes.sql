@@ -31,7 +31,7 @@ CREATE TABLE `association` (
   `Email` varchar(100) NOT NULL,
   `NumTelephone` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `option` (
   `libelle` varchar(100) NOT NULL,
   `prix` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +221,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `salle` (
 
 LOCK TABLES `salle` WRITE;
 /*!40000 ALTER TABLE `salle` DISABLE KEYS */;
-INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(6,'Salle Etai',175,95,1),(7,'Salle Adier',125,75,1),(8,'Salle aire',265,130,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1);
+INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(7,'Salle Adier',125,75,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1);
 /*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-14  9:56:24
+-- Dump completed on 2020-05-15  9:08:35
