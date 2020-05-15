@@ -6,6 +6,8 @@ class Association{
     private $select;
     private $selectById;
     private $update;
+    private $delete;
+
 
     public function __construct($db){
         $this->db = $db;
@@ -13,6 +15,7 @@ class Association{
         $this->select = $db->prepare("select * from association");
         $this->selectById = $db->prepare("select * from association where id=:id");
         $this->update = $db->prepare("UPDATE association SET NomAssociation=:NomAssociation,Nom=:Nom,Prenom=:Prenom,Adresse=:Adresse,Email=:Email,NumTelephone=:NumTelephone  where id=:id");
+        $this->delete = $db->prepare("delete from association where id=:id");
 
 
     }
@@ -55,4 +58,15 @@ class Association{
         }
         return $r;
     }
+
+    public function delete($id){
+        $r = true;
+        $this->delete->execute(array(':id'=>$id));
+        if ($this->delete->errorCode()!=0){
+            print_r($this->delete->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
 }

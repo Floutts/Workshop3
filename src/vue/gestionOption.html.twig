@@ -35,7 +35,6 @@
 
         <br/><br/>
         <h3 style="text-align: center"> Liste des Options </h3>
-        <br/><br/>
         <div class="mx-auto" style="width: 1000px;">
 
             <table class="table">
@@ -71,7 +70,7 @@
         </div>
         <div class="mx-auto" style="text-align: center;">
     {% if form.modif is defined %}
-    {% if form.modif == true %}
+    {% if form.modif == false %}
             <h3> Ajouter une nouvelle option :</h3>
     {% else %}
         <h3> Modifier l'option :</h3>
@@ -85,7 +84,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" required autofocus>
                             {% else %}
                                 <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'option" value="{{ option.libelle }}" required autofocus>
@@ -96,7 +95,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
-                            {% if form.modif == true %}
+                            {% if form.modif == false %}
                                 <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " required >
                             {% else %}
                                 <input type="number" id="prix" name="prix" class="form-control" placeholder="Prix de l'option " value="{{ option.prix }}" required >
@@ -118,7 +117,7 @@
                 </div>
                 <br/><br/>
     {% if form.modif is defined %}
-    {% if form.modif == true %}
+    {% if form.modif == false %}
                 <button type="submit" class="btn-lg btn-primary mb-2" name="btAjouter">Ajouter</button>
         {% else %}
             <button type="submit" class="btn-lg btn-primary mb-2" name="btModifier">Modifier</button>

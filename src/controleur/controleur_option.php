@@ -8,14 +8,16 @@ function actionGestionOption($twig,$db) {
     $salle = new Salle($db);
     $listeOption = $option-> select();
     $listeSalle = $salle-> select();
-    $id = $_GET['id'];
-    $form['id'] = $id;
-    if (($_GET['id']) == 0) {
+
+    if (isset($_GET['id'])) {
         $form['modif'] = true;
+        $id = $_GET['id'];
+        $form['id'] = $id;
+        $unOption = $option->selectById($id);
 
     }else{
             $form['modif'] = false;
-        $unOption = $option->selectById($id);
+        //$unOption = $option->selectById($id);
 
     }
     if (isset($_POST['btModifier'])) {
