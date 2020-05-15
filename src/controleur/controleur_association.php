@@ -65,6 +65,7 @@ function actionAjoutAssociation($twig,$db) {
     echo $twig->render('ajoutAssociation.html.twig', array('form'=>$form, 'association'=>$uneAssociation));
 }
 function actionListeAssociation($twig,$db) {
+    $form = array();
     $association = new Association($db);
     $liste = $association-> select();
     if(isset($_GET['idsup'])){
@@ -79,5 +80,5 @@ function actionListeAssociation($twig,$db) {
         }
     }
 
-    echo $twig->render('listeAssociation.html.twig', array('liste'=>$liste ));
+    echo $twig->render('listeAssociation.html.twig', array('liste'=>$liste,'form'=>$form ));
 }

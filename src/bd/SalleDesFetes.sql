@@ -40,7 +40,7 @@ CREATE TABLE `association` (
 
 LOCK TABLES `association` WRITE;
 /*!40000 ALTER TABLE `association` DISABLE KEYS */;
-INSERT INTO `association` VALUES (1,'vegetalus','Potter','Harry','bonduel','harrypoter@gmail.com',680338562),(2,'carni','harry','covert','poudlard','haricovert@gmail.com',2147483647);
+INSERT INTO `association` VALUES (1,'vegetalus','Potter','Harry','bonduel','harrypoter@gmail.com',680338562);
 /*!40000 ALTER TABLE `association` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `option` (
   `libelle` varchar(100) NOT NULL,
   `prix` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,7 @@ CREATE TABLE `optionSalle` (
   KEY `idOption` (`idOption`),
   CONSTRAINT `optionSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
   CONSTRAINT `optionSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,34 +118,6 @@ CREATE TABLE `optionSalle` (
 LOCK TABLES `optionSalle` WRITE;
 /*!40000 ALTER TABLE `optionSalle` DISABLE KEYS */;
 /*!40000 ALTER TABLE `optionSalle` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `optionsSalle`
---
-
-DROP TABLE IF EXISTS `optionsSalle`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `optionsSalle` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idSalle` int(11) NOT NULL,
-  `idOption` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idSalle` (`idSalle`),
-  KEY `idOption` (`idOption`),
-  CONSTRAINT `optionsSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
-  CONSTRAINT `optionsSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `optionsSalle`
---
-
-LOCK TABLES `optionsSalle` WRITE;
-/*!40000 ALTER TABLE `optionsSalle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `optionsSalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -221,7 +193,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,4 +270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-15  9:08:35
+-- Dump completed on 2020-05-15 13:11:43

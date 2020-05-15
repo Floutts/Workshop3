@@ -9,6 +9,7 @@ class Option{
     private $selectById;
     private $update;
     private $delete;
+    private $deleteById;
 
     public function __construct($db){
         $this->db = $db;
@@ -19,7 +20,7 @@ class Option{
         $this->selectById = $db->prepare("select * from option where id=:id");
         $this->update = $db->prepare("UPDATE option SET libelle=:libelle,prix=:prix where id=:id");
         $this->delete = $db->prepare("delete from option where id=:id");
-
+        $this->deleteById = $db->prepare("delete from optionSalle where idOption=:idOption");
     }
 
     public function insert($nom,$prix){
@@ -80,6 +81,7 @@ class Option{
         return $this->selectByNom->fetch();
 
     }
+
     public function delete($id){
         $r = true;
         $this->delete->execute(array(':id'=>$id));
@@ -89,5 +91,16 @@ class Option{
         }
         return $r;
     }
+
+    public function deleteById($idOption){
+        $r = true;
+        $this->deleteById->execute(array(':idOption'=>$idOption));
+        if ($this->deleteById->errorCode()!=0){
+            print_r($this->deleteById->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
 
 }

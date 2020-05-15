@@ -23,15 +23,22 @@ function actionGestionOption($twig,$db) {
     }
 
     if(isset($_GET['idsup'])){
-        $exec=$option->delete($_GET['idsup']);
-        if (!$exec){
+        $exec1=$option->deleteById($_GET["idsup"]);
+        if (!$exec1){
             $form['supprimer'] = false;
             $form['message'] = 'Problème de suppression dans la table produit';
+        }else{
+            $exec=$option->delete($_GET['idsup']);
+            if (!$exec){
+                $form['supprimer'] = false;
+                $form['message'] = 'Problème de suppression dans la table produit';
+            }
+            else{
+                $form['supprimer'] = true;
+                $form['message'] = 'Option supprimée avec succès';
+            }
         }
-        else{
-            $form['supprimer'] = true;
-            $form['message'] = 'Option supprimée avec succès';
-        }
+
     }
 
 
