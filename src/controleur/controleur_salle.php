@@ -100,5 +100,14 @@ function actionGestionSalle($twig,$db) {
 }
 
 function actionProfilSalle($twig,$db){
-    echo $twig->render('profilSalle.html.twig',array());
+    if(isset($_GET["id"])){
+        $idSalle = $_GET["id"];
+        $salle = new Salle($db);
+        $uneSalle = $salle->selectById($idSalle);
+        $optionSalle = $salle->selectOptions($idSalle);
+    }else{
+        $uneSalle = null;
+    }
+
+    echo $twig->render('profilSalle.html.twig',array('uneSalle'=>$uneSalle,'optionSalle'=>$optionSalle));
 }

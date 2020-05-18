@@ -22,7 +22,7 @@
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
-                            NOM DE LA SALLE
+                            {{ uneSalle.libelle }}
                         </h5>
                     <br/><br/>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -41,13 +41,10 @@
                 <div class="col-md-4">
                     <div class="profile-work">
                         <p> OPTIONS</p>
-                        Website Link<br/>
-                        Website Link<br/>
-                        Website Link<br/>
-                        Website Link<br/>
-                        Website Link<br/>
-                        Website Link<br/>
-                        Website Link<br/>
+                        {% for o in optionSalle %}
+                        {{ o.options }}<br/>
+                        {% endfor %}
+
 
                     </div>
                 </div>
@@ -59,7 +56,7 @@
                                     <label> Superficie </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p> SA SUPERFICIE</p>
+                                    <p> {{ uneSalle.superficie }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -67,7 +64,7 @@
                                     <label> Adresse </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p> SON ADRESSE </p>
+                                    <p> ADRESSE</p>
                                 </div>
                             </div>
 
@@ -78,7 +75,7 @@
                                     <label> Prix par jour </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p> 60 </p>
+                                    <p> {{ uneSalle.prix}} </p>
                                 </div>
                             </div>
                             <div class="row">
