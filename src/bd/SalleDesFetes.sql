@@ -31,7 +31,7 @@ CREATE TABLE `association` (
   `Email` varchar(100) NOT NULL,
   `NumTelephone` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `option` (
   `libelle` varchar(100) NOT NULL,
   `prix` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,6 +90,34 @@ LOCK TABLES `option` WRITE;
 /*!40000 ALTER TABLE `option` DISABLE KEYS */;
 INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de ménage',30),(3,'Parking',40),(6,'Extérieur',45),(13,'Assistante',35),(14,'Estrade',20),(15,'Micro',25);
 /*!40000 ALTER TABLE `option` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `optionReservation`
+--
+
+DROP TABLE IF EXISTS `optionReservation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `optionReservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOption` int(11) NOT NULL,
+  `idReservation` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idOption` (`idOption`),
+  KEY `idReservation` (`idReservation`),
+  CONSTRAINT `optionReservation_ibfk_1` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`),
+  CONSTRAINT `optionReservation_ibfk_2` FOREIGN KEY (`idReservation`) REFERENCES `reservation` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `optionReservation`
+--
+
+LOCK TABLES `optionReservation` WRITE;
+/*!40000 ALTER TABLE `optionReservation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `optionReservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -108,7 +136,7 @@ CREATE TABLE `optionSalle` (
   KEY `idOption` (`idOption`),
   CONSTRAINT `optionSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
   CONSTRAINT `optionSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,18 +157,22 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `NomAssociation` varchar(100) DEFAULT NULL,
+  `NomLocataire` varchar(100) NOT NULL,
+  `PrenomLocataire` varchar(100) NOT NULL,
+  `AdresseLocataire` varchar(256) NOT NULL,
+  `EmailLocataire` varchar(256) NOT NULL,
+  `TelLocataire` int(11) NOT NULL,
+  `Motif` varchar(100) NOT NULL,
   `idSalle` int(11) NOT NULL,
-  `idLocataire` int(11) NOT NULL,
   `idOptionsSalle` int(11) NOT NULL,
   `DebutLocation` date NOT NULL,
   `FinLocation` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
-  KEY `idLocataire` (`idLocataire`),
   KEY `idOptionsSalle` (`idOptionsSalle`),
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `optionSalle` (`id`),
-  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
-  CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`idLocataire`) REFERENCES `locataire` (`id`)
+  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -193,7 +225,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,4 +302,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-15 13:11:43
+-- Dump completed on 2020-05-18  9:18:01

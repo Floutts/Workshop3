@@ -14,6 +14,7 @@ function getPage($db)
     $lesPages['connexion'] = "actionConnexion";
     $lesPages['deconnexion'] = "actionDeconnexion";
     $lesPages['maintenance'] = "actionMaintenance";
+    $lesPages['profilSalle'] = "actionProfilsalle";
 
 
 

@@ -45,6 +45,7 @@
         <form class="text-center" method="POST" action="index.php?page=ajoutAssociation&id={{ association.id }}">
 
             <div class="mx-auto" style="width: 800px;">
+                <br/><br/>
                 {% if form.modif is defined %}
                     {% if form.modif == false %}
                         <h3 style="text-align: center"> Ajouter une association </h3>
@@ -107,9 +108,9 @@
                     <div class="col-sm-12">
                         {% if form.modif is defined %}
                             {% if form.modif == false %}
-                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse"  required >
+                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Adresse"  required >
                             {% else %}
-                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="adresse" value="{{ association.Adresse }}"  required >
+                                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Adresse" value="{{ association.Adresse }}"  required >
                             {% endif %}
                         {% endif %}
                     </div>

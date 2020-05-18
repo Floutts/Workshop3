@@ -98,3 +98,7 @@ function actionGestionSalle($twig,$db) {
 
     echo $twig->render('gestionSalle.html.twig', array('form'=>$form,'listeSalle'=>$listeSalle,'listeOption'=>$listeOption,'salle'=>$uneSalle));
 }
+
+function actionProfilSalle($twig,$db){
+    echo $twig->render('profilSalle.html.twig',array());
+}

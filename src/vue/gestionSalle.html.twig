@@ -57,7 +57,7 @@
                 <th scope="col">Prix</th>
                 <th scope="col">Superficie</th>
                 <th></th>
-                <th></th>
+
 
             </tr>
             </thead>
@@ -70,8 +70,10 @@
 
                 <td>
                     <ul class="nav justify-content-end">
+                        <a href="index.php?page=profilSalle&id={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="index.php?page=gestionSalle&id={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-pencil" aria-hidden="true" > </i> </a>
                         <a href="index.php?page=gestionSalle&idsup={{ s.id }}" class="text-reset" style="padding-right: 10px"><i class="fa fa-trash" aria-hidden="true" > </i> </a>
+
 
                     </ul>
                 </td>

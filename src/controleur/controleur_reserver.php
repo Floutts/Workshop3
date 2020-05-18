@@ -12,5 +12,6 @@ function actionReserver($twig,$db) {
     $listeAssociation = $association->select();
     $listeSalle = $salle->select();
     $listeOption = $option->select();
+
     echo $twig->render('reserver.html.twig', array('listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle));
 }
