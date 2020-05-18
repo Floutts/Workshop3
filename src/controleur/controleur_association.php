@@ -31,12 +31,20 @@ function actionAjoutAssociation($twig,$db) {
         $form['email'] = $email;
         $form['adresse'] = $adresse;
         $form['tel'] = $tel;
-        $association = new Association($db);
-        $exec = $association -> update($nomAssociation,$nom,$prenom,$email,$adresse,$tel,$id);
-        if (!$exec){
+        $longueur = strlen($tel);
+        if ($longueur != 10 or $tel{0}!=0 ){
             $form['modifier'] = false;
-            $form['message'] = 'Problème de modification dans la table association ';
+            $form['message'] = 'Le numero de téléphone n\'est pas valide ';
         }
+        else {
+            $association = new Association($db);
+            $exec = $association -> update($nomAssociation,$nom,$prenom,$email,$adresse,$tel,$id);
+            if (!$exec){
+                $form['modifier'] = false;
+                $form['message'] = 'Problème d\'insertion dans la table option ';
+            }
+        }
+
     }
 
 
@@ -54,12 +62,21 @@ function actionAjoutAssociation($twig,$db) {
         $form['email'] = $email;
         $form['adresse'] = $adresse;
         $form['tel'] = $tel;
-        $association = new Association($db);
-        $exec = $association -> insert($nomAssociation,$nom,$prenom,$email,$adresse,$tel);
-        if (!$exec){
+        $longueur = strlen($tel);
+        if ($longueur != 10 or $tel{0}!=0 ){
             $form['valide'] = false;
-            $form['message'] = 'Problème d\'insertion dans la table option ';
+            $form['message'] = 'Le numero de téléphone n\'est pas valide ';
         }
+        else {
+            $association = new Association($db);
+            $exec = $association -> insert($nomAssociation,$nom,$prenom,$email,$adresse,$tel);
+            if (!$exec){
+                $form['valide'] = false;
+                $form['message'] = 'Problème d\'insertion dans la table option ';
+            }
+        }
+
+
     }
 
     echo $twig->render('ajoutAssociation.html.twig', array('form'=>$form, 'association'=>$uneAssociation));

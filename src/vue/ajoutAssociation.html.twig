@@ -29,14 +29,14 @@
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son email : {{form.email}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son numéro de téléphone : {{form.tel}}</h1>
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici son adresse : {{form.adresse}}</h1>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des association</a></h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=listeAssociation" >Retourner sur la listes des association</a></h1>
 
 
         {% else %}
             <div class="mx-auto" style="width: 400px;">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutAssociation" >Retourner sur l'ajout des associations</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=listeAssociation" >Retourner sur la liste des associations</a></h1>
             </div>
         {% endif %}
 
