@@ -11,6 +11,7 @@ class Option{
     private $delete;
     private $deleteById;
     private $deleteByOption;
+    private $selectOptionSalle;
 
     public function __construct($db){
         $this->db = $db;
@@ -23,6 +24,7 @@ class Option{
         $this->delete = $db->prepare("delete from option where id=:id");
         $this->deleteById = $db->prepare("delete from optionSalle where idOption=:idOption");
         $this->deleteByOption = $db->prepare("delete from optionSalle WHERE idOption=:idOption");
+        $this->selectOptionSalle = $db-> prepare("select * from optionSalle");
     }
 
     public function insert($nom,$prix){
@@ -114,5 +116,13 @@ class Option{
         return $r;
     }
 
+    public function selectOptionSalle(){
+        $liste = $this->selectOptionSalle->execute();
+        if ($this->selectOptionSalle->errorCode()!=0){
+            print_r($this->selectOptionSalle->errorInfo());
+        }
+        return $this->selectOptionSalle->fetchAll();
+
+    }
 
 }

@@ -1,11 +1,6 @@
 <?php
 
-function actionReserverBIS($twig,$db){
 
-
-
-    echo $twig->render('reserverBIS.html.twig');
-}
 
 
 function actionTableReservation($twig) {
@@ -228,4 +223,17 @@ function actionReserver($twig,$db) {
 }
 
     echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
+
+}
+
+function actionReserverBis($twig,$db) {
+    $form = array();
+    $association = new Association($db);
+    $salle = new Salle($db);
+    $option = new Option($db);
+    $listeAssociation = $association->select();
+    $listeSalle = $salle->select();
+    $listeOption = $option->select();
+
+    echo $twig->render('reserverBis.html.twig', array('listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle));
 }

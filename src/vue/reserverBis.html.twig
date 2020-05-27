@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }} Réserver {% endblock %}
 {% block pasCentre %}
-    <br/><br/>
+<br/><br/>
     <div class="loader"></div>
     <form method="POST" action="index.php?page=reserver">
         <div class = "form-row">
@@ -11,7 +11,7 @@
                 <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
                     <option value="0">(Aucune) </option>
                     {% for a in listeAssociation %}
-                        <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
+                    <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
                     {% endfor %}
                 </select>
 

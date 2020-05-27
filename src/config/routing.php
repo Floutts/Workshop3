@@ -17,6 +17,11 @@ function getPage($db)
     $lesPages['profilSalle'] = "actionProfilsalle";
     $lesPages['reserverBIS'] = "actionReserverBIS";
     $lesPages['calendrier'] = "actionCalendrier";
+    $lesPages['reserverBis'] = "actionReserverBis";
+    $lesPages['testAjax'] = "actionTestAjax";
+    $lesPages['options'] = "actionOptions";
+    $lesPages['optionSalle'] = "actionOptionSalle";
+    $lesPages['association'] = "actionAssociation";
 
 
 
