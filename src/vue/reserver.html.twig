@@ -1,6 +1,29 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }} Réserver {% endblock %}
 {% block pasCentre %}
+
+
+    {% if form.valide is defined %}
+    <div class="row" >
+        <div class="mx-auto text-center">
+        {% if form.valide == true %}
+
+
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Réservation réussie</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=reserver" >Retourner sur l'ajout d'une réservation</a></h1>
+
+        {% else %}
+
+
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=reserver" >Retourner sur l'ajout d'une réservation</a></h1>
+        {% endif %}
+        </div>
+    </div>
+    {% else %}
+
+
+
     <br/><br/>
     <div class="loader"></div>
     <form method="POST" action="index.php?page=reserver">
@@ -15,7 +38,9 @@
                     {% endfor %}
                 </select>
 
-
+                <div >
+                    <input type="text" class="form-control" id="nomAssociation" name="nomAssociation" hidden>
+                </div>
                 <div >
                     <label for="validationCustom01">Nom du locataire</label>
                     <input type="text" class="form-control" id="nom" name="nom" required>
@@ -62,29 +87,44 @@
                 </div>
             </div>
             <div class ="col-md-1"></div>
-            <div class ="col-md-3"></div>
-            <div class ="col-md-3">
+            <div class ="col-md-2"></div>
+
+            <div class ="col-md-2">
                 <div class="">
-                    <label for="validationCustomUsername">Date et heure début</label>
-                    <input type="datetime-local" class="form-control" id="heureDebut" name="heureDebut" aria-describedby="inputGroupPrepend" required>
+                    <label for="validationCustomUsername">Date de début</label>
+                    <input type="date" class="form-control" id="DateDebut" name="DateDebut" aria-describedby="inputGroupPrepend" required>
                 </div>
             </div>
-            <div class ="col-md-3">
+
+            <div class ="col-md-2">
                 <div class="">
-                    <label for="validationCustomUsername">Date et heure fin</label>
-                    <input type="datetime-local" class="form-control" id="heureFin" name="heureFin" aria-describedby="inputGroupPrepend" required>
+                    <label for="validationCustomUsername">Heure de début</label>
+                    <input type="time" class="form-control" id="heureDebut" name="heureDebut" aria-describedby="inputGroupPrepend" required>
+                </div>
+            </div>
+            <div class ="col-md-2">
+                <div class="">
+                    <label for="validationCustomUsername">Date de fin</label>
+                    <input type="date" class="form-control" id="DateFin" name="DateFin" aria-describedby="inputGroupPrepend" required>
+                </div>
+            </div>
+            <div class ="col-md-2">
+                <div class="">
+                    <label for="validationCustomUsername">Heure de fin</label>
+                    <input type="time" class="form-control" id="heureFin" name="heureFin" aria-describedby="inputGroupPrepend" required>
                 </div>
                 <br/><br/>
 
             </div>
-            <div class ="col-md-3"></div>
+            <div class ="col-md-2"></div>
             <div class ="col-md-4"></div>
-            <button class=" btn-lg btn-success col-md 4">Valider</button>
+            <button class=" btn-lg btn-success col-md 4" id="btValider" name="btValider">Valider</button>
             <div class ="col-md-4"></div>
         </div>
 
 
     </form>
 
+{% endif %}
 
 {% endblock %}

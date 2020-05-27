@@ -7,16 +7,17 @@ class Reserver
     private $insert;
     private $selectById;
     private $selectByNom;
+    private $insertOptionReservation;
 
 
     public function __construct($db)
     {
-        $this->insert = $db->prepare("insert into reservation(NomAssociation,NomLocataire,PrenomLocataire,AdresseLocataire,EmailLocataire,TelLocataire,Motif,idSalle,DebutLocation,FinLocation) 
-values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailLocataire,:TelLocataire,:Motif,:idSalle,:DebutLocation,:FinLocation)");
+        $this->insert = $db->prepare("insert into reservation(NomAssociation,NomLocataire,PrenomLocataire,AdresseLocataire,EmailLocataire,TelLocataire,Motif,idSalle,DateDebut,DateFin,DebutLocation,FinLocation) 
+values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailLocataire,:TelLocataire,:Motif,:idSalle,:dateDebut,:dateFin,:DebutLocation,:FinLocation)");
         $this->ajoutOption = $db->prepare("insert into optionReservation(idReservation,idOption) values (:idReservation,:idOption)");
         $this->selectById = $db->prepare("select * from salle where id=:id");
         $this->selectByNom = $db->prepare("select * from reservation where NomAssociation=:NomAssociation");
-
+        $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
 
     }
 
@@ -33,9 +34,9 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
     }
 
 
-    public function insert($NomAssociation,$nom,$prenom,$email,$adresse,$tel,$motif,$idSalle,$heureDebut,$heureFin){
+    public function insert($NomAssociation,$nom,$prenom,$email,$adresse,$tel,$motif,$idSalle,$dateDebut,$dateFin,$heureDebut,$heureFin){
         $r = true;
-        $this->insert->execute(array(':NomAssociation'=>$NomAssociation, ':NomLocataire'=>$nom, ':PrenomLocataire'=>$prenom, ':EmailLocataire'=>$email, ':AdresseLocataire'=>$adresse, ':TelLocataire'=>$tel, ':Motif'=>$motif, ':idSalle'=>$idSalle, ':DebutLocation'=>$heureDebut, 'FinLocation'=>$heureFin));
+        $this->insert->execute(array(':NomAssociation'=>$NomAssociation, ':NomLocataire'=>$nom, ':PrenomLocataire'=>$prenom, ':AdresseLocataire'=>$adresse, ':EmailLocataire'=>$email, ':TelLocataire'=>$tel, ':Motif'=>$motif, ':idSalle'=>$idSalle,':dateDebut'=>$dateDebut,':dateFin'=>$dateFin, ':DebutLocation'=>$heureDebut, 'FinLocation'=>$heureFin));
         if ($this->insert->errorCode()!=0){
             print_r($this->insert->errorInfo());
             $r=false;
@@ -62,5 +63,15 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         }
         return $this->selectByNom->fetch();
 
+    }
+
+    public function insertOptionReservation($idOption,$idReservation){
+        $r = true;
+        $this->insertOptionReservation->execute(array(':idOption'=>$idOption, ':idReservation'=>$idReservation));
+        if ($this->insertOptionReservation->errorCode()!=0){
+            print_r($this->insertOptionReservation->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 }
