@@ -88,7 +88,7 @@ CREATE TABLE `option` (
 
 LOCK TABLES `option` WRITE;
 /*!40000 ALTER TABLE `option` DISABLE KEYS */;
-INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de ménage',30),(3,'Parking',40),(6,'Extérieur',45),(13,'Assistante',35),(14,'Estrade',20),(15,'Micro',25);
+INSERT INTO `option` VALUES (1,'Cuisine',50),(2,'Femme de menage',30),(3,'Parking',40),(6,'Exterieur',45),(13,'Assistante',35),(14,'Estrade',20),(15,'Micro',25);
 /*!40000 ALTER TABLE `option` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +136,7 @@ CREATE TABLE `optionSalle` (
   KEY `idOption` (`idOption`),
   CONSTRAINT `optionSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
   CONSTRAINT `optionSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,6 +145,7 @@ CREATE TABLE `optionSalle` (
 
 LOCK TABLES `optionSalle` WRITE;
 /*!40000 ALTER TABLE `optionSalle` DISABLE KEYS */;
+INSERT INTO `optionSalle` VALUES (5,13,1),(6,13,2),(7,13,3),(8,13,6);
 /*!40000 ALTER TABLE `optionSalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +226,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +235,7 @@ CREATE TABLE `salle` (
 
 LOCK TABLES `salle` WRITE;
 /*!40000 ALTER TABLE `salle` DISABLE KEYS */;
-INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(7,'Salle Adier',125,75,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1);
+INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(7,'Salle Adier',125,75,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1),(13,'Salle petre',48,58,1);
 /*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,4 +303,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-18  9:18:01
+-- Dump completed on 2020-05-27  8:15:56
