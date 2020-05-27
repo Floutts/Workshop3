@@ -134,36 +134,19 @@ function actionCalendrier($twig){
 
 }
 
-function actionReserver($twig,$db) {
+function actionReserver($twig,$db)
+{
     $form = array();
-    $uneAssociation=NULL;
+    $uneAssociation = NULL;
     $uneSalle = NULL;
-    $optionSalle=NULL;
-    $form['valide'] = true;
-    $form['salle'] = true;
+    $optionSalle = NULL;
     $association = new Association($db);
     $salle = new Salle($db);
     $option = new Option($db);
     $listeAssociation = $association->select();
     $listeSalle = $salle->select();
     $listeOption = $option->select();
-    if (isset($_POST['nextAssociation'])) {
-        $id = $_POST['idAssociation'];
-        $form['id'] = $id;
-        $form['valide'] = false;
-        $uneAssociation = $association->selectById($id);
-    }
 
-
-
-    if (isset($_POST['nextSalle'])) {
-        $id = $_POST['idSalle'];
-        $form['id'] = $id;
-        $form['salle'] = false;
-        $uneSalle = $salle -> selectById($id);
-        $optionSalle = $salle->selectOptions($id);
-
-    }
 
     if (isset($_POST['btValider'])) {
         $NomAssociation = $_POST['nomAssociation'];
@@ -171,69 +154,64 @@ function actionReserver($twig,$db) {
         $nom = $_POST['nom'];
         $email = $_POST['email'];
         $adresse = $_POST['adresse'];
-        $tel =$_POST['tel'];
+        $tel = $_POST['tel'];
+        $motif = $_POST['motif'];
+        $idSalle = $_POST['idSalle'];
+        $dateDebut = $_POST['DateDebut'];
+        $dateFin = $_POST['DateFin'];
+        $heureDebut = $_POST['heureDebut'];
+        $heureFin = $_POST['heureFin'];
+
         $form['NomAssociation'] = $NomAssociation;
-        $form['nom'] = $nom;
         $form['prenom'] = $prenom;
+        $form['nom'] = $nom;
         $form['email'] = $email;
         $form['adresse'] = $adresse;
         $form['tel'] = $tel;
-        $heureDebut =$_POST['heureDebut'];
-        $form['heureDebut'] = $heureDebut;
-        $heureFin = $_POST['heureFin'];
-        $form['heureFin'] = $heureFin;
-        $motif = $_POST['motif'];
         $form['motif'] = $motif;
-        $idSalle = $_POST['idSalle'];
         $form['idSalle'] = $idSalle;
+        $form['dateDebut'] = $dateDebut;
+        $form['dateFin'] = $dateFin;
+        $form['heureDebut'] = $heureDebut;
+        $form['heureFin'] = $heureFin;
+
         $reserver = new Reserver($db);
-        $uneSalle = $reserver -> selectById($idSalle);
-        $exec = $reserver -> insert($NomAssociation,$nom,$prenom,$email,$adresse,$tel,$motif,$idSalle,$heureDebut,$heureFin);
-        $form['salle'] = false;
-        if (!$exec){
+        $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse,$email, $tel, $motif, $idSalle,$dateDebut,$dateFin,$heureDebut, $heureFin);
+
+
+        if (!$exec) {
             $form['valide'] = false;
             $form['message'] = 'Problème d\'insertion dans la table option ';
-        }
-    }
+        } else {
+            $form['valide'] = true;
+            $cetteReservation = $reserver->selectByNom($NomAssociation);
+            $idReservation = $cetteReservation["id"];
+            if (isset($_POST['optionSalle'])) {
+                $optionSalle = $_POST['optionSalle'];
+            } else {
+                $optionSalle = NULL;
 
+            }
 
-    if (isset($_POST['btFinal'])) {
-        $reserver = new Reserver($db);
-        $uneReservation = $reserver->selectByNom($NomAssociation);
-        $idReservation = $uneReservation["id"];
+            if ($optionSalle != NULL) {
+                foreach ($optionSalle as $idOption) {
+                    $exec = $reserver->insertOptionReservation($idOption, $idReservation);
+                    if (!$exec) {
+                        $form['valide'] = false;
+                        $form['message'] = "problème d'insertion dans la table optionSalle";
 
-    if (isset($_POST['salleOption'])){
-        $salleOption = $_POST['salleOption'];
-    }else{
-        $salleOption = NULL;
-    }
-
-    if($salleOption != NULL) {
-        foreach ($salleOption as $idOption) {
-            $exec = $salle->ajoutOption($idReservation, $idOption);
-            if (!$exec) {
-                $form['valide'] = false;
-                $form['message'] = "problème d'insertion dans la table optionSalle";
+                    }
+                }
             }
         }
+
+
+
+
+
+
     }
-
-
-
-}
 
     echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
 
-}
-
-function actionReserverBis($twig,$db) {
-    $form = array();
-    $association = new Association($db);
-    $salle = new Salle($db);
-    $option = new Option($db);
-    $listeAssociation = $association->select();
-    $listeSalle = $salle->select();
-    $listeOption = $option->select();
-
-    echo $twig->render('reserverBis.html.twig', array('listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle));
 }

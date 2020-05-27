@@ -40,7 +40,7 @@ $(document).ready(function() {
 
                 if (valeur === msgOptionSalle[e].idSalle) {
                     var texte;
-                    texte = "<input class=\"form-check-input\" type=\"checkbox\" value=\"" + msgOptionSalle[e].idOption + "\" id=\"optionSalle[]\" name=\"optionSalle[]\"><label></label><br/> "// <label class=\"form-check-label\" for=\"optionSalle[]\">" + " option1 " + "</label><br/>"
+                    texte = "<input class=\"form-check-input\" type=\"checkbox\" value=\"" + msgOptionSalle[e].idOption + "\" id=\"optionSalle[]\" name=\"optionSalle[]\"><label for='optionSalle[]'></label><br/> "// <label class=\"form-check-label\" for=\"optionSalle[]\">" + " option1 " + "</label><br/>"
                     $("#option").append(texte)
 
                     var requestOptions = $.ajax({
@@ -98,7 +98,7 @@ $(document).ready(function() {
 
             $(msgAssociation).each(function () {
                 if (msgAssociation[i].id === valeurAssociation) {
-
+                    $("#nomAssociation").val(msgAssociation[i].NomAssociation)
                     $("#nom").val(msgAssociation[i].Nom)
                     $("#prenom").val(msgAssociation[i].Prenom)
                     $("#adresse").val(msgAssociation[i].Adresse)

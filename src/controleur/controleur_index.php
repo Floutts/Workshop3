@@ -50,11 +50,6 @@ function actionDeconnexion($twig){
     header("Location:index.php");
 }
 
-function actionTestAjax($twig,$db){
-
-    echo $twig->render('testAjax.html.twig', array());
-}
-
 function actionOptions($twig,$db){
     $id = $_GET['id'];
     $option = new Option($db);
