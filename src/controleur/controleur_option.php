@@ -26,12 +26,12 @@ function actionGestionOption($twig,$db) {
         $exec1=$option->deleteById($_GET["idsup"]);
         if (!$exec1){
             $form['supprimer'] = false;
-            $form['message'] = 'Problème de suppression dans la table produit';
+            $form['message'] = 'Problème de suppression dans la table option';
         }else{
             $exec=$option->delete($_GET['idsup']);
             if (!$exec){
                 $form['supprimer'] = false;
-                $form['message'] = 'Problème de suppression dans la table produit';
+                $form['message'] = 'Problème de suppression dans la table option';
             }
             else{
                 $form['supprimer'] = true;
@@ -56,8 +56,33 @@ function actionGestionOption($twig,$db) {
         if (!$exec){
             $form['modifier'] = false;
             $form['message'] = 'Problème de modification dans la table option ';
+        }else {
+            $cetteOption = $option->selectByNom($nom);
+            $idOption = $cetteOption["id"];
+        }
+        if (isset($_POST['optionSalle'])){
+            $optionSalle = $_POST['optionSalle'];
+        }else{
+            $optionSalle = NULL;
+        }
+        $form['modifier']=true;
+        $exec = $option->deleteByOption($idOption);
+        if (!$exec){
+            $form['valide'] = false;
+            $form['message'] = "problème d'insertion dans la table";
+        }
+        if($optionSalle != NULL) {
+            foreach ($optionSalle as $idSalle) {
+                $exec = $option->ajoutSalle($idSalle, $idOption);
+                if (!$exec) {
+                    $form['valide'] = false;
+                    $form['message'] = "problème d'insertion dans la table optionSalle";
+                }
+            }
         }
     }
+
+
     if (isset($_POST['btAjouter'])) {
         $form['valide'] = true;
         $nom = $_POST['nom'];

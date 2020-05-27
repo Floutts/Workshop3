@@ -1,4 +1,17 @@
 
+.case {
+    border: 1px solid black;
+    text-align: center;
+}
+
+#content {
+    height: 80%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 .emp-profile{
     padding: 3%;
     margin-top: 3%;

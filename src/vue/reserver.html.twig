@@ -1,87 +1,144 @@
+
 {% extends "base.html.twig" %}
-{% block title %} {{ parent() }} Réserver {% endblock %}
-{% block pasCentre %}
-<br/><br/>
-    <form method="POST" action="index.php?page=reserver">
-        <div class = "form-row">
-            <div class ="col-md-1"></div>
-            <div class="col-md-4">
-                <label for="validationCustom01">Association</label>
-                <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
-                    <option value="0">(Aucune) </option>
-                    {% for a in listeAssociation %}
-                    <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
-                    {% endfor %}
-                </select>
-                <div >
-                    <label for="validationCustom01">Nom du locataire</label>
-                    <input type="text" class="form-control" id="nom" name="nom" required>
+    {% block title %} {{ parent() }} Réserver {% endblock %}
+    {% block pasCentre %}
+        <br/><br/>
+        <form method="POST" action="index.php?page=reserver">
+            {% if form.salle is defined %}
+            {% if form.salle == true %}
+            {% if form.valide is defined %}
+            {% if form.valide == true %}
+            <div class = "form-row">
+                <div class ="col-md-1"></div>
+                <div class="col-md-4">
+                    <label for="validationCustom01">Association</label>
+                    <select class="form-control" name="idAssociation" id="idAssociation"  >
+                        <option value="0">(Aucune) </option>
+                        {% for a in listeAssociation %}
+                            <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
+                        {% endfor %}
+                    </select>
+                    <br/><br/>
+                    <button class=" btn-lg btn-success col-md 4" name="nextAssociation"> Actualiser </button>
+                    {% else %}
+                        <div class = "form-row">
+                        <div class ="col-md-1"></div>
+                        <div class="col-md-4">
+                        <label for="validationCustom01">Association</label>
+                            <select class="form-control" name="nomAssociation" id="nomAssociation"  >
+                                <option value="{{ association.id }}">{{ association.NomAssociation }}</option>
+                        </select>
+                        <br/><br/>
+                        </select>
+                        </div>
+                    {% endif %}
+                    {% endif %}
                 </div>
-                <div class="">
-                    <label for="validationCustom02">Prenom du locataire</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" required>
-                </div>
-                <div class="">
-                    <label for="validationCustomUsername">Adresse du locataire</label>
-                    <input type="text" class="form-control" id="adresse" name="adresse" required>
-                </div>
-                <div class="">
-                    <label for="validationCustom01">Email du locataire</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="">
-                    <label for="validationCustom01">Numéro de téléphone du locataire</label>
-                    <input type="text" class="form-control" id="tel" name="tel" required>
-                </div>
-                <div class="">
-                    <label for="validationCustom01">Motif de la réservation</label>
-                    <input type="text" class="form-control" id="motif" name="motif" required>
-                </div>
-                <br/><br/>
             </div>
-            <div class ="col-md-2"></div>
-            <div class="col-md-4">
-                <label for="idSalle">Salle</label>
-                <select class="form-control" name="idSalle" id="idSalle" style="margin-bottom: 20px" >
-                    {% for s in listeSalle %}
-                        <option value="{{ s.id }}">{{ s.libelle }}</option>
-                    {% endfor %}
-                </select>
-                <label for="optionSalle[]">Options</label>
-                <br/><br/>
-                <div class="">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ s.id }}" id="optionSalle[]" name="optionSalle[]">
-                        <label class="form-check-label" for="optionSalle[]">
-                            option 1
-                        </label>
+        </form>
+        <form method="POST" action="index.php?page=reserver&id={{ salle.id }}">
+            <div class = "form-row">
+                <div class ="col-md-1"></div>
+                <div class="col-md-4">
+
+                    <div >
+                        <label for="validationCustom01">Nom du locataire</label>
+                        <input type="text" class="form-control" id="nom" name="nom" value="{{ association.Nom }}" >
                     </div>
+                    <div class="">
+                        <label for="validationCustom02">Prenom du locataire</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" value="{{ association.Prenom }}" >
+                    </div>
+                    <div class="">
+                        <label for="validationCustomUsername">Adresse du locataire</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse"  value="{{ association.Adresse }}" >
+                    </div>
+                    <div class="">
+                        <label for="validationCustom01">Email du locataire</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{ association.Email }}" >
+                    </div>
+                    <div class="">
+                        <label for="validationCustom01">Numéro de téléphone du locataire</label>
+                        <input type="text" class="form-control" id="tel" name="tel" value="{{ association.NumTelephone }}" >
+                    </div>
+                    <input type="text" class="form-control" id="nom" name="nomAssociation" value="{{ association.NomAssociation }}" hidden>
+
+
+                    <div class="">
+                        <label for="validationCustom01">Motif de la réservation</label>
+                        <input type="text" class="form-control" id="motif" name="motif" required>
+                    </div>
+                    <br/><br/>
                 </div>
-            </div>
-            <div class ="col-md-1"></div>
-            <div class ="col-md-3"></div>
-            <div class ="col-md-3">
-                <div class="">
+                <div class ="col-md-1"></div>
+                <div class="col-md-4">
                     <label for="validationCustomUsername">Date et heure début</label>
                     <input type="datetime-local" class="form-control" id="heureDebut" name="heureDebut" aria-describedby="inputGroupPrepend" required>
-                </div>
-            </div>
-            <div class ="col-md-3">
-                <div class="">
+
                     <label for="validationCustomUsername">Date et heure fin</label>
                     <input type="datetime-local" class="form-control" id="heureFin" name="heureFin" aria-describedby="inputGroupPrepend" required>
+
                 </div>
-                <br/><br/>
+            </div>
+            </div>
+
+            <br/><br/>
 
             </div>
-            <div class ="col-md-3"></div>
-            <div class ="col-md-4"></div>
-            <button class=" btn-lg btn-success col-md 4">Valider</button>
-            <div class ="col-md-4"></div>
+            <div class = "form-row">
+                <div class ="col-md-1"></div>
+                <div class="col-md-4">
+                    <label for="idSalle">Salle</label>
+                    <select class="form-control" name="idSalle" id="idSalle"  >
+                        {% for s in listeSalle %}
+                            <option value="{{ s.id }}">{{ s.libelle }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="optionSalle[]">Options</label>
+                    <br/><br/>
+                    <div class="form-check">
+                        {% for o in optionSalle %}
+                        <input class="form-check-input" type="checkbox" value="{{ s.id }}" id="optionSalle[]" name="optionSalle[]">
+                        <label class="form-check-label" for="optionSalle[]">
+                            {{ o.libelle }}<br/>
+                            {% endfor %}
+                        </label>
+                    </div>
+                    <button class=" btn-lg btn-success col-md 4" name="btValider">Valider</button>
+                </div>
+            </div>
+
+        </form>
+        {% else %}
+
+    <form method="POST" action="index.php?page=reserver&id={{ salle.id }}">
+
+        <div class = "form-row">
+        <div class ="col-md-1"></div>
+        <div class="col-md-4">
+        <label for="idSalle">Salle</label>
+        <select class="form-control" name="idSalle" id="idSalle"  >
+                <option value="{{ salle.id }}">{{ salle.libelle }}</option>
+        </select>
+        <label for="optionSalle[]">Options</label>
+        <br/><br/>
+        <div class="form-check">
+            {% for o in optionSalle %}
+            <input class="form-check-input" type="checkbox" value="{{ s.id }}" id="optionSalle[]" name="optionSalle[]">
+            <label class="form-check-label" for="optionSalle[]">
+                {{ o.libelle }}<br/>
+                {% endfor %}
+            </label>
         </div>
+        <button class=" btn-lg btn-success col-md 4" name="btFinal">Valider</button>
+        <div class ="col-md-1"></div>
+        <div class="col-md-4">
+            <button class=" btn-lg btn-success col-md 4" name="nextSalle"> Actualiser </button>
 
-
+        </div>
+        </div>
+        </div>
     </form>
-
-
-{% endblock %}
+{% endif %}
+        {% endif %}
+    {% endblock %}

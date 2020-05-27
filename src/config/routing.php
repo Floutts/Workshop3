@@ -15,10 +15,13 @@ function getPage($db)
     $lesPages['deconnexion'] = "actionDeconnexion";
     $lesPages['maintenance'] = "actionMaintenance";
     $lesPages['profilSalle'] = "actionProfilsalle";
+    $lesPages['reserverBIS'] = "actionReserverBIS";
+    $lesPages['calendrier'] = "actionCalendrier";
 
 
 
-if ($db != null) {
+
+    if ($db != null) {
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
     } else {

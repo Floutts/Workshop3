@@ -14,7 +14,6 @@ function actionGestionSalle($twig,$db) {
         $id = $_GET['id'];
         $form['id'] = $id;
         $uneSalle = $salle->selectById($id);
-        echo "vrai";
     }else{
         $form['modif'] = false;
 
@@ -59,7 +58,31 @@ function actionGestionSalle($twig,$db) {
             $form['modifier'] = false;
             $form['message'] = 'Problème de modification dans la table salle ';
         }
-    }
+        else {
+            $cetteSalle = $salle->selectByNom($nom);
+            $idSalle = $cetteSalle["id"];
+        }
+        if (isset($_POST['salleOption'])){
+            $salleOption = $_POST['salleOption'];
+        }else{
+            $salleOption = NULL;
+        }
+        $form['modifier']=true;
+        $exec = $salle->deleteBySalle($idSalle);
+        if (!$exec){
+            $form['valide'] = false;
+            $form['message'] = "problème d'insertion dans la table";
+        }
+        if($salleOption != NULL) {
+            foreach ($salleOption as $idOption) {
+                $exec = $salle->ajoutOption($idSalle, $idOption);
+                if (!$exec) {
+                    $form['valide'] = false;
+                    $form['message'] = "problème d'insertion dans la table optionSalle";
+                }
+            }
+        }
+        }
 
     if (isset($_POST['btAjouter'])) {
         $form['valide'] = true;
