@@ -50,5 +50,28 @@ function actionDeconnexion($twig){
     header("Location:index.php");
 }
 
+function actionTestAjax($twig,$db){
+
+    echo $twig->render('testAjax.html.twig', array());
+}
+
+function actionOptions($twig,$db){
+    $id = $_GET['id'];
+    $option = new Option($db);
+    $json = json_encode($liste = $option->selectById($id));
+    echo $json;
+}
+
+function actionOptionSalle($twig,$db){
+    $option = new Option($db);
+    $json = json_encode($liste = $option->selectOptionSalle());
+    echo $json;
+}
+
+function actionAssociation($twig,$db){
+    $association = new Association($db);
+    $json = json_encode($liste = $association->select());
+    echo $json;
+}
 
 

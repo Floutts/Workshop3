@@ -15,6 +15,11 @@ function getPage($db)
     $lesPages['deconnexion'] = "actionDeconnexion";
     $lesPages['maintenance'] = "actionMaintenance";
     $lesPages['profilSalle'] = "actionProfilsalle";
+    $lesPages['reserverBis'] = "actionReserverBis";
+    $lesPages['testAjax'] = "actionTestAjax";
+    $lesPages['options'] = "actionOptions";
+    $lesPages['optionSalle'] = "actionOptionSalle";
+    $lesPages['association'] = "actionAssociation";
 
 
 
