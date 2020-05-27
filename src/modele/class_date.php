@@ -5,6 +5,23 @@ class Date
 {
     var $days = array('Lundi', 'Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche');
     var $months = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+
+   function getEvents($year){
+        global $DB;
+        $req = $DB->query('SELECT id,NomAssociation FROM reservation WHERE YEAR(DebutLocation)='.$year);
+        $r = array();
+        while ($d = $req->fetch(PDO::FETCH_OBJ)){
+            $r[strtotime($d->date)][$d -> $id] = $d->NomAssociation;
+        }
+        return $r;
+
+   }
+
+
+
+
+
+
     function getAll($year)
     {
         $r = array();

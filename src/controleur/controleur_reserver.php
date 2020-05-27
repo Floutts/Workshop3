@@ -10,65 +10,90 @@ function actionTableReservation($twig) {
 
 function actionCalendrier($twig){
 
-
     $form = array();
 ?>
+
     <!DOCTYPE HTML>
     <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title> Calendrier </title>
-            <link href="css/calendar.css" rel="stylesheet">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <title> Calendrier </title>
+        <link href="css/calendar.css" rel="stylesheet">
 
         </head>
-        <body>
+    <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="navbar-brand" href=index.php?page=acceuil>ホールプロジェクト</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php?page=acceuil">Acceuil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Salles
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="index.php?page=tableReservation"> Tableau de réservation </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="index.php?page=reserver"> Réserver</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=aPropos"> A propos </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=mentions"> Mentions légales </a>
+                </li>
+
+            </ul>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.php?page=connexion">Se connecter</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
         <?php
         $year = date('Y');
         $date = new Date();
+        $events = $date->getEvents($year);
         $dates = $date->getAll($year);
 
         ?>
         <div class="periods">
-            <div class="year">
-                <?php echo $year ?>
-            </div>
-            <div class="months">
-                <ul>
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
                     <?php foreach ($date->months as $id=>$m):  ?>
-                        <li>
-                            <a href="#" id="linkMonth<?php echo $id+1 ?>"> <?php echo utf8_encode(substr(utf8_decode($m),0,3)); ?></a>
-                        </li>
+                    <th scope="col">
+                                <a href="#" id="linkMonth<?php echo $id+1 ?>"> <?php echo utf8_encode(substr(utf8_decode($m),0,3)); ?></a>
+                    </th>
                     <?php endforeach; ?>
-                </ul>
-            </div>
+
+                </tr>
+                </thead>
+            </table>
+
             <?php $dates = current($dates);
             foreach ($dates as $m=>$days):
             ?>
-
-            <div class="months" id="month<?php echo $m ?>"
-            <table class="table">
-                <thead>
-                <tr>
-                    <?php foreach ($date->days as $d): ?>
-                        <th scope="col"> <?php echo substr($d,0,3) ?></th>
-                    <?php endforeach; ?>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <?php foreach ($days as $d=>$w): ?>
-                    <td> <?php echo $d ?> </td>
-                    <?php if($w == 7): ?>
-                </tr><tr>
-                    <?php endif;
-                    endforeach;
-                    ?>
-
-                </tr>
-
-                </tbody>
-            </table>
+            <div id="dateActuelle"> </div>
+            <div class="months" id="month<?php echo $m ?>">
             <table class="table">
                 <thead>
                 <tr>
@@ -84,16 +109,18 @@ function actionCalendrier($twig){
                     foreach ($days as $d=>$w): ?>
                     <?php if ($d == 1): ?>
                     <td colspan="<?php echo $w-1; ?> "></td>
-
                     <?php endif ?>
-                    <td> <?php echo $d ?> </td>
+                    <td> <?php echo $d ?>
+                        event
+                    </td>
                     <?php if($w == 7): ?>
                 </tr><tr>
                     <?php endif;
                     endforeach;
                     if ($end != 7):
                     ?>
-                    <td colspan="<?php echo 7-$end; ?> "></td>
+                    <td colspan="<?php echo 7-$end; ?> ">
+                    </td>
                     <?php endif ?>
 
                 </tr>
@@ -107,11 +134,9 @@ function actionCalendrier($twig){
         </div>
 
 
-        <pre><?php print_r($dates)?></pre>
-
 
         </body>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -119,18 +144,11 @@ function actionCalendrier($twig){
 
     </html>
 
+    <pre> <?php print_r($events) ?>  </pre>
+
     <?php
 
 
-    foreach ($dates as $m=>$days){
-        echo $m;
-
-    foreach ($date->days as $d){
-        echo substr($d,0,3);
-
-
-    }
-    }
 
 }
 
