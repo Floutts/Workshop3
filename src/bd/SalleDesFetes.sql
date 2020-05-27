@@ -108,7 +108,7 @@ CREATE TABLE `optionReservation` (
   KEY `idReservation` (`idReservation`),
   CONSTRAINT `optionReservation_ibfk_1` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`),
   CONSTRAINT `optionReservation_ibfk_2` FOREIGN KEY (`idReservation`) REFERENCES `reservation` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,6 +117,7 @@ CREATE TABLE `optionReservation` (
 
 LOCK TABLES `optionReservation` WRITE;
 /*!40000 ALTER TABLE `optionReservation` DISABLE KEYS */;
+INSERT INTO `optionReservation` VALUES (1,1,2),(2,2,2),(3,3,2),(4,6,2);
 /*!40000 ALTER TABLE `optionReservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,15 +167,14 @@ CREATE TABLE `reservation` (
   `TelLocataire` int(11) NOT NULL,
   `Motif` varchar(100) NOT NULL,
   `idSalle` int(11) NOT NULL,
-  `idOptionsSalle` int(11) NOT NULL,
-  `DebutLocation` date NOT NULL,
-  `FinLocation` date NOT NULL,
+  `DateDebut` date NOT NULL,
+  `DateFin` date NOT NULL,
+  `DebutLocation` time NOT NULL,
+  `FinLocation` time NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
-  KEY `idOptionsSalle` (`idOptionsSalle`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idOptionsSalle`) REFERENCES `optionSalle` (`id`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +183,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (2,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'personnel',13,'2020-05-28','2020-06-04','10:00:00','10:00:00');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-27  8:15:56
+-- Dump completed on 2020-05-27 12:26:28
