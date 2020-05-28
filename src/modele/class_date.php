@@ -3,21 +3,41 @@
 
 class Date
 {
+
     var $days = array('Lundi', 'Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche');
     var $months = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
 
+    private $getEvent;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+        $this->getEvent = $db->prepare('SELECT id,NomAssociation,DateDebut FROM reservation WHERE YEAR(DateDebut)=:year');
+    }
+
+
    function getEvents($year){
         global $DB;
-        $req = $DB->query('SELECT id,NomAssociation FROM reservation WHERE YEAR(DebutLocation)='.$year);
+        $req = $DB->query('SELECT id,NomAssociation FROM reservation WHERE YEAR(DateDebut)='.$year);
         $r = array();
         while ($d = $req->fetch(PDO::FETCH_OBJ)){
-            $r[strtotime($d->date)][$d -> $id] = $d->NomAssociation;
+            print_r($d);
         }
         return $r;
 
    }
-
-
+        public function getEvent($year){
+            $r = array();
+            $this->getEvent->execute(array(':year'=>$year));
+            if ($this->getEvent->errorCode()!=0){
+                print_r($this->getEvent->errorInfo());
+            }
+            return $this->getEvent->fetch();
+            while ($d = $this->getEvent->fetch(PDO::FETCH_OBJ)){
+                $r[strtotime($d->date)][$d->id] = $d->NomAssociation;
+            }
+            return $r;
+        }
 
 
 

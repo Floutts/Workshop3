@@ -8,7 +8,7 @@ function actionTableReservation($twig) {
 }
 
 
-function actionCalendrier($twig){
+function actionCalendrier($twig,$db){
 
     $form = array();
 ?>
@@ -69,8 +69,8 @@ function actionCalendrier($twig){
 
         <?php
         $year = date('Y');
-        $date = new Date();
-        $events = $date->getEvents($year);
+        $date = new Date($db);
+        $events = $date->getEvent($year);
         $dates = $date->getAll($year);
 
         ?>
@@ -91,6 +91,7 @@ function actionCalendrier($twig){
 
             <?php $dates = current($dates);
             foreach ($dates as $m=>$days):
+
             ?>
             <div id="dateActuelle"> </div>
             <div class="months" id="month<?php echo $m ?>">
@@ -105,14 +106,26 @@ function actionCalendrier($twig){
                 </tr>
                 </thead>
                 <tbody>
-                <tr><?php $end = end($days) ;
+                <br><?php $end = end($days) ;
+
                     foreach ($days as $d=>$w): ?>
                     <?php if ($d == 1): ?>
-                    <td colspan="<?php echo $w-1; ?> "></td>
+                        <?php if($w != 1 ): ?>
+                        <td colspan="<?php echo $w-1; ?> "></td>
+                        <?php endif ?>
                     <?php endif ?>
-                    <td> <?php echo $d ?>
-                        event
-                    </td>
+
+                    <td>
+                        <?php echo $d;
+                        ?> <h5> / </h5> <?php
+                        $time = ("$year-$m-$d");
+                        echo $time ;
+                        if ($time == "2020-5-28"){
+                            echo "BONHEUR ";
+                        }
+                        ?>
+
+                </td>
                     <?php if($w == 7): ?>
                 </tr><tr>
                     <?php endif;
@@ -144,8 +157,7 @@ function actionCalendrier($twig){
 
     </html>
 
-    <pre> <?php print_r($events) ?>  </pre>
-
+<!--<pre> --><?php //print_r($events) ?><!-- </pre>-->
     <?php
 
 
