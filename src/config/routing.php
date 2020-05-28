@@ -20,6 +20,7 @@ function getPage($db)
     $lesPages['options'] = "actionOptions";
     $lesPages['optionSalle'] = "actionOptionSalle";
     $lesPages['association'] = "actionAssociation";
+    $lesPages['test'] = "actionTest";
 
 
 
