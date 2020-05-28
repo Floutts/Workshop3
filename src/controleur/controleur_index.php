@@ -69,4 +69,17 @@ function actionAssociation($twig,$db){
     echo $json;
 }
 
+function actionTest($twig,$db){
+    $id = $_GET['id'];
+    $option = new Option($db);
+    $salle = new Salle($db);
+    $uneSalle = $salle->selectById($id);
+    $optionSalle = $salle->selectOptions($id);
+    $s['salle'] = $uneSalle;
+    $s['options'] = $optionSalle;
+    $json = json_encode($s);
+    echo $json;
+
+}
+
 
