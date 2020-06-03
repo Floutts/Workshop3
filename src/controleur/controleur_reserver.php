@@ -205,43 +205,47 @@ function actionReserver($twig,$db)
         $form['heureDebut'] = $heureDebut;
         $form['heureFin'] = $heureFin;
 
-        $reserver = new Reserver($db);
-        $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse,$email, $tel, $motif, $idSalle,$dateDebut,$dateFin,$heureDebut, $heureFin);
-
-
-        if (!$exec) {
+        var_dump($idSalle);
+        if ($idSalle == null) {
             $form['valide'] = false;
-            $form['message'] = 'Problème d\'insertion dans la table option ';
+            $form['message'] = 'Vous n\'avez pas séléctionné de salle ';
         } else {
-            $form['valide'] = true;
-            $cetteReservation = $reserver->selectByNom($NomAssociation);
-            $idReservation = $cetteReservation["id"];
-            if (isset($_POST['optionSalle'])) {
-                $optionSalle = $_POST['optionSalle'];
+
+
+            $reserver = new Reserver($db);
+            $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateDebut, $dateFin, $heureDebut, $heureFin);
+
+
+            if (!$exec) {
+                $form['valide'] = false;
+                $form['message'] = 'Problème d\'insertion dans la table option ';
             } else {
-                $optionSalle = NULL;
+                $form['valide'] = true;
+                $cetteReservation = $reserver->selectByNom($NomAssociation);
+                $idReservation = $cetteReservation["id"];
+                if (isset($_POST['optionSalle'])) {
+                    $optionSalle = $_POST['optionSalle'];
+                } else {
+                    $optionSalle = NULL;
 
-            }
+                }
 
-            if ($optionSalle != NULL) {
-                foreach ($optionSalle as $idOption) {
-                    $exec = $reserver->insertOptionReservation($idOption, $idReservation);
-                    if (!$exec) {
-                        $form['valide'] = false;
-                        $form['message'] = "problème d'insertion dans la table optionSalle";
+                if ($optionSalle != NULL) {
+                    foreach ($optionSalle as $idOption) {
+                        $exec = $reserver->insertOptionReservation($idOption, $idReservation);
+                        var_dump($idOption);
+                        var_dump($idReservation);
+                        if (!$exec) {
 
+                            $form['valide'] = false;
+                            $form['message'] = "problème d'insertion dans la table optionSalle";
+
+                        }
                     }
                 }
             }
         }
-
-
-
-
-
-
     }
-
     echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
 
 }

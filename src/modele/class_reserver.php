@@ -9,7 +9,6 @@ class Reserver
     private $selectByNom;
     private $insertOptionReservation;
 
-
     public function __construct($db)
     {
         $this->insert = $db->prepare("insert into reservation(NomAssociation,NomLocataire,PrenomLocataire,AdresseLocataire,EmailLocataire,TelLocataire,Motif,idSalle,DateDebut,DateFin,DebutLocation,FinLocation) 
