@@ -167,6 +167,8 @@ var requestOption= $.ajax({
         var fin = ($("#DateFin").val() + " " + $("#heureFin").val())
         $("#DateTimeDebut").val(debut)
         $("#DateTimeFin").val(fin)
+        console.log(debut)
+        console.log(fin)
 
     }
 
