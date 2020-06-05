@@ -3,12 +3,10 @@
 
 
 
-function actionTableReservation($twig) {
-    echo $twig->render('tableReservation.html.twig', array());
-}
 
 
-function actionCalendrier($twig,$db){
+
+function actionTableReservation($twig,$db){
 
     $form = array();
 ?>
@@ -73,8 +71,12 @@ function actionCalendrier($twig,$db){
         $events = $date->getEvent($year);
         $dates = $date->getAll($year);
 
+
+
+
         ?>
         <div class="periods">
+
 
             <table class="table">
                 <thead class="thead-dark">
@@ -111,18 +113,113 @@ function actionCalendrier($twig,$db){
                     foreach ($days as $d=>$w): ?>
                     <?php if ($d == 1): ?>
                         <?php if($w != 1 ): ?>
-                        <td colspan="<?php echo $w-1; ?> "></td>
+                        <td colspan="<?php echo $w-1;  ?> "></td>
                         <?php endif ?>
                     <?php endif ?>
 
                     <td>
                         <?php echo $d;
-                        ?> <h5> / </h5> <?php
+                        echo "  Reservations du jour";
+
+                        ?> <h5> </h5> <?php
+                        //  init la date
                         $time = ("$year-$m-$d");
-                        echo $time ;
-                        if ($time == "2020-5-28"){
-                            echo "BONHEUR ";
+                        $time = strtotime($time);
+                        //
+                        $salle = new Salle($db);
+                        $liste = $salle ->select();
+                        $mun = 0;
+
+                        // Seulement les salles réservées sont affichées
+
+                        foreach ($events as $reservation) {
+                            // RESERVATION EVENT
+                            $unEvent = $events[$mun];
+                            $debutEvent = $unEvent[2];
+                            $finEvent = $unEvent[4];
+                            $debutEvent = strtotime($debutEvent);
+                            $finEvent = strtotime($finEvent);
+                            $idSalleEvent = $unEvent[3];
+                            $heureDebut = $unEvent[5];
+                            $heureFin = $unEvent [6];
+                            $mun = $mun + 1;
+                            $num = 0;
+
+
+
+
+                        // date en seconde
+                        $d = DateTime::createFromFormat('d-m-Y H:i:s', $debutEvent);
+                        echo $d->getTimestamp();
+
+
+                        //
+                            foreach ($liste as $salle) {
+                                // recupere info par salle
+
+                                $infoSalle = $liste[$num];
+                                $nomSalle = $infoSalle[1];
+                                $idSalle = $infoSalle[0];
+
+                                // Condition d'affichage si Reservation
+                                if ("$time" == "$debutEvent") {
+                                    if ($idSalle == $idSalleEvent) {
+                                        ?>
+                                        <p style="color:red;"> <?php echo $nomSalle, " ", $heureDebut, " ", $heureFin  ;
+
+                                    }
+                                }
+                                $num = $num + 1;
+
+
+                                // Toutes les salles sont affichés en libre ou réservé
+                                /*
+                                if ("$time" == "$e") {
+                                    if ($idSalle == $idSalleEvent) {
+                                        ?>
+                                        <p style="color:red;"> <?php echo $nomSalle, " : "; ?>
+                                        <?php
+
+                                    } else {
+                                        ?>
+                                        <p> <?php echo $nomSalle, " : "; ?>
+                                        <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <p> <?php echo $nomSalle, " : ";  }?>
+
+                                    <?php
+                                    if ("$time" == "$e") {
+                                        if ($idSalle == $idSalleEvent) {
+                                            ?>
+
+                                            RESERVE</p>
+                                            <?php
+
+                                        } else {
+                                            ?>
+                                            Libre </p>
+                                            <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        Libre </p>
+                                        <?php
+                                    }
+                                    ?> <h5></h5> <?php
+                                    $num = $num + 1;
+                                */
+
+
+                            }
                         }
+
+
+
+
+
+
                         ?>
 
                 </td>
@@ -157,7 +254,6 @@ function actionCalendrier($twig,$db){
 
     </html>
 
-<!--<pre> --><?php //print_r($events) ?><!-- </pre>-->
     <?php
 
 

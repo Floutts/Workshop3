@@ -12,7 +12,7 @@ class Date
     public function __construct($db)
     {
         $this->db = $db;
-        $this->getEvent = $db->prepare('SELECT id,NomAssociation,DateDebut FROM reservation WHERE YEAR(DateDebut)=:year');
+        $this->getEvent = $db->prepare('SELECT id,NomAssociation,DateDebut,idSalle,DateFin,DebutLocation,Finlocation FROM reservation WHERE YEAR(DateDebut)=:year');
     }
 
 
@@ -28,12 +28,12 @@ class Date
    }
         public function getEvent($year){
             $r = array();
-            $this->getEvent->execute(array(':year'=>$year));
+            $events = $this->getEvent->execute(array(':year'=>$year));
             if ($this->getEvent->errorCode()!=0){
                 print_r($this->getEvent->errorInfo());
             }
-            return $this->getEvent->fetch();
-            while ($d = $this->getEvent->fetch(PDO::FETCH_OBJ)){
+            return $this->getEvent->fetchAll();
+            while ($d = $this->getEvent->fetchAll(PDO::FETCH_OBJ)){
                 $r[strtotime($d->date)][$d->id] = $d->NomAssociation;
             }
             return $r;
@@ -60,7 +60,8 @@ class Date
         while ($date->format('Y') <= $year) {
             $y = $date->format('Y');
             $m = $date->format('n');
-            $d = $date->format('j');
+            $d = $date->format('d');
+            $n = $date->format('m');
             $w = str_replace('0', '7', $date->format('w'));
             $r[$y][$m][$d] = $w;
             $date->add(new DateInterval('P1D'));

@@ -8,6 +8,7 @@ class Reserver
     private $selectById;
     private $selectByNom;
     private $insertOptionReservation;
+    private $select;
 
 
     public function __construct($db)
@@ -18,6 +19,7 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->selectById = $db->prepare("select * from salle where id=:id");
         $this->selectByNom = $db->prepare("select * from reservation where NomAssociation=:NomAssociation");
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
+        $this->select = $db->prepare("select * from reservation");
 
     }
 
@@ -73,5 +75,14 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
             $r=false;
         }
         return $r;
+    }
+
+    public function select(){
+        $liste = $this->select->execute();
+        if ($this->select->errorCode()!=0){
+            print_r($this->select->errorInfo());
+        }
+        return $this->select->fetchAll();
+
     }
 }

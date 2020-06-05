@@ -94,12 +94,65 @@
                                     <p>1</p>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="list-group ">
+                    <a href="#" class="list-group-item list-group-item-action active">Options</a>
+                    {% for o in optionSalle %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ o.libelle }}</a>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>  {{ uneSalle.libelle }} </h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Superficie </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ uneSalle.superficie }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Prix par jour </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ uneSalle.prix}} </p>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

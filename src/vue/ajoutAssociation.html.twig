@@ -122,7 +122,7 @@
                             {% if form.modif == false %}
                                 <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" required >
                             {% else %}
-                                <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" value="{{ association.NumTelephone }}" required >
+                                <input type="number" id="tel" name="tel" class="form-control" placeholder="Numero de téléphone" value="0{{ association.NumTelephone }}" required >
                             {% endif %}
                         {% endif %}
                     </div>
