@@ -71,7 +71,7 @@
             <div class="col-md-4">
                 <label for="idSalle">Salle</label>
                 <select class="form-control" name="idSalle" id="idSalle" style="margin-bottom: 20px" >
-                    <option value="null">-- Selectionner une salle --</option>
+                    <option>-- Selectionner une salle --</option>
                     {% for s in listeSalle %}
                         <option value="{{ s.id }}">{{ s.libelle }}</option>
                     {% endfor %}
