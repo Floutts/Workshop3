@@ -307,7 +307,6 @@ function actionReserver($twig,$db)
         $form['dateTimeDebut'] = $dateTimeDebut;
         $form['dateTimeFin'] = $dateTimeFin;
 
-        var_dump($idSalle);
         if ($idSalle == null) {
             $form['valide'] = false;
             $form['message'] = 'Vous n\'avez pas séléctionné de salle ';
@@ -335,8 +334,6 @@ function actionReserver($twig,$db)
                 if ($optionSalle != NULL) {
                     foreach ($optionSalle as $idOption) {
                         $exec = $reserver->insertOptionReservation($idOption, $idReservation);
-                        var_dump($idOption);
-                        var_dump($idReservation);
                         if (!$exec) {
 
                             $form['valide'] = false;
