@@ -162,6 +162,20 @@ var requestOption= $.ajax({
 
     });
 
+    function dateTime(){
+        var debut = ($("#DateDebut").val() + " " + $("#heureDebut").val())
+        var fin = ($("#DateFin").val() + " " + $("#heureFin").val())
+        $("#DateTimeDebut").val(debut)
+        $("#DateTimeFin").val(fin)
+
+    }
+
+    $("#btValider").click(function(){
+        $("#DateTimeDebut").val("")
+        $("#DateTimeFin").val("")
+        dateTime()
+
+    })
 })
 
 

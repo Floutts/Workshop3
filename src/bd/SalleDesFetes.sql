@@ -108,7 +108,7 @@ CREATE TABLE `optionReservation` (
   KEY `idReservation` (`idReservation`),
   CONSTRAINT `optionReservation_ibfk_1` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`),
   CONSTRAINT `optionReservation_ibfk_2` FOREIGN KEY (`idReservation`) REFERENCES `reservation` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,14 +166,12 @@ CREATE TABLE `reservation` (
   `TelLocataire` int(11) NOT NULL,
   `Motif` varchar(100) NOT NULL,
   `idSalle` int(11) NOT NULL,
-  `DateDebut` date NOT NULL,
-  `DateFin` date NOT NULL,
-  `DebutLocation` time NOT NULL,
-  `FinLocation` time NOT NULL,
+  `DateDebut` datetime NOT NULL,
+  `DateFin` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +180,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'personnel',4,'2020-05-28','2020-05-28','10:00:00','12:00:00'),(2,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'personnel',13,'2020-06-03','2020-06-03','13:00:00','14:00:00'),(6,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'qsqdqsdqsd',4,'1001-10-10','1010-12-10','10:10:00','10:10:00'),(8,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'hjhygjhgjgj',13,'1010-10-10','1010-10-10','10:10:00','10:10:00'),(9,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'rrsgsdgf',13,'1010-10-10','1010-10-10','10:10:00','10:10:00'),(10,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'rrsgsdgf',14,'1010-10-10','1010-10-10','10:10:00','10:10:00'),(11,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'rrsgsdgf',13,'1010-10-10','1010-10-10','10:10:00','10:10:00'),(12,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'qsqsq',13,'1010-10-10','1010-10-10','10:10:00','10:10:00'),(13,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'dgfsfgfsg',14,'1010-01-10','1010-01-11','10:10:00','10:10:00');
+INSERT INTO `reservation` VALUES (14,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'travail',4,'3333-03-31 03:33:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-03 13:04:18
+-- Dump completed on 2020-06-05  8:41:03

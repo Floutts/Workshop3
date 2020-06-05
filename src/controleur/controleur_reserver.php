@@ -187,10 +187,13 @@ function actionReserver($twig,$db)
         $tel = $_POST['tel'];
         $motif = $_POST['motif'];
         $idSalle = $_POST['idSalle'];
-        $dateDebut = $_POST['DateDebut'];
-        $dateFin = $_POST['DateFin'];
-        $heureDebut = $_POST['heureDebut'];
-        $heureFin = $_POST['heureFin'];
+        //$dateDebut = $_POST['DateDebut'];
+        //$dateFin = $_POST['DateFin'];
+        //$heureDebut = $_POST['heureDebut'];
+        //$heureFin = $_POST['heureFin'];
+        $dateTimeDebut = $_POST['DateTimeDebut'];
+        $dateTimeFin = $_POST['DateTimeFin'];
+
 
         $form['NomAssociation'] = $NomAssociation;
         $form['prenom'] = $prenom;
@@ -200,10 +203,12 @@ function actionReserver($twig,$db)
         $form['tel'] = $tel;
         $form['motif'] = $motif;
         $form['idSalle'] = $idSalle;
-        $form['dateDebut'] = $dateDebut;
-        $form['dateFin'] = $dateFin;
-        $form['heureDebut'] = $heureDebut;
-        $form['heureFin'] = $heureFin;
+        //$form['dateDebut'] = $dateDebut;
+        //$form['dateFin'] = $dateFin;
+        //$form['heureDebut'] = $heureDebut;
+        //$form['heureFin'] = $heureFin;
+        $form['dateTimeDebut'] = $dateTimeDebut;
+        $form['dateTimeFin'] = $dateTimeFin;
 
         var_dump($idSalle);
         if ($idSalle == null) {
@@ -213,7 +218,7 @@ function actionReserver($twig,$db)
 
 
             $reserver = new Reserver($db);
-            $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateDebut, $dateFin, $heureDebut, $heureFin);
+            $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut,$dateTimeFin);
 
 
             if (!$exec) {
