@@ -12,7 +12,7 @@ class Date
     public function __construct($db)
     {
         $this->db = $db;
-        $this->getEvent = $db->prepare('SELECT id,NomAssociation,DateDebut,idSalle,DateFin,DebutLocation,Finlocation FROM reservation WHERE YEAR(DateDebut)=:year');
+        $this->getEvent = $db->prepare('SELECT id,NomAssociation,DateDebut,idSalle,DateFin FROM reservation WHERE YEAR(DateDebut)=:year');
     }
 
 

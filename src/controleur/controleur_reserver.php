@@ -129,6 +129,7 @@ function actionTableReservation($twig,$db){
                         $salle = new Salle($db);
                         $liste = $salle ->select();
                         $mun = 0;
+                        var_dump($events);
 
                         // Seulement les salles réservées sont affichées
 
@@ -149,8 +150,8 @@ function actionTableReservation($twig,$db){
 
 
                         // date en seconde
-                        $d = DateTime::createFromFormat('d-m-Y H:i:s', $debutEvent);
-                        echo $d->getTimestamp();
+                       // $d = DateTime::createFromFormat('d-m-Y H:i:s', $debutEvent);
+                        //echo $d->getTimestamp();
 
 
                         //
