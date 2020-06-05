@@ -71,6 +71,7 @@
             <div class="col-md-4">
                 <label for="idSalle">Salle</label>
                 <select class="form-control" name="idSalle" id="idSalle" style="margin-bottom: 20px" >
+                    <option value="null">-- Selectionner une salle --</option>
                     {% for s in listeSalle %}
                         <option value="{{ s.id }}">{{ s.libelle }}</option>
                     {% endfor %}
@@ -114,7 +115,14 @@
                     <input type="time" class="form-control" id="heureFin" name="heureFin" aria-describedby="inputGroupPrepend" required>
                 </div>
                 <br/><br/>
-
+                <div class="">
+                    <label for="DateTimeDebut" hidden>DateTime debut</label>
+                    <input type="datetime-local" class="form-control" id="DateTimeDebut" name="DateTimeDebut" aria-describedby="inputGroupPrepend" hidden>
+                </div>
+                <div class="">
+                    <label for="DateTimeFin" hidden>DateTime Fin</label>
+                    <input type="datetime-local" class="form-control" id="DateTimeFin" name="DateTimeFin" aria-describedby="inputGroupPrepend" hidden>
+                </div>
             </div>
             <div class ="col-md-2"></div>
             <div class ="col-md-4"></div>

@@ -25,7 +25,7 @@ class Salle
         $this->update = $db->prepare("UPDATE salle SET libelle=:libelle,prix=:prix,superficie=:superficie where id=:id");
         $this->delete = $db->prepare("delete from salle where id=:id");
         $this->deleteById = $db->prepare("delete from optionSalle where idSalle=:idSalle");
-        $this->selectOptions = $db->prepare("select o.libelle,o.id as options from optionSalle os, option o where idSalle=:idSalle and os.idOption=o.id");
+        $this->selectOptions = $db->prepare("select o.libelle,o.id from optionSalle os, option o where idSalle=:idSalle and os.idOption=o.id");
         $this->deleteBySalle = $db->prepare("delete from optionSalle where idSalle=:idSalle");
 
 

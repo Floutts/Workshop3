@@ -108,7 +108,7 @@ CREATE TABLE `optionReservation` (
   KEY `idReservation` (`idReservation`),
   CONSTRAINT `optionReservation_ibfk_1` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`),
   CONSTRAINT `optionReservation_ibfk_2` FOREIGN KEY (`idReservation`) REFERENCES `reservation` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,6 @@ CREATE TABLE `optionReservation` (
 
 LOCK TABLES `optionReservation` WRITE;
 /*!40000 ALTER TABLE `optionReservation` DISABLE KEYS */;
-INSERT INTO `optionReservation` VALUES (1,1,2),(2,2,2),(3,3,2),(4,6,2);
 /*!40000 ALTER TABLE `optionReservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +136,7 @@ CREATE TABLE `optionSalle` (
   KEY `idOption` (`idOption`),
   CONSTRAINT `optionSalle_ibfk_1` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`),
   CONSTRAINT `optionSalle_ibfk_2` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +145,7 @@ CREATE TABLE `optionSalle` (
 
 LOCK TABLES `optionSalle` WRITE;
 /*!40000 ALTER TABLE `optionSalle` DISABLE KEYS */;
-INSERT INTO `optionSalle` VALUES (5,13,1),(6,13,2),(7,13,3),(8,13,6);
+INSERT INTO `optionSalle` VALUES (5,13,1),(6,13,2),(7,13,3),(8,13,6),(9,4,13),(10,4,14),(11,4,15),(12,14,1),(13,14,2),(14,14,3),(15,14,6),(16,14,13),(17,14,14),(18,14,15);
 /*!40000 ALTER TABLE `optionSalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,14 +166,12 @@ CREATE TABLE `reservation` (
   `TelLocataire` int(11) NOT NULL,
   `Motif` varchar(100) NOT NULL,
   `idSalle` int(11) NOT NULL,
-  `DateDebut` date NOT NULL,
-  `DateFin` date NOT NULL,
-  `DebutLocation` time NOT NULL,
-  `FinLocation` time NOT NULL,
+  `DateDebut` datetime NOT NULL,
+  `DateFin` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idSalle` (`idSalle`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`idSalle`) REFERENCES `salle` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +180,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (2,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'personnel',13,'2020-05-28','2020-06-04','10:00:00','10:00:00');
+INSERT INTO `reservation` VALUES (14,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'travail',4,'3333-03-31 03:33:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +224,7 @@ CREATE TABLE `salle` (
   PRIMARY KEY (`id`),
   KEY `idStatut` (`idStatut`),
   CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`idStatut`) REFERENCES `statut` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +233,7 @@ CREATE TABLE `salle` (
 
 LOCK TABLES `salle` WRITE;
 /*!40000 ALTER TABLE `salle` DISABLE KEYS */;
-INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(7,'Salle Adier',125,75,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1),(13,'Salle petre',48,58,1);
+INSERT INTO `salle` VALUES (4,'Salle Issure',200,60,1),(5,'Salle Amandre',150,85,1),(7,'Salle Adier',125,75,1),(9,'Salle Omon',148,84,1),(10,'Salle Utation',212,98,1),(13,'Salle petre',48,58,1),(14,'Salle Ami',84,78,1);
 /*!40000 ALTER TABLE `salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-27 12:26:28
+-- Dump completed on 2020-06-05  8:41:03

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     /*   function ajax() {
 
 var requestOption= $.ajax({
@@ -88,6 +89,7 @@ var requestOption= $.ajax({
             });
             requestTest.done(function( msgTest ) {
                 for (var i = 0;i<msgTest.options.length;i++){
+                    console.log(msgTest.options[i].id)
                     texte = "<input class=\"form-check-input\" type=\"checkbox\" value=\"" + msgTest.options[i].id + "\" id=\"optionSalle[]\" name=\"optionSalle[]\"> "// <label class=\"form-check-label\" for=\"optionSalle[]\">" + " option1 " + "</label><br/>"
                     texteBis = "<label class=\"form-check-label\" for=\"optionSalle[]\">" + msgTest.options[i].libelle + "</label><br/>"
                     $("#option").append(texte+texteBis)
@@ -101,12 +103,6 @@ var requestOption= $.ajax({
                 alert ('erreur');
             });
         }
-
-
-
-
-
-
 
 
     // Je lance l’ajax en cliquant sur le bouton
@@ -166,6 +162,20 @@ var requestOption= $.ajax({
 
     });
 
+    function dateTime(){
+        var debut = ($("#DateDebut").val() + " " + $("#heureDebut").val())
+        var fin = ($("#DateFin").val() + " " + $("#heureFin").val())
+        $("#DateTimeDebut").val(debut)
+        $("#DateTimeFin").val(fin)
+
+    }
+
+    $("#btValider").click(function(){
+        $("#DateTimeDebut").val("")
+        $("#DateTimeFin").val("")
+        dateTime()
+
+    })
 })
 
 
