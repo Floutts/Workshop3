@@ -20,7 +20,7 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->selectByNom = $db->prepare("select * from reservation where NomAssociation=:NomAssociation");
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
         $this->select = $db->prepare("select * from reservation");
-        $this->selectByDate = $db->prepare("SELECT * FROM `reservation` WHERE idSalle = :idSalle and (:dateTimeDebut<`DateDebut` and `DateDebut`<:dateTimeFin) or (:dateTimeDebut<`DateFin` and `DateFin`<:dateTimeFin)");
+        $this->selectByDate = $db->prepare("SELECT * FROM reservation WHERE idSalle = :idSalle AND ((:dateTimeDebut < DateDebut and DateDebut < :dateTimeFin) OR (:dateTimeDebut < DateFin and DateFin < :dateTimeFin)	 OR (DateDebut < :dateTimeDebut and :dateTimeDebut < DateFin) OR  (DateDebut < :dateTimeFin and :dateTimeFin < DateFin))");
 
     }
 
