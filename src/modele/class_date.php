@@ -61,7 +61,11 @@ class Date
             $y = $date->format('Y');
             $m = $date->format('n');
             $d = $date->format('d');
-            $n = $date->format('m');
+
+
+
+
+
             $w = str_replace('0', '7', $date->format('w'));
             $r[$y][$m][$d] = $w;
             $date->add(new DateInterval('P1D'));

@@ -15,7 +15,7 @@ class Reserver
         $this->insert = $db->prepare("insert into reservation(NomAssociation,NomLocataire,PrenomLocataire,AdresseLocataire,EmailLocataire,TelLocataire,Motif,idSalle,DateDebut,DateFin) 
 values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailLocataire,:TelLocataire,:Motif,:idSalle,:dateTimeDebut,:dateTimeFin)");
         $this->ajoutOption = $db->prepare("insert into optionReservation(idReservation,idOption) values (:idReservation,:idOption)");
-        $this->selectById = $db->prepare("select * from salle where id=:id");
+        $this->selectById = $db->prepare("select * from reservation where id=:id");
         $this->selectByNom = $db->prepare("select * from reservation where NomAssociation=:NomAssociation");
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
         $this->select = $db->prepare("select * from reservation");
@@ -46,9 +46,9 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
     }
 
 
-    public function selectById($idSalle)
+    public function selectById($idReservation)
     {
-        $this->selectById->execute(array(':id' => $idSalle));
+        $this->selectById->execute(array(':id' => $idReservation));
         if ($this->selectById->errorCode() != 0) {
             print_r($this->selectById->errorInfo());
         }
