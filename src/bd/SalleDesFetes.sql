@@ -108,7 +108,7 @@ CREATE TABLE `optionReservation` (
   KEY `idReservation` (`idReservation`),
   CONSTRAINT `optionReservation_ibfk_1` FOREIGN KEY (`idOption`) REFERENCES `option` (`id`),
   CONSTRAINT `optionReservation_ibfk_2` FOREIGN KEY (`idReservation`) REFERENCES `reservation` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (14,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'travail',4,'3333-03-31 03:33:00','0000-00-00 00:00:00');
+INSERT INTO `reservation` VALUES (13,'vegetalus','Potter','Harry','harrypoter@gmail.com','bonduel',680338562,'uiiyy',4,'2020-06-08 08:00:00','2020-06-08 12:00:00');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-05  8:41:03
+-- Dump completed on 2020-06-08 13:39:17

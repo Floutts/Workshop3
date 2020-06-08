@@ -348,39 +348,44 @@ function actionReserver($twig,$db)
         //$form['heureFin'] = $heureFin;
         $form['dateTimeDebut'] = $dateTimeDebut;
         $form['dateTimeFin'] = $dateTimeFin;
-
-        if ($idSalle == null) {
+        if ($idSalle == "-- Selectionner une salle --") {
             $form['valide'] = false;
             $form['message'] = 'Vous n\'avez pas séléctionné de salle ';
         } else {
-
-
             $reserver = new Reserver($db);
-            $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut,$dateTimeFin);
-
-
-            if (!$exec) {
+            $listeReservation = $reserver->selectByDate($idSalle,$dateTimeDebut, $dateTimeFin);
+            if ($listeReservation != null) {
                 $form['valide'] = false;
-                $form['message'] = 'Problème d\'insertion dans la table option ';
+                $form['message'] = 'Une reservation a deja lieu sur ce creneau horaire ';
             } else {
-                $form['valide'] = true;
-                $cetteReservation = $reserver->selectByNom($NomAssociation);
-                $idReservation = $cetteReservation["id"];
-                if (isset($_POST['optionSalle'])) {
-                    $optionSalle = $_POST['optionSalle'];
+
+
+                $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut, $dateTimeFin);
+
+
+                if (!$exec) {
+                    $form['valide'] = false;
+                    $form['message'] = 'Problème d\'insertion dans la table option ';
                 } else {
-                    $optionSalle = NULL;
+                    $form['valide'] = true;
+                    $cetteReservation = $reserver->selectByNom($NomAssociation);
+                    $idReservation = $cetteReservation["id"];
+                    if (isset($_POST['optionSalle'])) {
+                        $optionSalle = $_POST['optionSalle'];
+                    } else {
+                        $optionSalle = NULL;
 
-                }
+                    }
 
-                if ($optionSalle != NULL) {
-                    foreach ($optionSalle as $idOption) {
-                        $exec = $reserver->insertOptionReservation($idOption, $idReservation);
-                        if (!$exec) {
+                    if ($optionSalle != NULL) {
+                        foreach ($optionSalle as $idOption) {
+                            $exec = $reserver->insertOptionReservation($idOption, $idReservation);
+                            if (!$exec) {
 
-                            $form['valide'] = false;
-                            $form['message'] = "problème d'insertion dans la table optionSalle";
+                                $form['valide'] = false;
+                                $form['message'] = "problème d'insertion dans la table optionSalle";
 
+                            }
                         }
                     }
                 }

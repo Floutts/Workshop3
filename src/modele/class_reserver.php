@@ -9,6 +9,7 @@ class Reserver
     private $selectByNom;
     private $insertOptionReservation;
     private $select;
+    private $selectByDate;
 
     public function __construct($db)
     {
@@ -19,6 +20,7 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->selectByNom = $db->prepare("select * from reservation where NomAssociation=:NomAssociation");
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
         $this->select = $db->prepare("select * from reservation");
+        $this->selectByDate = $db->prepare("SELECT * FROM reservation WHERE idSalle = :idSalle AND ((:dateTimeDebut < DateDebut and DateDebut < :dateTimeFin) OR (:dateTimeDebut < DateFin and DateFin < :dateTimeFin)	 OR (DateDebut < :dateTimeDebut and :dateTimeDebut < DateFin) OR  (DateDebut < :dateTimeFin and :dateTimeFin < DateFin))");
 
     }
 
@@ -82,6 +84,17 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
             print_r($this->select->errorInfo());
         }
         return $this->select->fetchAll();
+
+    }
+
+    public function selectByDate($idSalle,$dateTimeDebut,$dateTimeFin)
+    {
+        $this->selectByDate->execute(array(':idSalle'=>$idSalle,':dateTimeDebut' => $dateTimeDebut,':dateTimeFin'=>$dateTimeFin));
+        if ($this->selectByDate->errorCode() != 0) {
+            print_r($this->selectByDate->errorInfo());
+        }
+        return $this->selectByDate->fetchAll();
+
 
     }
 }
