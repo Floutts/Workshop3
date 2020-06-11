@@ -23,7 +23,7 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
         $this->select = $db->prepare("select * from reservation");
         $this->selectByDate = $db->prepare("SELECT * FROM reservation WHERE idSalle = :idSalle AND ((:dateTimeDebut < DateDebut and DateDebut < :dateTimeFin) OR (:dateTimeDebut < DateFin and DateFin < :dateTimeFin)     OR (DateDebut < :dateTimeDebut and :dateTimeDebut < DateFin) OR  (DateDebut < :dateTimeFin and :dateTimeFin < DateFin))");
-        $this->selectOptionReservation = $db->prepare("select o.libelle as nomOption from `option` o, optionReservation opr, reservation r where opr.idOption = o.id and opr.idReservation=:idReservation");
+        $this->selectOptionReservation = $db->prepare("select distinct o.libelle as nomOption from `option` o, optionReservation opr, reservation r where opr.idOption = o.id and opr.idReservation=:idReservation");
         $this->selectSalleReservation = $db->prepare("select s.libelle as nomSalle from salle s, reservation r where r.id = :idReservation and r.idSalle = s.id");
 
     }

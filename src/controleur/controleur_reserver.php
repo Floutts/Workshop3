@@ -69,7 +69,7 @@ function actionTableReservation($twig,$db){
                         Salles
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="index.php?page=tableReservation"> Tableau de réservation </a>
+                        <a class="dropdown-item" href="index.php?page=tableReservation&annee=0"> Tableau de réservation </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="index.php?page=reserver"> Réserver</a>
                     </div>
@@ -90,9 +90,38 @@ function actionTableReservation($twig,$db){
             </ul>
         </div>
     </nav>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+                <th scope="col">
+                    <?php
+                    $idYear =$_GET['annee'];
+                    $year = date('Y');
+                    $year = $year + $idYear;
+
+
+                    ?>
+                    <input type="text" id="anneeActuelle" name="anneeActuelle" class="form-control" value="" hidden>
+
+                    <div class="mx-auto" style="width: 200px;">
+                        <h4>
+                        <a href="index.php?page=tableReservation&annee=<?php echo $idYear = $idYear - 1 ?>"> < </a>
+                        <a>  <?php echo $year ?> </a>
+                        <a href="index.php?page=tableReservation&annee=<?php echo $idYear = $idYear + 2 ?>"> > </a>
+                        </h4>
+                    </div>
+
+
+                </th>
+
+        </tr>
+        </thead>
+    </table>
 
     <?php
-    $year = date('Y');
+
+
+
     $date = new Date($db);
     $events = $date->getEvent($year);
     $dates = $date->getAll($year);
@@ -295,7 +324,10 @@ function actionTableReservation($twig,$db){
 
 
             </div>
-        <?php endforeach ?>
+        <?php endforeach ;
+
+        ?>
+
     </div>
 
 
