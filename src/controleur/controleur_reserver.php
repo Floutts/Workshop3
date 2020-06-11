@@ -6,16 +6,20 @@ function actionProfilReservation($twig,$db) {
         $idReservation = $_GET["id"];
         $reserver = new Reserver($db);
         $uneReservation = $reserver->selectById($idReservation);
-        //$optionSalle = $->selectOptions($idSalle);
+        $salleReservation = $reserver -> selectSalleReservation($idReservation);
+        $optionReservation = $reserver -> selectOptionReservation($idReservation);
+
 
     }else{
         $uneReservation = null;
+        $salleReservation = null;
+        $optionReservation = null;
     }
 
 
 
 
-    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation));
+    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation, 'salleReservation' => $salleReservation, 'optionReservation'=>$optionReservation));
 }
 
 
