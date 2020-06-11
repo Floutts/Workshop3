@@ -2,20 +2,31 @@
 
 
 function actionProfilReservation($twig,$db) {
+    $form = array();
     if(isset($_GET["id"])) {
         $idReservation = $_GET["id"];
         $reserver = new Reserver($db);
         $uneReservation = $reserver->selectById($idReservation);
-        //$optionSalle = $->selectOptions($idSalle);
+        $optionReservation = $reserver->selectOptionReservation($idReservation);
+        $salleReservation = $reserver -> selectSalleReservation($idReservation);
+        var_dump($optionReservation);
+        if ($uneReservation[1] == ""){
+            $form['reservation'] = false;
+        }else{
+            $form['reservation'] = true;
+
+        }
 
     }else{
         $uneReservation = null;
+        $optionReservation = null;
+        $salleReservation = null ;
     }
 
 
 
 
-    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation));
+    echo $twig->render('profilReservation.html.twig', array('form'=>$form, 'uneReservation' => $uneReservation, 'optionReservation'=>$optionReservation, 'salleReservation'=>$salleReservation));
 }
 
 
@@ -192,14 +203,15 @@ function actionTableReservation($twig,$db){
                         // Condition d'affichage si Reservation
                         if ("$time" == "$debutEvent") {
                             if ($idSalle == $idSalleEvent) {
+                        $idEvent = $unEvent[0];
                                 if ($debutEvent != $finEvent){
-                                    $idEvent = $unEvent[0];
+
                                     ?> <p style="color:red;">
                                     <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <?php echo "<---  ",$nomSalle, " ", $HdebutEvent  ;
 
                                 }else{
-                                    ?> <p style="color:red;"> <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
+                                    ?> <p style="color:red;">   <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a> <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
 
                             }
                             }

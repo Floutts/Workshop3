@@ -14,8 +14,8 @@
 
                 <div class="list-group ">
                     <a href="#" class="list-group-item list-group-item-action active">Options</a>
-                    {% for o in optionSalle %}
-                        <a href="#" class="list-group-item list-group-item-action">{{ o.libelle }}</a>
+                    {% for o in optionReservation %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ o.nomOption }}</a>
                     {% endfor %}
 
 
@@ -26,30 +26,74 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>  {{ uneReservation.NomAssociation }} </h4>
+                                <h4>  Réservé par {{ uneReservation.NomLocataire}} {{ uneReservation.PrenomLocataire }} </h4>
                                 <hr>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label> Superficie </label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p> {{ uneSalle.superficie }}</p>
-                                        </div>
-                                    </div>
+                                    {% if form.reservation == true %}
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label> Prix par jour </label>
+                                            <label> Nom de l'association :</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p> {{ uneSalle.prix}} </p>
+                                            <p> {{ uneReservation.NomAssociation }}</p>
                                         </div>
                                     </div>
+
+                                    {% endif %}
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Adresse :</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ uneReservation.AdresseLocataire }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Email :</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ uneReservation.EmailLocataire }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Telephone :</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> 0{{ uneReservation.TelLocataire }}</p>
+                                        </div>
+                                    </div>  <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Motif :  </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ uneReservation.Motif }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Salle :  </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> {{ salleReservation.nomSalle }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label> Date : </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p> Réservé du {{ uneReservation.DateDebut  }} au {{ uneReservation.DateFin }}</p>
+                                        </div>
+                                    </div>
+
 
 
                                 </form>
