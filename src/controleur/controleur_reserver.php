@@ -2,31 +2,20 @@
 
 
 function actionProfilReservation($twig,$db) {
-    $form = array();
     if(isset($_GET["id"])) {
         $idReservation = $_GET["id"];
         $reserver = new Reserver($db);
         $uneReservation = $reserver->selectById($idReservation);
-        $optionReservation = $reserver->selectOptionReservation($idReservation);
-        $salleReservation = $reserver -> selectSalleReservation($idReservation);
-        var_dump($optionReservation);
-        if ($uneReservation[1] == ""){
-            $form['reservation'] = false;
-        }else{
-            $form['reservation'] = true;
-
-        }
+        //$optionSalle = $->selectOptions($idSalle);
 
     }else{
         $uneReservation = null;
-        $optionReservation = null;
-        $salleReservation = null ;
     }
 
 
 
 
-    echo $twig->render('profilReservation.html.twig', array('form'=>$form, 'uneReservation' => $uneReservation, 'optionReservation'=>$optionReservation, 'salleReservation'=>$salleReservation));
+    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation));
 }
 
 
@@ -203,15 +192,14 @@ function actionTableReservation($twig,$db){
                         // Condition d'affichage si Reservation
                         if ("$time" == "$debutEvent") {
                             if ($idSalle == $idSalleEvent) {
-                        $idEvent = $unEvent[0];
                                 if ($debutEvent != $finEvent){
-
+                                    $idEvent = $unEvent[0];
                                     ?> <p style="color:red;">
                                     <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <?php echo "<---  ",$nomSalle, " ", $HdebutEvent  ;
 
                                 }else{
-                                    ?> <p style="color:red;">   <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a> <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
+                                    ?> <p style="color:red;"> <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
 
                             }
                             }
@@ -370,37 +358,44 @@ function actionReserver($twig,$db)
                 $form['valide'] = false;
                 $form['message'] = 'Une reservation a deja lieu sur ce creneau horaire ';
             } else {
-
-
-                $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut, $dateTimeFin);
-
-
-                if (!$exec) {
+                if (strtotime($dateTimeDebut) > strtotime($dateTimeFin)) {
                     $form['valide'] = false;
-                    $form['message'] = 'Problème d\'insertion dans la table option ';
+                    $form['message'] = 'Votre date de fin est inférieure a votre date de début ';
                 } else {
-                    $form['valide'] = true;
-                    $cetteReservation = $reserver->selectByNom($NomAssociation);
-                    $idReservation = $cetteReservation["id"];
-                    if (isset($_POST['optionSalle'])) {
-                        $optionSalle = $_POST['optionSalle'];
+
+
+                    $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut, $dateTimeFin);
+
+
+                    if (!$exec) {
+                        $form['valide'] = false;
+                        $form['message'] = 'Problème d\'insertion dans la table option ';
                     } else {
-                        $optionSalle = NULL;
+                        $form['valide'] = true;
+                        $cetteReservation = $reserver->selectByNom($idSalle, $dateTimeDebut);
 
-                    }
+                        $idReservation = $cetteReservation["id"];
+                        if (isset($_POST['optionSalle'])) {
+                            $optionSalle = $_POST['optionSalle'];
+                        } else {
+                            $optionSalle = NULL;
 
-                    if ($optionSalle != NULL) {
-                        foreach ($optionSalle as $idOption) {
-                            $exec = $reserver->insertOptionReservation($idOption, $idReservation);
-                            if (!$exec) {
+                        }
 
-                                $form['valide'] = false;
-                                $form['message'] = "problème d'insertion dans la table optionSalle";
+                        if ($optionSalle != NULL) {
+                            foreach ($optionSalle as $idOption) {
+                                $exec = $reserver->insertOptionReservation($idOption, $idReservation);
+                                if (!$exec) {
 
+                                    $form['valide'] = false;
+                                    $form['message'] = "problème d'insertion dans la table optionSalle";
+
+                                }
                             }
                         }
                     }
                 }
+
             }
         }
     }
