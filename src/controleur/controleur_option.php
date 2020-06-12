@@ -23,10 +23,15 @@ function actionGestionOption($twig,$db) {
     }
 
     if(isset($_GET['idsup'])){
+        $exec2=$option->deleteOptionReservation($_GET['idsup']);
+        if (!$exec2) {
+            $form['supprimer'] = false;
+            $form['message'] = 'Problème de suppression dans la table optionReservation ' ;
+        }
         $exec1=$option->deleteById($_GET["idsup"]);
         if (!$exec1){
             $form['supprimer'] = false;
-            $form['message'] = 'Problème de suppression dans la table option';
+            $form['message'] = 'Problème de suppression dans la table optionSalle';
         }else{
             $exec=$option->delete($_GET['idsup']);
             if (!$exec){

@@ -472,19 +472,19 @@ function actionReserver($twig,$db)
     }
 
     if (isset($_GET['idsup'])) {
-        $exec1=$reserver->deleteById($_GET['idsup']);
+        $exec1=$reserver->deleteOptionReservation($_GET['idsup']);
         if (!$exec1){
             $form['supprimer'] = false;
-            $form['message'] = 'Problème de suppression dans la table option';
+            $form['message'] = 'Problème de suppression dans la table optionReservation';
         }else{
-            $exec=$option->delete($_GET['idsup']);
+            $exec=$reserver->deleteById($_GET['idsup']);
             if (!$exec){
                 $form['supprimer'] = false;
-                $form['message'] = 'Problème de suppression dans la table option';
+                $form['message'] = 'Problème de suppression dans la table Reservation';
             }
             else{
                 $form['supprimer'] = true;
-                $form['message'] = 'Option supprimée avec succès';
+                $form['message'] = 'Reservation supprimée avec succès';
             }
         }
 
