@@ -228,8 +228,8 @@ function actionTableReservation($twig,$db){
                         $num = 0;
                         $debutEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$debutEvent)->format('Y-n-d');
                         $finEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$finEvent)->format('Y-n-d');
-                        $HdebutEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HdebutEvent)->format('H:i:s');
-                        $HfinEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HfinEvent)->format('H:i:s');
+                        $HdebutEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HdebutEvent)->format('H:i');
+                        $HfinEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HfinEvent)->format('H:i');
 
 
 
@@ -379,6 +379,7 @@ function actionReserver($twig,$db)
     $uneAssociation = NULL;
     $uneSalle = NULL;
     $optionSalle = NULL;
+    $uneReservation = NULL ;
     $association = new Association($db);
     $salle = new Salle($db);
     $option = new Option($db);
@@ -489,6 +490,6 @@ function actionReserver($twig,$db)
         }
 
     }
-    echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
+    echo $twig->render('reserver.html.twig', array('form'=>$form,'uneReservation'=>$uneReservation, 'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
 
 }

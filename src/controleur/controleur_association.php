@@ -16,6 +16,10 @@ function actionAjoutAssociation($twig,$db) {
         $form['modif'] = false;
     }
 
+
+
+
+
     if (isset($_POST['btModifier'])) {
 
         $form['modifier'] = true;
