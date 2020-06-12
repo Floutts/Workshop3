@@ -2,12 +2,20 @@
 
 
 function actionProfilReservation($twig,$db) {
+    $form = array();
     if(isset($_GET["id"])) {
         $idReservation = $_GET["id"];
         $reserver = new Reserver($db);
+
+
         $uneReservation = $reserver->selectById($idReservation);
         $salleReservation = $reserver -> selectSalleReservation($idReservation);
         $optionReservation = $reserver -> selectOptionReservation($idReservation);
+        if(isset($uneReservation['NomAssociation'])){
+            $form['reservation']= true;
+        }else{
+            $form['reservation'] = false;
+        }
 
 
     }else{
@@ -19,7 +27,7 @@ function actionProfilReservation($twig,$db) {
 
 
 
-    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation, 'salleReservation' => $salleReservation, 'optionReservation'=>$optionReservation));
+    echo $twig->render('profilReservation.html.twig', array( 'form'=>$form, 'uneReservation' => $uneReservation, 'salleReservation' => $salleReservation, 'optionReservation'=>$optionReservation));
 }
 
 
@@ -375,17 +383,29 @@ function actionTableReservation($twig,$db){
 
 function actionReserver($twig,$db)
 {
+
+
     $form = array();
     $uneAssociation = NULL;
     $uneSalle = NULL;
     $optionSalle = NULL;
+    $uneReservation = NULL ;
     $association = new Association($db);
     $salle = new Salle($db);
     $option = new Option($db);
+    $reservation = new Reserver($db);
+
     $listeAssociation = $association->select();
     $listeSalle = $salle->select();
     $listeOption = $option->select();
-
+    if (isset($_GET['id'])) {
+        $form['modif'] = true;
+        $idReservation = $_GET['id'];
+        $uneReservation = $reservation->selectById($idReservation);
+    }else{
+        $form['modif'] = false;
+    }
+    var_dump($uneReservation);
 
     if (isset($_POST['btValider'])) {
         $NomAssociation = $_POST['nomAssociation'];
@@ -433,9 +453,7 @@ function actionReserver($twig,$db)
                     $form['message'] = 'Votre date de fin est inférieure a votre date de début ';
                 } else {
 
-
                     $exec = $reserver->insert($NomAssociation, $nom, $prenom, $adresse, $email, $tel, $motif, $idSalle, $dateTimeDebut, $dateTimeFin);
-
 
                     if (!$exec) {
                         $form['valide'] = false;
@@ -465,10 +483,9 @@ function actionReserver($twig,$db)
                         }
                     }
                 }
-
             }
         }
     }
-    echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
+    echo $twig->render('reserver.html.twig', array('form'=>$form,'listeAssociation'=>$listeAssociation,'listeOption'=>$listeOption,'uneReservation'=>$uneReservation,'listeSalle'=>$listeSalle, 'association'=>$uneAssociation,'reserver'=>$uneSalle, 'salle'=>$uneSalle,'optionSalle'=>$optionSalle));
 
 }
