@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} Ajout Collaborateur {% endblock %}
+{% block contenu %}
+
+    {% if form.valide is defined %}
+    {% if form.valide == true %}
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Inscription réussie</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Voici votre identifiant : {{form.email}}</h1>
+    {% else %}
+        <div class="mx-auto" style="width: 400px;">
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'inscription</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=ajoutCollabo" >Retourner sur la page d'inscription</a></h1>
+        </div>
+    {% endif %}
+    {% else %}
+
+    <form class="text-center" method="POST" action="index.php?page=ajoutCollaborateur">
+
+        <div class="mx-auto" style="width: 800px;">
+        <h3 style="text-align: center"> Ajouter un collaborateur </h3>
+            <br/><br/>
+            <div class="form-group row">
+                <label for="nom" class="sr-only"></label>
+                <div class="col-sm-12">
+                    <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom" required autofocus>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="prenom" class="sr-only"></label>
+                <div class="col-sm-12">
+                    <input type="text" id="prenom" class="form-control" name="prenom" placeholder="Prénom"  required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmailcom" class="sr-only"></label>
+                <div class="col-sm-12">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputMessage" class="sr-only"></label>
+                <div class="col-sm-12">
+                    <input type="password" id="mdp" class="form-control" name="mdp" placeholder="Mot de passe"  required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmailcom" class="sr-only">Email:</label>
+                <div class="col-sm-12">
+                    <input type="password" id="confMdp" name="confMdp" class="form-control" placeholder="Confirmation mot de passe" required >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAjouter">Ajouter</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+{% endif %}
+{% endblock %}

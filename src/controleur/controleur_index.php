@@ -64,9 +64,8 @@ function actionOptionSalle($twig,$db){
 }
 
 function actionAssociation($twig,$db){
-    $id = $_GET['id'];
     $association = new Association($db);
-    $json = json_encode($liste = $association->selectById($id));
+    $json = json_encode($liste = $association->select());
     echo $json;
 }
 

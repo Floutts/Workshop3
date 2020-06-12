@@ -30,39 +30,20 @@
         <div class = "form-row">
             <div class ="col-md-1"></div>
             <div class="col-md-4">
-                {% if form.modif is defined %}
-                    {% if form.modif == false %}
-                        <label for="validationCustom01">Association</label>
-                        <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
-                            <option value="0">(Aucune) </option>
-                            {% for a in listeAssociation %}
-                                <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
-                            {% endfor %}
-                        </select>
-                    {% else %}
-                        <label for="validationCustom01">Association</label>
-                        <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
-                            <option value="0">(Aucune) </option>
-
-
-                            {% for a in listeAssociation %}
-                                {% if uneReservation.NomAssociation == a.NomAssociation %}
-                                <option value="{{ a.id }}" selected >{{ uneReservation.NomAssociation }}</option>
-                                {% else %}
-                                <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-
-                    {% endif %}
-                {% endif %}
+                <label for="validationCustom01">Association</label>
+                <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
+                    <option value="0">(Aucune) </option>
+                    {% for a in listeAssociation %}
+                        <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
+                    {% endfor %}
+                </select>
 
                 <div >
                     <input type="text" class="form-control" id="nomAssociation" name="nomAssociation" hidden>
                 </div>
                 <div >
                     <label for="validationCustom01">Nom du locataire</label>
-                    <input type="text" class="form-control" id="nom" name="nom" value="{{ uneReservation.NomLocataire }}" required >
+                    <input type="text" class="form-control" id="nom" name="nom" required>
                 </div>
                 <div class="">
                     <label for="validationCustom02">Prenom du locataire</label>
