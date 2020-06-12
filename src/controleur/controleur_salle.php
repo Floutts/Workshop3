@@ -119,6 +119,22 @@ function actionGestionSalle($twig,$db) {
 
     }
 
+    $limite=5;
+    if(!isset($_GET['nopage'])){
+        $inf=0;
+        $nopage=0;
+    }
+    else{
+        $nopage=$_GET['nopage'];
+        $inf=$nopage * $limite;
+    }
+    $r = $salle->selectCount();
+    $nb = $r['nb'];
+
+
+    $listeSalle = $salle->selectLimit($inf,$limite);
+    $form['nbpages'] = ceil($nb/$limite);
+
     echo $twig->render('gestionSalle.html.twig', array('form'=>$form,'listeSalle'=>$listeSalle,'listeOption'=>$listeOption,'salle'=>$uneSalle));
 }
 

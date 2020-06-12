@@ -14,6 +14,8 @@ class Salle
     private $deleteById;
     private $selectOptions;
     private $deleteBySalle;
+    private $selectLimit;
+    private $selectCount;
 
     public function __construct($db){
         $this->db = $db;
@@ -27,8 +29,8 @@ class Salle
         $this->deleteById = $db->prepare("delete from optionSalle where idSalle=:idSalle");
         $this->selectOptions = $db->prepare("select o.libelle,o.id from optionSalle os, option o where idSalle=:idSalle and os.idOption=o.id");
         $this->deleteBySalle = $db->prepare("delete from optionSalle where idSalle=:idSalle");
-
-
+        $this->selectLimit = $db->prepare("select * from salle order by libelle limit :inf,:limite");
+        $this->selectCount =$db->prepare("select count(*) as nb from salle");
     }
 
     public function insert($nom,$superficie,$prix){
@@ -127,6 +129,24 @@ class Salle
             $r=false;
         }
         return $r;
+    }
+
+    public function selectLimit($inf, $limite){
+        $this->selectLimit->bindParam(':inf', $inf, PDO::PARAM_INT);
+        $this->selectLimit->bindParam(':limite', $limite, PDO::PARAM_INT);
+        $this->selectLimit->execute();
+        if ($this->selectLimit->errorCode()!=0){
+            print_r($this->selectLimit->errorInfo());
+        }
+        return $this->selectLimit->fetchAll();
+    }
+
+    public function selectCount(){
+        $this->selectCount->execute();
+        if ($this->selectCount->errorCode()!=0){
+            print_r($this->selectCount->errorInfo());
+        }
+        return $this->selectCount->fetch();
     }
 
 }

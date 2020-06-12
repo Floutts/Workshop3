@@ -12,6 +12,8 @@ class Reserver
     private $selectByDate;
     private $selectOptionReservation;
     private $selectSalleReservation;
+    private $deleteById;
+    private $deleteOptionReservation;
 
     public function __construct($db)
     {
@@ -25,7 +27,8 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->selectOptionReservation = $db->prepare("select distinct o.libelle as nomOption from `option` o, optionReservation opr, reservation r where opr.idOption = o.id and opr.idReservation=:idReservation");
         $this->selectSalleReservation = $db->prepare("select s.libelle as nomSalle from salle s, reservation r where r.id = :idReservation and r.idSalle = s.id");
         $this->selectByDate = $db->prepare("SELECT * FROM reservation WHERE idSalle = :idSalle AND ((:dateTimeDebut < DateDebut and DateDebut < :dateTimeFin) OR (:dateTimeDebut < DateFin and DateFin < :dateTimeFin)     OR (DateDebut < :dateTimeDebut and :dateTimeDebut < DateFin) OR  (DateDebut < :dateTimeFin and :dateTimeFin < DateFin))");
-
+        $this->deleteById = $db->prepare("delete from reservation where id = :id");
+        $this->deleteOptionReservation = $db->prepare("delete from optionReservation where idReservation = :idReservation");
 
     }
 
@@ -119,5 +122,25 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         return $this->selectByDate->fetchAll();
 
 
+    }
+
+    public function deleteById($id){
+        $r = true;
+        $this->deleteById->execute(array(':id'=>$id));
+        if ($this->deleteById->errorCode()!=0){
+            print_r($this->deleteById->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
+    public function deleteOptionReservation($idReservation){
+        $r = true;
+        $this->deleteOptionReservation->execute(array(':idReservation'=>$idReservation));
+        if ($this->deleteOptionReservation->errorCode()!=0){
+            print_r($this->deleteOptionReservation->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 }
