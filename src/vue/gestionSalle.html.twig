@@ -44,9 +44,7 @@
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=gestionSalle" >Retourner sur la gestion des salles</a></h1>
         {% endif %}
     {% else %}
- <br/><br/>
     <h3 style="text-align: center"> Liste des salles </h3>
-        <br/><br/>
 
         <div class="mx-auto" style="width: 900px;">
 
@@ -83,6 +81,25 @@
 
             </tbody>
         </table>
+            {% set nb = form.nbpages %}
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="index.php?page=gestionSalle&nopage={{ 0 }}" aria-label="Previous">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    {% for i in 1..nb %}
+                        <li><a href="index.php?page=gestionSalle&nopage={{ i-1 }}">{{ i }}</a></li>
+                    {% endfor %}
+                    <li>
+                        <a href="index.php?page=gestionSalle&nopage={{ nb-1 }}" aria-label="Next">
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
 
     </div>

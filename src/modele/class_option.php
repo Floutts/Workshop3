@@ -12,6 +12,10 @@ class Option{
     private $deleteById;
     private $deleteByOption;
     private $selectOptionSalle;
+    private $selectLimit;
+    private $selectCount;
+    private $deleteOptionReservation;
+
 
     public function __construct($db){
         $this->db = $db;
@@ -25,6 +29,10 @@ class Option{
         $this->deleteById = $db->prepare("delete from optionSalle where idOption=:idOption");
         $this->deleteByOption = $db->prepare("delete from optionSalle WHERE idOption=:idOption");
         $this->selectOptionSalle = $db-> prepare("select * from optionSalle");
+        $this->selectLimit = $db->prepare("select * from `option` order by libelle limit :inf,:limite");
+        $this->selectCount = $db->prepare("select count(*) as nb from `option`");
+        $this->deleteOptionReservation = $db->prepare("delete from optionReservation WHERE idOption=:idOption");
+
     }
 
     public function insert($nom,$prix){
@@ -125,4 +133,31 @@ class Option{
 
     }
 
+    public function selectLimit($inf, $limite){
+        $this->selectLimit->bindParam(':inf', $inf, PDO::PARAM_INT);
+        $this->selectLimit->bindParam(':limite', $limite, PDO::PARAM_INT);
+        $this->selectLimit->execute();
+        if ($this->selectLimit->errorCode()!=0){
+            print_r($this->selectLimit->errorInfo());
+        }
+        return $this->selectLimit->fetchAll();
+    }
+
+    public function selectCount(){
+        $this->selectCount->execute();
+        if ($this->selectCount->errorCode()!=0){
+            print_r($this->selectCount->errorInfo());
+        }
+        return $this->selectCount->fetch();
+    }
+
+    public function deleteOptionReservation($idOption){
+        $r = true;
+        $this->deleteByOption->execute(array(':idOption'=>$idOption));
+        if ($this->deleteByOption->errorCode()!=0){
+            print_r($this->deleteByOption->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
 }
