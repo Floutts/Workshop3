@@ -6,16 +6,20 @@ function actionProfilReservation($twig,$db) {
         $idReservation = $_GET["id"];
         $reserver = new Reserver($db);
         $uneReservation = $reserver->selectById($idReservation);
-        //$optionSalle = $->selectOptions($idSalle);
+        $salleReservation = $reserver -> selectSalleReservation($idReservation);
+        $optionReservation = $reserver -> selectOptionReservation($idReservation);
+
 
     }else{
         $uneReservation = null;
+        $salleReservation = null;
+        $optionReservation = null;
     }
 
 
 
 
-    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation));
+    echo $twig->render('profilReservation.html.twig', array( 'uneReservation' => $uneReservation, 'salleReservation' => $salleReservation, 'optionReservation'=>$optionReservation));
 }
 
 
@@ -221,14 +225,18 @@ function actionTableReservation($twig,$db){
                         // Condition d'affichage si Reservation
                         if ("$time" == "$debutEvent") {
                             if ($idSalle == $idSalleEvent) {
-                                if ($debutEvent != $finEvent){
-                                    $idEvent = $unEvent[0];
+                        $idEvent = $unEvent[0];
+
+                        if ($debutEvent != $finEvent){
                                     ?> <p style="color:red;">
                                     <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     <?php echo "<---  ",$nomSalle, " ", $HdebutEvent  ;
 
                                 }else{
-                                    ?> <p style="color:red;"> <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
+
+                                    ?> <p style="color:red;">
+                            <a href="index.php?page=profilReservation&id=<?php echo $idEvent ?>" class="text-reset" style="padding-right: 10px"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <?php echo $nomSalle, " ", $HdebutEvent," ", $HfinEvent  ;
 
                             }
                             }

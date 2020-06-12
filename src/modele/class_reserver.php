@@ -10,6 +10,8 @@ class Reserver
     private $insertOptionReservation;
     private $select;
     private $selectByDate;
+    private $selectOptionReservation;
+    private $selectSalleReservation;
 
     public function __construct($db)
     {
@@ -20,6 +22,8 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
         $this->selectByNom = $db->prepare("select * from reservation where idSalle=:idSalle and DateDebut=:DateDebut");
         $this->insertOptionReservation = $db->prepare("insert into optionReservation(idOption,idReservation) values (:idOption,:idReservation)");
         $this->select = $db->prepare("select * from reservation");
+        $this->selectOptionReservation = $db->prepare("select distinct o.libelle as nomOption from `option` o, optionReservation opr, reservation r where opr.idOption = o.id and opr.idReservation=:idReservation");
+        $this->selectSalleReservation = $db->prepare("select s.libelle as nomSalle from salle s, reservation r where r.id = :idReservation and r.idSalle = s.id");
         $this->selectByDate = $db->prepare("SELECT * FROM reservation WHERE idSalle = :idSalle AND ((:dateTimeDebut < DateDebut and DateDebut < :dateTimeFin) OR (:dateTimeDebut < DateFin and DateFin < :dateTimeFin)     OR (DateDebut < :dateTimeDebut and :dateTimeDebut < DateFin) OR  (DateDebut < :dateTimeFin and :dateTimeFin < DateFin))");
 
 
@@ -66,6 +70,24 @@ values (:NomAssociation,:NomLocataire,:PrenomLocataire,:AdresseLocataire,:EmailL
             print_r($this->selectByNom->errorInfo());
         }
         return $this->selectByNom->fetch();
+
+    }
+
+    public function selectOptionReservation($idReservation){
+        $this->selectOptionReservation->execute(array(':idReservation' => $idReservation));
+        if ($this->selectOptionReservation->errorCode()!=0){
+            print_r($this->selectOptionReservation->errorInfo());
+        }
+        return $this->selectOptionReservation->fetchAll();
+
+    }
+
+    public function selectSalleReservation($idReservation){
+        $this->selectSalleReservation->execute(array(':idReservation' => $idReservation));
+        if ($this->selectSalleReservation->errorCode()!=0){
+            print_r($this->selectSalleReservation->errorInfo());
+        }
+        return $this->selectSalleReservation->fetch();
 
     }
 
