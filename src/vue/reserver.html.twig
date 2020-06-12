@@ -30,8 +30,7 @@
         <div class = "form-row">
             <div class ="col-md-1"></div>
             <div class="col-md-4">
-                {% if form.modif is defined %}
-                    {% if form.modif == false %}
+
                         <label for="validationCustom01">Association</label>
                         <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
                             <option value="0">(Aucune) </option>
@@ -39,23 +38,7 @@
                                 <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
                             {% endfor %}
                         </select>
-                    {% else %}
-                        <label for="validationCustom01">Association</label>
-                        <select class="form-control" name="idAssociation" id="idAssociation" style="margin-bottom: 20px" >
-                            <option value="0">(Aucune) </option>
 
-
-                            {% for a in listeAssociation %}
-                                {% if uneReservation.NomAssociation == a.NomAssociation %}
-                                <option value="{{ a.id }}" selected >{{ uneReservation.NomAssociation }}</option>
-                                {% else %}
-                                <option value="{{ a.id }}">{{ a.NomAssociation }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-
-                    {% endif %}
-                {% endif %}
 
                 <div >
                     <input type="text" class="form-control" id="nomAssociation" name="nomAssociation" hidden>
@@ -66,23 +49,23 @@
                 </div>
                 <div class="">
                     <label for="validationCustom02">Prenom du locataire</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" required>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value="{{ uneReservation.PrenomLocataire }}" required>
                 </div>
                 <div class="">
                     <label for="validationCustomUsername">Adresse du locataire</label>
-                    <input type="text" class="form-control" id="adresse" name="adresse" required>
+                    <input type="text" class="form-control" id="adresse" name="adresse" value="{{ uneReservation.AdresseLocataire }}"  required>
                 </div>
                 <div class="">
                     <label for="validationCustom01">Email du locataire</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
+                    <input type="text" class="form-control" id="email" name="email" value="{{ uneReservation.EmailLocataire }}" required>
                 </div>
                 <div class="">
                     <label for="validationCustom01">Numéro de téléphone du locataire</label>
-                    <input type="text" class="form-control" id="tel" name="tel" required>
+                    <input type="text" class="form-control" id="tel" name="tel" value="{{ uneReservation.TelLocataire }}" required>
                 </div>
                 <div class="">
                     <label for="validationCustom01">Motif de la réservation</label>
-                    <input type="text" class="form-control" id="motif" name="motif" required>
+                    <input type="text" class="form-control" id="motif" name="motif" value="{{ uneReservation.Motif }}" required>
                 </div>
                 <br/><br/>
             </div>
@@ -112,7 +95,7 @@
             <div class ="col-md-2">
                 <div class="">
                     <label for="validationCustomUsername">Date de début</label>
-                    <input type="date" class="form-control" id="DateDebut" name="DateDebut" aria-describedby="inputGroupPrepend" required>
+                    <input type="date" class="form-control" id="DateDebut" name="DateDebut" aria-describedby="inputGroupPrepend"  required>
                 </div>
             </div>
 
@@ -145,7 +128,14 @@
             </div>
             <div class ="col-md-2"></div>
             <div class ="col-md-4"></div>
-            <button class=" btn-lg btn-success col-md 4" id="btValider" name="btValider">Valider</button>
+            {% if form.modif is defined %}
+                {% if form.modif == false %}
+                    <button class=" btn-lg btn-success col-md 4" id="btValider" name="btValider">Valider</button>
+                {% else %}
+                    <button class=" btn-lg btn-success col-md 4" id="btValider" name="btModifier">Modifier</button>
+
+                {% endif %}
+            {% endif %}
             <div class ="col-md-4"></div>
         </div>
 
