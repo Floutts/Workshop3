@@ -28,6 +28,7 @@ function actionProfilReservation($twig,$db) {
 function actionTableReservation($twig,$db){
 
     $form = array();
+
     ?>
 
     <!DOCTYPE HTML>
@@ -47,7 +48,7 @@ function actionTableReservation($twig,$db){
     </head>
     <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-        <a class="navbar-brand" href=index.php?page=acceuil>ホールプロジェクト</a>
+        <a class="navbar-brand" href=index.php?page=acceuil>Projet Salle</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,6 +58,25 @@ function actionTableReservation($twig,$db){
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php?page=acceuil">Acceuil <span class="sr-only">(current)</span></a>
                 </li>
+
+              <?php  if ($_SESSION != NULL):?>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Administration
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="index.php?page=ajoutAssociation"> Ajouter une association </a>
+                          <a class="dropdown-item" href="index.php?page=listeAssociation"> liste des associations </a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="index.php?page=gestionSalle"> Gestion des salles </a>
+                          <a class="dropdown-item" href="index.php?page=gestionOption"> Gestion des options</a>
+                      </div>
+                  </li>
+              <?php  endif ?>
+
+
+
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Salles
@@ -73,13 +93,23 @@ function actionTableReservation($twig,$db){
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=mentions"> Mentions légales </a>
                 </li>
+                <?php  if ($_SESSION != NULL):?>
+            </ul>
+            <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php?page=deconnexion">Deconnexion</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"><?php echo $_SESSION['login'] ?></a>
+                </li>
 
+                <?php elseif($_SESSION == NULL) : ?>
             </ul>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php?page=connexion">Se connecter</a>
                 </li>
-
+                <?php  endif ?>
             </ul>
         </div>
     </nav>
