@@ -47,6 +47,7 @@ function actionTableReservation($twig,$db){
 
     </head>
     <body class="bg-light">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <a class="navbar-brand" href=index.php?page=acceuil>Projet Salle</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,6 +163,7 @@ function actionTableReservation($twig,$db){
                 <?php foreach ($date->months as $id=>$m):  ?>
                     <th scope="col">
                         <a href="#" id="linkMonth<?php echo $id+1 ?>"> <?php echo utf8_encode(substr(utf8_decode($m),0,3)); ?></a>
+
                     </th>
                 <?php endforeach; ?>
 

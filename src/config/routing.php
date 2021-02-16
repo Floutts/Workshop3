@@ -22,6 +22,7 @@ function getPage($db)
     $lesPages['association'] = "actionAssociation";
     $lesPages['test'] = "actionTest";
     $lesPages['profilReservation'] = "actionProfilReservation";
+    $lesPages['imprimer'] = "actionImprimer";
 
 
 
