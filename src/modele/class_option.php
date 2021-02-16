@@ -153,9 +153,9 @@ class Option{
 
     public function deleteOptionReservation($idOption){
         $r = true;
-        $this->deleteByOption->execute(array(':idOption'=>$idOption));
-        if ($this->deleteByOption->errorCode()!=0){
-            print_r($this->deleteByOption->errorInfo());
+        $this->deleteOptionReservation->execute(array(':idOption'=>$idOption));
+        if ($this->deleteOptionReservation->errorCode()!=0){
+            print_r($this->deleteOptionReservation->errorInfo());
             $r=false;
         }
         return $r;

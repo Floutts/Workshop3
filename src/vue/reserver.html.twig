@@ -20,15 +20,15 @@
         {% endif %}
         </div>
     </div>
-    {% elseif form.modifier is defined%}
+    {% elseif form.supprimer is defined %}
         <div class="row" >
             <div class="mx-auto text-center">
-        {% if form.modifier == true %}
+        {% if form.supprimer == true %}
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Suppression réussie</h1>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=tableReservation" >Retourner sur le tableau de reservation</a></h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=tableReservation&annee=0" >Retourner sur le tableau de reservation</a></h1>
         {% else %}
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">{{form.message}}</h1>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=tableReservation" >Retourner sur le tableau de reservation</a></h1>
+            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><a href="index.php?page=tableReservation&annee=0" >Retourner sur le tableau de reservation</a></h1>
         {% endif %}
             </div>
         </div>

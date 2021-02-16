@@ -16,10 +16,11 @@ class Salle
     private $deleteBySalle;
     private $selectLimit;
     private $selectCount;
+    private $deleteSalleReservation;
 
     public function __construct($db){
         $this->db = $db;
-        $this->insert = $db->prepare("insert into salle(libelle,superficie,prix,idStatut) values (:libelle,:superficie ,:prix,1)");
+        $this->insert = $db->prepare("insert into salle(libelle,superficie,prix) values (:libelle,:superficie ,:prix)");
         $this->select = $db->prepare("select * from salle");
         $this->ajoutOption = $db->prepare("insert into optionSalle(idSalle,idOption) values (:idSalle,:idOption)");
         $this->selectByNom = $db->prepare("select * from salle where libelle=:libelle");
@@ -31,6 +32,8 @@ class Salle
         $this->deleteBySalle = $db->prepare("delete from optionSalle where idSalle=:idSalle");
         $this->selectLimit = $db->prepare("select * from salle order by libelle limit :inf,:limite");
         $this->selectCount =$db->prepare("select count(*) as nb from salle");
+        $this->deleteSalleReservation = $db->prepare("delete from reservation where idSalle=:idSalle");
+
     }
 
     public function insert($nom,$superficie,$prix){
@@ -147,6 +150,16 @@ class Salle
             print_r($this->selectCount->errorInfo());
         }
         return $this->selectCount->fetch();
+    }
+
+    public function deleteSalleReservation($idSalle){
+        $r = true;
+        $this->deleteSalleReservation->execute(array(':idSalle'=>$idSalle));
+        if ($this->deleteSalleReservation->errorCode()!=0){
+            //print_r($this->deleteSalleReservation->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 
 }

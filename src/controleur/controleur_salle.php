@@ -20,24 +20,28 @@ function actionGestionSalle($twig,$db) {
     }
 
     if(isset($_GET['idsup'])){
-        $exec1=$salle->deleteById($_GET['idsup']);
 
-        if (!$exec1){
+        $exec2 = $salle ->deleteSalleReservation($_GET['idsup']);
+        if (!$exec2){
             $form['supprimer'] = false;
-            $form['message'] = 'Problème de suppression dans la table optionSalle';
-        }else{
-            $exec=$salle->delete($_GET['idsup']);
-            if (!$exec){
+            $form['message'] = 'Une ou plusieures réservations ont lieu dans cette salle, veuillez les supprimer ou les modifier avant de supprimer la salle en question.';
+        }else {
+            $exec1 = $salle->deleteById($_GET['idsup']);
+
+            if (!$exec1) {
                 $form['supprimer'] = false;
-                $form['message'] = 'Problème de suppression dans la table produit';
-            }
-            else{
-                $form['supprimer'] = true;
-                $form['message'] = 'Salle supprimée avec succès';
+                $form['message'] = 'Problème de suppression dans la table optionSalle';
+            } else {
+                $exec = $salle->delete($_GET['idsup']);
+                if (!$exec) {
+                    $form['supprimer'] = false;
+                    $form['message'] = 'Problème de suppression dans la table salle';
+                } else {
+                    $form['supprimer'] = true;
+                    $form['message'] = 'Salle supprimée avec succès';
+                }
             }
         }
-
-
     }
 
 
@@ -132,7 +136,7 @@ function actionGestionSalle($twig,$db) {
     $nb = $r['nb'];
 
 
-    $listeSalle = $salle->selectLimit($inf,$limite);
+    $listeSallef = $salle->selectLimit($inf,$limite);
     $form['nbpages'] = ceil($nb/$limite);
 
     echo $twig->render('gestionSalle.html.twig', array('form'=>$form,'listeSalle'=>$listeSalle,'listeOption'=>$listeOption,'salle'=>$uneSalle));
