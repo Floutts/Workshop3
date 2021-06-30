@@ -88,15 +88,21 @@
                 <select class="form-control" name="idSalle" id="idSalle" style="margin-bottom: 20px" >
                     <option>-- Selectionner une salle --</option>
                     {% for s in listeSalle %}
-                        <option value="{{ s.id }}">{{ s.libelle }}</option>
+                        <option value="{{ s.id }}">{{ s.libelle }} - {{s.prix}} €</option>
+
                     {% endfor %}
                 </select>
-
+                    {% for s in listeSalle %}
+                        <input name="prixSalle" id="prixSalle{{ s.id }}" value="{{s.prix}}" hidden></input>
+                    {% endfor %}
                 <label for="optionSalle[]">Options</label>
                 <br/><br/>
                 <div class="">
                     <div class="form-check row">
                         <div id="option">
+
+                        </div>
+                        <div id="prixOption">
 
                         </div>
                     </div>
@@ -140,6 +146,11 @@
                 </div>
             </div>
             <div class ="col-md-2"></div>
+            <div class ="col-md-4"></div>
+
+                <div id="coutTotal" class="col-md-4" name="coutTotal"> Veuillez selectionner une salle pour voir le prix de la reservation.</div>
+
+            <div class ="col-md-4"></div>
             <div class ="col-md-4"></div>
 
                     <button class=" btn-lg btn-success col-md 4" id="btValider" name="btValider">Valider</button>

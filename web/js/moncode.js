@@ -12,11 +12,22 @@ $(document).ready(function() {
             requestTest.done(function( msgTest ) {
                 for (var i = 0;i<msgTest.options.length;i++){
                     console.log(msgTest.options[i].id)
-                    texte = "<input class=\"form-check-input\" type=\"checkbox\" value=\"" + msgTest.options[i].id + "\" id=\"optionSalle[]\" name=\"optionSalle[]\"> "// <label class=\"form-check-label\" for=\"optionSalle[]\">" + " option1 " + "</label><br/>"
-                    texteBis = "<label class=\"form-check-label\" for=\"optionSalle[]\">" + msgTest.options[i].libelle + "</label><br/>"
+                    texte = "<input class=\"form-check-input inputOptionsSalle\" type=\"checkbox\" value=\"" + msgTest.options[i].id + "\" id=\"optionSalle[]\" name=\"optionSalle[]\"> "// <label class=\"form-check-label\" for=\"optionSalle[]\">" + " option1 " + "</label><br/>"
+                    texteBis = "<label class=\"form-check-label\" for=\"optionSalle[]\">" + msgTest.options[i].libelle + " - " + msgTest.options[i].prix + " €</label><br/>"
                     $("#option").append(texte+texteBis)
-
+                    textePrix = "<input value=\"" + msgTest.options[i].prix + "\" id=\"prixOption" + msgTest.options[i].id +"\" hidden>"
+                    $("#prixOption").append(textePrix)
                 }
+
+                var optionsSalle = document.getElementsByClassName('inputOptionsSalle')
+                for (var i = 0;i<optionsSalle.length;i++){
+                    optionsSalle[i].addEventListener("click",function(){
+                        prixAPayer(valeur,optionsSalle)
+
+                    })
+                }
+                console.log(optionsSalle)
+
             });
 
 
@@ -26,15 +37,36 @@ $(document).ready(function() {
             });
         }
 
+    function prixAPayer(salle,optionsSalle){
+        $("#coutTotal").empty()
+        prixTotal = document.getElementById('prixSalle'+salle.toString()).value
+        console.log(prixTotal);
+        for (var i = 0;i<optionsSalle.length;i++){
+            if(optionsSalle[i].checked){
+                console.log(optionsSalle[i].value.toString());
+                prixOption = document.getElementById('prixOption' + optionsSalle[i].value.toString()).value
+                prixTotal = parseInt(prixTotal) + parseInt(prixOption)
+            }
+        }
+
+        $("#coutTotal").append("Le prix total à payer pour la reservation sera de : " + prixTotal +" €")
+
+    }
 
     // Je lance l’ajax en cliquant sur le bouton
     $("#idSalle").change(function () {
+        $("#coutTotal").empty()
         $("#option").empty()
+        $("#optionPrix").empty()
+
         var valeur;
         valeur = $("#idSalle").val();
+        prixAPayer(valeur,"")
         test(valeur)
         //ajax();
     });
+
+
 
     function assos() {
         var requestAssociation = $.ajax({
@@ -100,6 +132,8 @@ $(document).ready(function() {
         dateTime()
 
     })
+
+
 })
 
 
