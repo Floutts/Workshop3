@@ -153,6 +153,16 @@ function actionTableReservation($twig,$db){
 
 
     ?>
+
+        <script type="text/javascript">     
+        function imprimer() {    
+            var imprimer = document.getElementById('imprimer');
+            var popupcontenu = window.open('', '_blank');
+            popupcontenu.document.open();
+            popupcontenu.document.write('<html><body onload="window.print()">' + imprimer.innerHTML + '</html>');
+            popupcontenu.document.close();
+        }
+        </script>
     <div class="periods">
 
 
@@ -168,12 +178,15 @@ function actionTableReservation($twig,$db){
             </tr>
             </thead>
         </table>
+        <div id="imprimer">
 
         <?php $dates = current($dates);
         foreach ($dates as $m=>$days):
 
             ?>
+            
             <div id="dateActuelle"> </div>
+
             <div class="months" id="month<?php echo $m ?>">
                 <table class="table">
                     <thead>
@@ -192,14 +205,14 @@ function actionTableReservation($twig,$db){
                     <?php if ($d == 1): ?>
                         <?php if($w != 1 ): ?>
                             <td colspan="<?php echo $w-1;  ?> "></td>
-                        <?php endif ?>
+                        <?php endif ?> 
                     <?php endif ?>
 
                     <td>
                         <?php echo $d;
                         echo "  Reservations du jour";
-
-                        ?> <h5> </h5> <?php
+                            
+                        ?>      <h5> </h5><?php //ici pour une case
                         //  init la date
 
                         $time = ("$year-$m-$d");
@@ -230,7 +243,7 @@ function actionTableReservation($twig,$db){
                         $finEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$finEvent)->format('Y-n-d');
                         $HdebutEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HdebutEvent)->format('H:i');
                         $HfinEvent =  DateTime::createFromFormat('Y-m-d H:i:s',$HfinEvent)->format('H:i');
-
+                            
 
 
                         // date en seconde
@@ -353,9 +366,12 @@ function actionTableReservation($twig,$db){
         <?php endforeach ;
 
         ?>
-
+        </div>
+        <br>
+        <div style="text-align:center;">
+            <input type="button" value="imprimer le planning du mois" onclick="imprimer();" />
+        </div><br>
     </div>
-
 
 
     </body>
