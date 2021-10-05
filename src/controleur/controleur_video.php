@@ -101,7 +101,7 @@ function actionAjoutVideoTrad($twig,$db){
                         echo 'Fichier transféré dans '.$filedest;
                         $videoInit = new Video($db);
                         
-                        $exec=$videoInit->ajoutVideoInit($filedest);
+                        $exec=$videoInit->ajoutVideoTrad($_GET['id'],$filedest);
                         if (!$exec){
                             $form['ajouter'] = false;
                             $form['message'] = 'Problème de d\'ajout d\'une vidéo non traduite';

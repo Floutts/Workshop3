@@ -5,12 +5,14 @@ class Video{
     private $ajoutVideoInit;
     private $selectVideoInit;
     private $uneVideoInit;
+    private $ajoutVideoTrad;
 
     public function __construct($db){
         $this->db = $db;
         $this->ajoutVideoInit = $db->prepare("INSERT INTO Video(UrlInit) VALUES (:UrlInit) ");
         $this->selectVideoInit = $db->prepare("SELECT idVideo,UrlInit FROM Video");
         $this->uneVideoInit = $db->prepare("SELECT UrlInit FROM Video WHERE idVideo = :idVideo");
+        $this->ajoutVideoTrad = $db->prepare("UPDATE Video SET UrlTrad = :UrlTrad WHERE idVideo = :idVideo");
     }
 
     public function ajoutVideoInit($UrlVideo){
@@ -41,6 +43,17 @@ class Video{
 
     }
 
+    
+    public function ajoutVideoTrad($idVideo,$UrlTrad)
+    {
+        $r = true;
+        $this->ajoutVideoTrad->execute(array(':idVideo'=>$idVideo, ':UrlTrad' => $UrlTrad));
+        if ($this->ajoutVideoTrad->errorCode() != 0) {
+            print_r($this->ajoutVideoTrad->errorInfo());
+            $r = false;
+        }
+        return $r;
+    }
 
 
 }
