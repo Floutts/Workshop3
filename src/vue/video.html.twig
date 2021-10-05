@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+{% block title %} Titre de la vidéo {% endblock %}
+{% block contenu %}
+{% for videoI in videoInit %}
+<video controls class ="col-md-12">
+    <source src="{{videoI.UrlInit}}" type="video/mp4">
+</video>
+{% endfor %}
+{% endblock %}

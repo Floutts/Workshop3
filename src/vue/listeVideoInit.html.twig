@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
-{% block title %}  Ajouter des vidéos {% endblock %}
+{% block title %} Liste des vidéos {% endblock %}
 {% block style %} <link href="css/text.css" rel="stylesheet"> {% endblock %}
 {% block contenu %}
 <h3 class="container"> Voici la liste des videos </h3>
 
 {% for video in listeVideo %}
-<a href="#" class="blackText">
+<a href="index.php?page=video&id={{video.idVideo}}" class="blackText" title="nom du titre plus tard (ne pas oublier de retirer)">
     <div class="container row blackText" style="margin-top:30px">
         <video class ="col-md-4" style="max-height:200px; max-width:300px">
-        <source src="{{video.UrlVideo}}" type="video/mp4">
+        <source src="{{video.UrlInit}}" type="video/mp4">
         </video>
         <p class="col-md-8" class="blackText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
