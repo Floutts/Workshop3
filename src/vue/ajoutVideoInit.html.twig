@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}  Ajouter des vidéos {% endblock %}
+{% block contenu %}
+        {% if form.ajout is defined %}
+            {% if form.ajout == false %}
+            <div class="mx-auto" style="width: 400px;">
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
+            </div>
+            {% else %}
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
+            {% endif %}
+        {% endif %}
+       <div class="mx-auto" style="width: 500px">
+            <form action="" method="post" enctype="multipart/form-data">
+            <span>Filename:</span>
+            <input type="file" accept=".mp4,.MP4" name="video" id="video" /> <br>
+            <input type="submit" name="submit" value="Submit" />
+            </form>
+        </div>
+{% endblock %}

@@ -4,6 +4,11 @@ function getPage($db)
 
     $lesPages['accueil'] = "actionAccueil;0";
     $lesPages['maintenance'] = "actionMaintenance;0";
+    $lesPages['connexion'] = "actionConnexion;0";
+    $lesPages['deconnexion'] = "actionDeconnexion;0";
+    $lesPages['ajoutVideoInit'] = "actionAjoutVideoInit;0";
+    $lesPages['listeVideoInit'] = "actionListeVideoInit;0";
+    
 
 
 
