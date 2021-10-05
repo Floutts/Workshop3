@@ -3,24 +3,8 @@ function getPage($db)
 {
 
     $lesPages['accueil'] = "actionAccueil;0";
-    $lesPages['gestionSalle'] = "actionGestionSalle;1";
-    $lesPages['gestionOption'] = "actionGestionOption;1";
-    $lesPages['listeAssociation'] = "actionListeAssociation;1";
-    $lesPages['ajoutAssociation'] = "actionAjoutAssociation;1";
-    $lesPages['tableReservation'] = "actionTableReservation;0";
-    $lesPages['reserver'] = "actionReserver;0";
-    $lesPages['aPropos'] = "actionAPropos;0";
-    $lesPages['mentions'] = "actionMentions;0";
-    $lesPages['connexion'] = "actionConnexion;0";
-    $lesPages['deconnexion'] = "actionDeconnexion;0";
     $lesPages['maintenance'] = "actionMaintenance;0";
-    $lesPages['profilSalle'] = "actionProfilsalle;0";
-    $lesPages['calendrier'] = "actionCalendrier;0";
-    $lesPages['options'] = "actionOptions;0";
-    $lesPages['optionSalle'] = "actionOptionSalle;0";
-    $lesPages['association'] = "actionAssociation;0";
-    $lesPages['test'] = "actionTest;0";
-    $lesPages['profilReservation'] = "actionProfilReservation;0";
+
 
 
 
