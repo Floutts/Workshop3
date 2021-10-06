@@ -50,23 +50,34 @@ function actionAjoutVideoInit($twig,$db){
     echo $twig->render('ajoutVideoInit.html.twig',array("form"=>$form));
 }
 
-function actionListeVideoInit($twig,$db){
+function actionListeVideo($twig,$db){
+    $form = array();
     $video = new Video($db);
-    $listeVideo = $video->selectVideoInit();
-    echo $twig->render('listeVideoInit.html.twig',array("listeVideo"=>$listeVideo));
-}
 
-function actionVideo($twig,$db){
 
-    $idVideo = $_GET['id'];
+    if(isset($_GET['id'])){
+        $idVideo = $_GET['id'];
     
-    $video = new Video($db);
-    $videoInit = $video->uneVideoInit($idVideo);
-    var_dump($videoInit);
-    #recup la video traduite via l'id
+        $video = new Video($db);
+        $videos = $video->deuxVideos($idVideo);
+        if(isset($_GET['trad'])){
+            $form['uneVideo'] = true;
+            
+             
+            echo $twig->render('listeVideo.html.twig',array("videos"=>$videos,"form"=>$form,"trad"=>$_GET['trad']));
+        }else{
 
-
-    echo $twig->render("video.html.twig",array("videoInit"=>$videoInit));
+        if($videos['UrlTrad'] != null){
+            $form['Trad'] = true;
+        }else{
+            $form['Trad'] = false;
+        }
+    }
+        echo $twig->render('listeVideo.html.twig',array("idVideo"=>$idVideo,"form"=>$form));
+    }else{
+        $listeVideo = $video->selectVideoInit();
+        echo $twig->render('listeVideo.html.twig',array("listeVideo"=>$listeVideo));
+    }
 }
 
 function actionAjoutVideoTrad($twig,$db){

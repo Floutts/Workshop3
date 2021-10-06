@@ -4,14 +4,15 @@ class Video{
     private $db;
     private $ajoutVideoInit;
     private $selectVideoInit;
-    private $uneVideoInit;
+    private $deuxVideos;
     private $ajoutVideoTrad;
+    
 
     public function __construct($db){
         $this->db = $db;
         $this->ajoutVideoInit = $db->prepare("INSERT INTO Video(UrlInit) VALUES (:UrlInit) ");
         $this->selectVideoInit = $db->prepare("SELECT idVideo,UrlInit FROM Video");
-        $this->uneVideoInit = $db->prepare("SELECT UrlInit FROM Video WHERE idVideo = :idVideo");
+        $this->deuxVideos = $db->prepare("SELECT idVideo,UrlInit,UrlTrad FROM Video WHERE idVideo = :idVideo");
         $this->ajoutVideoTrad = $db->prepare("UPDATE Video SET UrlTrad = :UrlTrad WHERE idVideo = :idVideo");
     }
 
@@ -34,12 +35,12 @@ class Video{
 
     }
 
-    public function uneVideoInit($idVideo){
-        $liste = $this->uneVideoInit->execute(array(':idVideo'=>$idVideo));
-        if ($this->uneVideoInit->errorCode()!=0){
-            print_r($this->uneVideoInit->errorInfo());
+    public function deuxVideos($idVideo){
+        $liste = $this->deuxVideos->execute(array(':idVideo'=>$idVideo));
+        if ($this->deuxVideos->errorCode()!=0){
+            print_r($this->deuxVideos->errorInfo());
         }
-        return $this->uneVideoInit->fetchAll();
+        return $this->deuxVideos->fetch();
 
     }
 

@@ -7,8 +7,7 @@ function getPage($db)
     $lesPages['connexion'] = "actionConnexion;0";
     $lesPages['deconnexion'] = "actionDeconnexion;0";
     $lesPages['ajoutVideoInit'] = "actionAjoutVideoInit;0";
-    $lesPages['listeVideoInit'] = "actionListeVideoInit;0";
-    $lesPages['video'] = "actionVideo;0";
+    $lesPages['listeVideo'] = "actionListeVideo;0";
     $lesPages['ajoutVideoTrad'] = "actionAjoutVideoTrad;0";
     
 

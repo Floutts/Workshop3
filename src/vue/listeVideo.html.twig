@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% block title %} Liste des vidéos {% endblock %}
+{% block style %} <link href="css/text.css" rel="stylesheet"> {% endblock %}
+{% block contenu %}
+
+
+    
+        {% if form.Trad is defined %}
+            {% if form.Trad == true %}
+            Une vidéo traduite est disponible, souhaitez vous la visionner ?
+            <br><br>
+            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn-danger">Non</button> </a>
+            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=1" style="text-decoration: none" ><button class="btn-success">Oui</button> </a>
+            {% else %}
+            Il n'y pas encore de traduction disponible pour cette vidéo.
+            <br>
+            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn-primary">Continuer</button> </a>
+            {% endif %}
+        {% elseif form.uneVideo is defined %}
+        {% if trad = 1  %}
+        Vidéo Originale :
+        <video controls class ="col-md-6">
+            <source src="{{videos.UrlInit}}" type="video/mp4">
+        </video>
+        {% else %}
+        Vidéo Traduite :
+        <video controls class ="col-md-6">
+            <source src="{{videos.UrlTrad}}" type="video/mp4">
+        </video>
+        {% endif %}
+        {% else %}
+<h3 class="container"> Voici la liste des videos </h3>
+{% for video in listeVideo %}
+<a href="index.php?page=listeVideo&id={{video.idVideo}}" class="blackText" title="nom du titre plus tard (ne pas oublier de retirer)">
+    <div class="container row blackText" style="margin-top:30px">
+        <video class ="col-md-4" style="max-height:200px; max-width:300px">
+        <source src="{{video.UrlInit}}" type="video/mp4">
+        </video>
+        <p class="col-md-8" class="blackText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </div>
+</a>
+{% endfor %}
+{% endif %}
+{% endblock %}
