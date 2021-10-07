@@ -13,3 +13,32 @@
 .noUnderline:hover{
     text-decoration: none;
 }
+
+.whiteText{
+    color: white;
+} 
+
+
+.italicText{
+    font-style: italic;
+}
+
+.boldText{
+    font-weight: bold;
+}
+
+.intro{
+    margin-bottom: 50px;
+}
+
+.intro-sub{
+    background-color : rgb(37, 35, 35);
+    
+}
+
+.presentation{
+    background : url(../images/SIGNHA_banniere.png);
+    background-size: cover;
+    height: 400px;
+    
+}

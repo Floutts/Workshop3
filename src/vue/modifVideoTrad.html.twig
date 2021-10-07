@@ -1,22 +1,20 @@
 {% extends "base.html.twig" %}
 {% block title %}  Ajouter des vidéos non traduites{% endblock %}
 {% block contenu %}
-        {% if form.ajout is defined %}
-            {% if form.ajout == false %}
+        {% if form.modif is defined %}
+            {% if form.modif == false %}
             <div class="mx-auto" style="width: 400px;">
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
             </div>
             {% else %}
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie</h1>
             {% endif %}
         {% endif %}
        <div class="mx-auto" style="width: 500px">
             <form action="" method="post" enctype="multipart/form-data">
             <span style="font-weight : bold; font-size : 22px; margin-top : 10">Importez votre vidéo :</span>
             <input required type="file" class ="form-control" accept=".mp4,.MP4" name="video" id="video" /> <br>
-            <input required type="text" class ="form-control" name="titre" id="titre" placeholder="Titre" style="margin-bottom : 10px;">
-            <textarea required type="text" class ="form-control" name="descriptionVideo" id="descriptionVideo" placeholder="Description"></textarea>
             <input class="btn-primary" type="submit" class ="form-control" name="submit" value="Enregistrer" />
             </form>
         </div>

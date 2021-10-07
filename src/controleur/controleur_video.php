@@ -4,7 +4,8 @@ function actionAjoutVideoInit($twig,$db){
 
  $form=array();
     if (isset($_POST['submit'])) {
-     
+        $titre = $_POST['titre'];
+        $descriptionVideo = $_POST['descriptionVideo'];
         if (! empty($_FILES)) {
             echo '<pre>'.print_r($_FILES,true).'</pre>';
             $file_name = $_FILES['video']['name'];
@@ -30,7 +31,7 @@ function actionAjoutVideoInit($twig,$db){
                     echo 'Fichier transféré dans '.$filedest;
                     $videoInit = new Video($db);
                     
-                    $exec=$videoInit->ajoutVideoInit($filedest);
+                    $exec=$videoInit->ajoutVideoInit($filedest,$titre,$descriptionVideo);
                     if (!$exec){
                         $form['ajouter'] = false;
                         $form['message'] = 'Problème de d\'ajout d\'une vidéo non traduite';
@@ -72,8 +73,9 @@ function actionListeVideo($twig,$db){
         }else{
             $form['Trad'] = false;
         }
-    }
         echo $twig->render('listeVideo.html.twig',array("idVideo"=>$idVideo,"form"=>$form));
+
+    }
     }else{
         $listeVideo = $video->selectVideoInit();
         echo $twig->render('listeVideo.html.twig',array("listeVideo"=>$listeVideo));
@@ -86,7 +88,6 @@ function actionAjoutVideoTrad($twig,$db){
     if(isset($_GET['id'])){
         $form['trad'] = true;
         if (isset($_POST['submit'])) {
-            
             if (! empty($_FILES)) {
                 echo '<pre>'.print_r($_FILES,true).'</pre>';
                 $file_name = $_FILES['video']['name'];
@@ -132,8 +133,167 @@ function actionAjoutVideoTrad($twig,$db){
     echo $twig->render('ajoutVideoTrad.html.twig',array("form"=>$form));
     }else{
         $video = new Video($db);
-        $listeVideo = $video->selectVideoInit();
+        $listeVideo = $video->selectIfTradNull();
         echo $twig->render('ajoutVideoTrad.html.twig',array("form"=>$form,"listeVideo"=>$listeVideo));
     }
-   }
+}
+
+function actionGestionVideoInit($twig,$db){
+    $form = array();
+    $video = new Video($db);
+    if(isset($_GET['id'])){
+        $form['uneVideo'] = true;
+        $idVideo = $_GET['id'];
+        $videos = $video->deuxVideos($idVideo);
+        echo $twig->render('gestionVideoInit.html.twig',array("form"=>$form,"videos"=>$videos)); 
+    }else{
+        $listeVideo = $video->selectVideoInit();
+        echo $twig->render('gestionVideoInit.html.twig',array("form"=>$form,"listeVideo"=>$listeVideo)); 
+    }
+
+}
+
+function actionSupprimerVideo($twig,$db){
+    $form = array();
+    if (isset($_GET['id'])){
+        $idVideo = $_GET['id'];
+        $video = new Video($db);
+        if(isset($_GET['trad'])){
+            $exec = $video->deleteVideoTrad($idVideo);
+            if(!$exec){
+                $form['supp'] = false;
+            }else{
+                $form['supp'] = true;
+            }
+        }else{
+            $exec = $video->deleteVideo($idVideo);
+            if(!$exec){
+                $form['supp'] = false;
+            }else{
+                $form['supp'] = true;
+            }
+        }
+    }
+    echo $twig->render('gestionVideoInit.html.twig',array("form"=>$form)); 
+}
    
+function actionModifVideoInit($twig,$db){
+    $form = array();
+    if (isset($_GET['id'])){
+        $idVideo = $_GET['id'];
+        $form['trad'] = true;
+        if (isset($_POST['submit'])) {
+            $titre = $_POST['titre'];
+            $descriptionVideo = $_POST['descriptionVideo'];
+            if (! empty($_FILES)) {
+                echo '<pre>'.print_r($_FILES,true).'</pre>';
+                $file_name = $_FILES['video']['name'];
+                $file_extension = strrchr($file_name, ".");
+                
+                $file_tmp_name = $_FILES['video']['tmp_name'];
+                $filedest = '../web/video/videoInit/' . $file_name;
+                
+                $extension_autorisees = array(
+                    0 =>'.mp4',
+                    1 => '.MP4'
+                );
+                
+                echo '<pre>'.print_r($file_extension,true).'</pre>';
+                echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
+                if (in_array(
+                    $file_extension,
+                    $extension_autorisees
+                )) {
+                    echo $file_tmp_name.'<br>';
+                    echo $filedest;
+                    if (move_uploaded_file($file_tmp_name, $filedest)) {
+                        echo 'Fichier transféré dans '.$filedest;
+                        $videoInit = new Video($db);
+                        
+                        $exec=$videoInit->updateVideoInit($titre,$descriptionVideo,$filedest,$_GET['id']);
+                        if (!$exec){
+                            $form['ajouter'] = false;
+                            $form['message'] = 'Problème de d\'ajout d\'une vidéo non traduite';
+                        }else{
+                            $form['ajouter'] = true;
+                        }
+    
+                        echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                    } else {
+                        echo 'Erreur';
+                    }
+                } else {
+                    echo 'Uniquement .mp4, .MP4';
+                }
+            }
+        }
+    }
+    echo $twig->render('modifVideoInit.html.twig',array("form"=>$form)); 
+}
+
+function actionModifVideoTrad($twig,$db){
+    $form = array();
+    if (isset($_GET['id'])){
+        $idVideo = $_GET['id'];
+        $form['trad'] = true;
+        if (isset($_POST['submit'])) {
+            if (! empty($_FILES)) {
+                echo '<pre>'.print_r($_FILES,true).'</pre>';
+                $file_name = $_FILES['video']['name'];
+                $file_extension = strrchr($file_name, ".");
+                
+                $file_tmp_name = $_FILES['video']['tmp_name'];
+                $filedest = '../web/video/videoInit/' . $file_name;
+                
+                $extension_autorisees = array(
+                    0 =>'.mp4',
+                    1 => '.MP4'
+                );
+                
+                echo '<pre>'.print_r($file_extension,true).'</pre>';
+                echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
+                if (in_array(
+                    $file_extension,
+                    $extension_autorisees
+                )) {
+                    echo $file_tmp_name.'<br>';
+                    echo $filedest;
+                    if (move_uploaded_file($file_tmp_name, $filedest)) {
+                        echo 'Fichier transféré dans '.$filedest;
+                        $videoInit = new Video($db);
+                        
+                        $exec=$videoInit->ajoutVideoTrad($_GET['id'],$filedest);
+                        if (!$exec){
+                            $form['ajouter'] = false;
+                            $form['message'] = 'Problème de d\'ajout d\'une vidéo non traduite';
+                        }else{
+                            $form['ajouter'] = true;
+                        }
+    
+                        echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                    } else {
+                        echo 'Erreur';
+                    }
+                } else {
+                    echo 'Uniquement .mp4, .MP4';
+                }
+            }
+        }
+    }
+    echo $twig->render('modifVideoTrad.html.twig',array("form"=>$form)); 
+}
+
+function actionGestionVideoTrad($twig,$db){
+    $form = array();
+    $video = new Video($db);
+    if(isset($_GET['id'])){
+        $form['uneVideo'] = true;
+        $idVideo = $_GET['id'];
+        $videos = $video->deuxVideos($idVideo);
+        echo $twig->render('gestionVideoTrad.html.twig',array("form"=>$form,"videos"=>$videos)); 
+    }else{
+        $listeVideo = $video->selectIfTradNotNull();
+        echo $twig->render('gestionVideoTrad.html.twig',array("form"=>$form,"listeVideo"=>$listeVideo)); 
+    }
+
+}

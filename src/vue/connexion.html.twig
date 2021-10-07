@@ -15,14 +15,15 @@
     <br/><br/>
     <div class="mx-auto" style="width: 500px">
         <form class="text-center" method="POST" action="index.php?page=connexion">
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required autofocus>
+            <div class="form-group row" style="margin-bottom : 5px;" >
+                <div class="col-sm-12" >
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
                 </div>
             </div>
+            <br>
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <input type="password" id="Password" name="Password" class="form-control" placeholder="Mot de Passe" required >
+                    <input type="password" id="mdp" name="mdp" class="form-control" placeholder="Mot de Passe" required >
                 </div>
             </div>
 
@@ -32,6 +33,8 @@
                     <button type="submit" class="btn-lg btn-primary" name="btConnecter">Se connecter</button>
                 </div>
             </div>
+                <small><a href="index.php?page=inscription">Pas de compte ? Rejoignez-nous sans attendre ! </a></small>
+
         </form>
     </div>
 {% endblock %}

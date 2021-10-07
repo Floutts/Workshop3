@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %} Liste des vidéos {% endblock %}
+{% block title %} Ajouter des videos traduites {% endblock %}
 {% block style %} <link href="css/text.css" rel="stylesheet"> {% endblock %}
 {% block contenu %}
 
@@ -16,29 +16,34 @@
         {% endif %}
        <div class="mx-auto" style="width: 500px">
             <form action="" method="post" enctype="multipart/form-data">
-            <span>Filename:</span>
+            <span>Importez votre vidéo </span>
             <input type="file" accept=".mp4,.MP4" name="video" id="video" /> <br>
-            <input type="submit" name="submit" value="Submit" />
+            <input class="btn-primary" type="submit" name="submit" value="Submit" />
             </form>
         </div>
 {% else %}
 
-<h3 class="container"> Voici la liste des videos </h3>
+<h3 class="container"> Liste des vidéos n'ayant pas de traduction associée</h3>
 
 {% for video in listeVideo %}
 
-<a href="index.php?page=ajoutVideoTrad&id={{video.idVideo}}" class="blackText" title="nom du titre plus tard (ne pas oublier de retirer)">
-    <div class="container row blackText" style="margin-top:30px">
-        <video class ="col-md-4" style="max-height:200px; max-width:300px">
+<a href="index.php?page=ajoutVideoTrad&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
+    <div class="card mb-3" style="max-width: 1500px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      
+      <video class ="class="img-fluid rounded-start"" style="max-height:200px; max-width:300px">
         <source src="{{video.UrlInit}}" type="video/mp4">
         </video>
-        <p class="col-md-8" class="blackText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
     </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{video.Titre}}</h5>
+        <p class="card-text">{{video.DescriptionVideo}}</p>
+      </div>
+    </div>
+  </div>
+</div>
 </a>
 {% endfor %}
 

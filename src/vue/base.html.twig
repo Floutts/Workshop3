@@ -12,12 +12,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/text.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/logo_workshopB3.png"> 
         {% block style %} {% endblock %}
     </head>
-    <body class="bg-light">
+    <body class="bg-light" style="margin : 0">
     {% block body %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-            <a class="navbar-brand" href=index.php?page=accueil>Sign Ha</a>
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #0F056B">
+            <a class="navbar-brand" href=index.php?page=accueil><img src="images/logo_workshopB3.png" alt="" width="90" height="70"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,43 +27,56 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php?page=accueil">Accueil <span class="sr-only">(current)</span></a>
-                    </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" href="index.php?page=accueil" style="color : white">Accueil <span class="sr-only">(current)</span></a>
+                    </li>                            
+                    {% if session.role is defined %}
+                            <li class="nav-item dropdown whiteText">
+                                <a class="nav-link dropdown-toggle" style="color : white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Vidéos
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="index.php?page=ajoutVideoInit"> Ajout d'une vidéo non traduite</a>
+                                {% if session.role != 0 %}
+                                    <a class="dropdown-item" href="index.php?page=listeVideo" > Liste des vidéos </a>
+                                    <div class="dropdown-divider"></div>
+                                    {% endif %}
+                                    {% if session.role == 1 or session.role == 4 %}
+                                    <a class="dropdown-item" href="index.php?page=ajoutVideoInit" > Ajout d'une vidéo non traduite</a>
                                     <a class="dropdown-item" href="index.php?page=gestionVideoInit"> Gestion des vidéos non traduites </a>
                                     <div class="dropdown-divider"></div>
+                                    {% endif %}
+                                    {% if session.role == 1 or session.role == 3 %}
                                     <a class="dropdown-item" href="index.php?page=ajoutVideoTrad"> Ajout d'une vidéo traduite </a>
                                     <a class="dropdown-item" href="index.php?page=gestionVideoTrad"> Gestion des vidéos traduites</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.php?page=listeVideo"> Liste des vidéos </a>
+                                    
+                                    {% endif %}
+                                    
                                 </div>
                             </li>
+                            {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=aPropos"> A propos </a>
+                        <a class="nav-link" style="color : white" href="index.php?page=aPropos"> A propos </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=mentions"> Mentions légales </a>
+                        <a class="nav-link" style="color : white"  href="index.php?page=mentions"> Mentions légales </a>
                     </li>
 
                 </ul>
                 <ul class="nav nav-tabs">
                     {%if session.login is defined %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php?page=deconnexion">Deconnexion</a>
+                            <a class="nav-link active btn-primary" href="index.php?page=deconnexion">Deconnexion</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php?page=connexion">Se connecter</a>
+                            <a class="nav-link active btn btn-primary" href="index.php?page=inscription">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active btn btn-primary" href="index.php?page=connexion" style="margin-left:10px">Se connecter</a>
                         </li>
                     {% endif %}
                     {%if session.login is defined %}
                         <li class="nav-item">
-                        <a class="nav-link active" href="#">{{session.login}}</a>
+                        <a class="nav-link active btn btn-primary" href="#" style="margin-left:10px">{{session.login}}</a>
                         </li>
 
                     {% endif %}

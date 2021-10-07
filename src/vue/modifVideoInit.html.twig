@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
 {% block title %}  Ajouter des vidéos non traduites{% endblock %}
 {% block contenu %}
-        {% if form.ajout is defined %}
-            {% if form.ajout == false %}
+        {% if form.modif is defined %}
+            {% if form.modif == false %}
             <div class="mx-auto" style="width: 400px;">
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de l'ajout</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Echec de la modification</h1>
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
             </div>
             {% else %}
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Modification réussie</h1>
             {% endif %}
         {% endif %}
        <div class="mx-auto" style="width: 500px">

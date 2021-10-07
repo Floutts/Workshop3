@@ -6,9 +6,17 @@ function getPage($db)
     $lesPages['maintenance'] = "actionMaintenance;0";
     $lesPages['connexion'] = "actionConnexion;0";
     $lesPages['deconnexion'] = "actionDeconnexion;0";
-    $lesPages['ajoutVideoInit'] = "actionAjoutVideoInit;0";
-    $lesPages['listeVideo'] = "actionListeVideo;0";
-    $lesPages['ajoutVideoTrad'] = "actionAjoutVideoTrad;0";
+    $lesPages['ajoutVideoInit'] = "actionAjoutVideoInit;1;4";
+    $lesPages['listeVideo'] = "actionListeVideo;1;2;3;4";
+    $lesPages['ajoutVideoTrad'] = "actionAjoutVideoTrad;1;3";
+    $lesPages['inscription'] = "actionInscription;0";
+    $lesPages['aPropos'] = "actionAPropos;0";
+    $lesPages['mentions'] = "actionMentions;0";
+    $lesPages['gestionVideoInit'] = "actionGestionVideoInit;1;4";
+    $lesPages['supprimerVideo'] = "actionSupprimerVideo;1";
+    $lesPages['modifVideoInit'] = "actionModifVideoInit;1;4";
+    $lesPages['gestionVideoTrad'] = "actionGestionVideoTrad;1;3";
+    $lesPages['modifVideoTrad'] = "actionModifVideoTrad;1;3";
     
 
 
@@ -30,28 +38,33 @@ function getPage($db)
         }
 
         $explose = explode(";" ,$lesPages[$page]) ;
-        $role = $explose[1] ; // Le rôle est dans la 2ème partie du tableau $explose
-        if ($role != 0){ // Si mon rôle nécessite une vérification
-            if(isset($_SESSION['login'])){ // Si je me suis authentifié
-                if(isset($_SESSION['role'])){ // Si j’ai bien un rôle
-                    if($role!=$_SESSION['role']){ // Si mon rôle ne correspond pas à celui qui est nécessaire pour voir la page
-
-                        $contenu = 'actionAccueil'; // Je le redirige vers l’accueil, car il n’a pas le bon rôle
+        $role = array();
+        for($i = 1;$i < count($explose);$i++){
+            array_push($role,$explose[$i]);
+        }
+            if ($role[0] != 0){ // Si mon rôle nécessite une vérification
+                if(isset($_SESSION['login'])){ // Si je me suis authentifié
+                    if(isset($_SESSION['role'])){ // Si j’ai bien un rôle
+                        for($i = 0; $i < count($role);$i++){
+                                if($role[$i]!=$_SESSION['role']){ // Si mon rôle ne correspond pas à celui qui est nécessaire pour voir la page
+                                    $contenu = 'actionAccueil'; // Je le redirige vers l’accueil, car il n’a pas le bon rôle
+                                }
+                                else{
+                                    $contenu = $explose[0];
+                                    break; // Je récupère le nom du contrôleur, car il a le bon rôle
+                                }
+                        }
                     }
                     else{
-                        $contenu = $explose[0]; // Je récupère le nom du contrôleur, car il a le bon rôle
+                        $contenu = 'actionAccueil';
                     }
                 }
                 else{
-                    $contenu = 'actionAccueil';
+                    $contenu = 'actionAccueil'; // Page d’accueil, car il n’est pas authentifié
                 }
+            }else{
+                $contenu = $explose[0]; // Je récupère le contrôleur, car il n’a pas besoin d’avoir un rôle
             }
-            else{
-                $contenu = 'actionAccueil'; // Page d’accueil, car il n’est pas authentifié
-            }
-        }else{
-            $contenu = $explose[0]; // Je récupère le contrôleur, car il n’a pas besoin d’avoir un rôle
-        }
     }
     else{
     // Si $db est null

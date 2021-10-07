@@ -1,15 +1,28 @@
 {% extends "base.html.twig" %}
 {% block title %} {{ parent() }} Accueil {% endblock %}
 {% block contenu %}
+ 
 
+      <br> <br>
        <h1>
-      <b> Bienvenue sur le site Workshop</b>
+        Bienvenue sur <span style="font-weight : bold"/>Sign HA!<span/>
        </h1>
 
         <h2>
-            Site de traduction de vidéos en langage des signes
+            Plateforme de formation accessible aux sourds et malentendants
         </h2>
 
+                            {% if session.role is not defined %}
+                            <p style="font-style : italic">Veuillez vous connecter ou vous inscrire pour acceder au contenu disponible</p>
+                            <a href="index.php?page=connexion"><button class="btn btn-primary">Identifiez-vous ! </button></a>
+                            <br>
+                            {% endif %}
+
+                            <img src="images/logo_workshopB3.png"></img>
+                            <br>
+                            {% if session.role is defined %}
+                            <a href="index.php?page=listeVideo"><button class="btn btn-primary">Accéder à la liste des ressources</button></a>
+                            {% endif %}
 
 
 {% endblock %}
