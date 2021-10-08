@@ -5,7 +5,7 @@
 
 {% if form.supp is defined %}
   {% if form.supp == true %}
-  c'est supprimé
+  <h3> La vidéo a bien été supprimée </h3>
   <a href="index.php?page=gestionVideoInit"> Revenir à la gestion des videos non traduites </a> 
   {% else %}
   bug
@@ -39,7 +39,7 @@
 
 {% for video in listeVideo %}
 <a href="index.php?page=gestionVideoTrad&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
-    <div class="card mb-3" style="max-width: 1500px;">
+    <div class="card mb-3" width="320" height="150">
   <div class="row g-0">
     <div class="col-md-4">
       

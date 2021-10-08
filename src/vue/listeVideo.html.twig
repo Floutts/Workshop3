@@ -7,7 +7,7 @@
     
         {% if form.Trad is defined %}
             {% if form.Trad == true %}
-            Une vidéo traduite est disponible, souhaitez vous la visionner ?
+            <h3>Une vidéo traduite est disponible, souhaitez vous la visionner ?</h3>
             <br><br>
             <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn btn-danger">Non</button> </a>
             <a href="index.php?page=listeVideo&id={{idVideo}}&trad=1" style="text-decoration: none" ><button class="btn btn-success">Oui</button> </a>
@@ -18,27 +18,30 @@
             {% endif %}
         {% elseif form.uneVideo is defined %}
         {% if trad == 0  %}
-        Vidéo Originale :
-        <video controls  style="width=1000px">
+        <br>
+        <h3 style = "font-weight : bold" >{{videos.Titre}}</h3>
+        <br>
+        <video controls  width="500" height="350">
             <source src="{{videos.UrlInit}}" type="video/mp4">
         </video>
         {% else %}
-        Vidéo Traduite :
-        <video controls class ="col-md-6">
+        <br>
+        <h3 style = "font-weight : bold">{{videos.Titre}}</h3>
+        <br>
+        <video controls class ="col-md-6" width="500" height="350">
             <source src="{{videos.UrlTrad}}" type="video/mp4">
         </video>
         {% endif %}
         {% else %}
         
 <h3 style="font-weight : bold; margin-top : 10px;"> Liste des ressources </h3>
-
 {% for video in listeVideo %}
 <a href="index.php?page=listeVideo&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
     <div class="card mb-3" style="max-width: 1500px;">
   <div class="row g-0">
     <div class="col-md-4">
       
-      <video class ="class="img-fluid rounded-start"" style="max-height:200px; max-width:300px">
+      <video width="320" height="150">
         <source src="{{video.UrlInit}}" type="video/mp4">
         </video>
     </div>

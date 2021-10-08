@@ -5,7 +5,7 @@
 
 {% if form.supp is defined %}
   {% if form.supp == true %}
-  c'est supprimé
+  <h3> La vidéo a bien été supprimée </h3>
   <a href="index.php?page=gestionVideoInit"> Revenir à la gestion des videos non traduites </a> 
   {% else %}
   bug
@@ -43,7 +43,7 @@
   <div class="row g-0">
     <div class="col-md-4">
       
-      <video class ="class="img-fluid rounded-start"" style="max-height:200px; max-width:300px">
+      <video class ="class="img-fluid width="320" height="150">
         <source src="{{video.UrlInit}}" type="video/mp4">
         </video>
     </div>

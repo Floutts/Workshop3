@@ -7,7 +7,6 @@ function actionAjoutVideoInit($twig,$db){
         $titre = $_POST['titre'];
         $descriptionVideo = $_POST['descriptionVideo'];
         if (! empty($_FILES)) {
-            echo '<pre>'.print_r($_FILES,true).'</pre>';
             $file_name = $_FILES['video']['name'];
             $file_extension = strrchr($file_name, ".");
             
@@ -18,17 +17,11 @@ function actionAjoutVideoInit($twig,$db){
                 0 =>'.mp4',
                 1 => '.MP4'
             );
-            
-            echo '<pre>'.print_r($file_extension,true).'</pre>';
-            echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
             if (in_array(
                 $file_extension,
                 $extension_autorisees
             )) {
-                echo $file_tmp_name.'<br>';
-                echo $filedest;
                 if (move_uploaded_file($file_tmp_name, $filedest)) {
-                    echo 'Fichier transféré dans '.$filedest;
                     $videoInit = new Video($db);
                     
                     $exec=$videoInit->ajoutVideoInit($filedest,$titre,$descriptionVideo);
@@ -40,6 +33,7 @@ function actionAjoutVideoInit($twig,$db){
                     }
 
                     echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                    header("Location:index.php?page=listeVideo");
                 } else {
                     echo 'Erreur';
                 }
@@ -89,7 +83,6 @@ function actionAjoutVideoTrad($twig,$db){
         $form['trad'] = true;
         if (isset($_POST['submit'])) {
             if (! empty($_FILES)) {
-                echo '<pre>'.print_r($_FILES,true).'</pre>';
                 $file_name = $_FILES['video']['name'];
                 $file_extension = strrchr($file_name, ".");
                 
@@ -101,16 +94,11 @@ function actionAjoutVideoTrad($twig,$db){
                     1 => '.MP4'
                 );
                 
-                echo '<pre>'.print_r($file_extension,true).'</pre>';
-                echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
                 if (in_array(
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    echo $file_tmp_name.'<br>';
-                    echo $filedest;
                     if (move_uploaded_file($file_tmp_name, $filedest)) {
-                        echo 'Fichier transféré dans '.$filedest;
                         $videoInit = new Video($db);
                         
                         $exec=$videoInit->ajoutVideoTrad($_GET['id'],$filedest);
@@ -122,6 +110,7 @@ function actionAjoutVideoTrad($twig,$db){
                         }
     
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                        header("Location:index.php?page=listeVideo");
                     } else {
                         echo 'Erreur';
                     }
@@ -186,7 +175,6 @@ function actionModifVideoInit($twig,$db){
             $titre = $_POST['titre'];
             $descriptionVideo = $_POST['descriptionVideo'];
             if (! empty($_FILES)) {
-                echo '<pre>'.print_r($_FILES,true).'</pre>';
                 $file_name = $_FILES['video']['name'];
                 $file_extension = strrchr($file_name, ".");
                 
@@ -198,16 +186,11 @@ function actionModifVideoInit($twig,$db){
                     1 => '.MP4'
                 );
                 
-                echo '<pre>'.print_r($file_extension,true).'</pre>';
-                echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
                 if (in_array(
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    echo $file_tmp_name.'<br>';
-                    echo $filedest;
                     if (move_uploaded_file($file_tmp_name, $filedest)) {
-                        echo 'Fichier transféré dans '.$filedest;
                         $videoInit = new Video($db);
                         
                         $exec=$videoInit->updateVideoInit($titre,$descriptionVideo,$filedest,$_GET['id']);
@@ -219,6 +202,8 @@ function actionModifVideoInit($twig,$db){
                         }
     
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                        header("Location:index.php?page=listeVideo");
+
                     } else {
                         echo 'Erreur';
                     }
@@ -238,7 +223,6 @@ function actionModifVideoTrad($twig,$db){
         $form['trad'] = true;
         if (isset($_POST['submit'])) {
             if (! empty($_FILES)) {
-                echo '<pre>'.print_r($_FILES,true).'</pre>';
                 $file_name = $_FILES['video']['name'];
                 $file_extension = strrchr($file_name, ".");
                 
@@ -250,16 +234,11 @@ function actionModifVideoTrad($twig,$db){
                     1 => '.MP4'
                 );
                 
-                echo '<pre>'.print_r($file_extension,true).'</pre>';
-                echo '<pre>'.print_r($extension_autorisees,true).'</pre>';
                 if (in_array(
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    echo $file_tmp_name.'<br>';
-                    echo $filedest;
                     if (move_uploaded_file($file_tmp_name, $filedest)) {
-                        echo 'Fichier transféré dans '.$filedest;
                         $videoInit = new Video($db);
                         
                         $exec=$videoInit->ajoutVideoTrad($_GET['id'],$filedest);
@@ -271,6 +250,8 @@ function actionModifVideoTrad($twig,$db){
                         }
     
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
+                        header("Location:index.php?page=listeVideo");
+
                     } else {
                         echo 'Erreur';
                     }
