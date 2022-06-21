@@ -4,7 +4,8 @@ class Video{
     private $db;
     private $ajoutVideoInit;
     private $selectVideoInit;
-    private $deuxVideos;
+    private $selectByVideoInit;
+    private $selectByVideoTrad;
     private $ajoutVideoTrad;
     private $deleteVideo;
     private $updateVideoInit;
@@ -17,21 +18,23 @@ class Video{
 
     public function __construct($db){
         $this->db = $db;
-        $this->ajoutVideoInit = $db->prepare("INSERT INTO Video(UrlInit,Titre,DescriptionVideo) VALUES (:UrlInit,:Titre,:DescriptionVideo) ");
-        $this->selectVideoInit = $db->prepare("SELECT idVideo,UrlInit,Titre,DescriptionVideo FROM Video");
-        $this->deuxVideos = $db->prepare("SELECT idVideo,UrlInit,UrlTrad,Titre,DescriptionVideo FROM Video WHERE idVideo = :idVideo");
-        $this->ajoutVideoTrad = $db->prepare("UPDATE Video SET UrlTrad = :UrlTrad WHERE idVideo = :idVideo");
-        $this->deleteVideo = $db->prepare("DELETE FROM Video WHERE idVideo = :idVideo");
-        $this->updateVideoInit = $db->prepare("UPDATE Video SET Titre = :Titre, DescriptionVideo = :DescriptionVideo, UrlInit = :UrlInit WHERE idVideo = :idVideo");
-        $this->selectIfTradNull = $db->prepare("SELECT idVideo, UrlInit, Titre, DescriptionVideo FROM `Video` WHERE `UrlTrad` is null");
-        $this->selectIfTradNotNull = $db->prepare("SELECT idVideo, UrlInit, Titre, DescriptionVideo FROM `Video` WHERE `UrlTrad` is not null");
-        $this->deleteVideoTrad = $db->prepare("UPDATE Video SET UrlTrad = null WHERE idVideo = :idVideo");
+        $this->ajoutVideoInit = $db->prepare("INSERT INTO VideoInit(IdUtilisateur,Titre,DescriptionVideo,UrlInit) VALUES (:IdUtilisateur,:Titre,:DescriptionVideo,:UrlInit) ");
+        $this->selectVideoInit = $db->prepare("SELECT * FROM VideoInit");
+        $this->selectByVideoInit = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vi.IdVideoInit = :IdVideoInit");
+        $this->selectByVideoTrad = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad = :IdVideoTrad");
+        $this->ajoutVideoTrad = $db->prepare("INSERT INTO VideoTrad(IdVideoInit,IdUtilisateur,UrlTrad) VALUES (:IdVideoInit, :IdUtilisateur, :UrlTrad)");
+        $this->deleteVideo = $db->prepare("DELETE FROM VideoInit WHERE IdVideoInit = :IdVideoInit");
+        $this->updateVideoInit = $db->prepare("UPDATE VideoInit SET Titre = :Titre, DescriptionVideo = :DescriptionVideo, UrlInit = :UrlInit WHERE IdVideoInit = :IdVideoInit");
+        $this->updateVideoTrad = $db->prepare("UPDATE VideoTrad SET UrlTrad = :UrlTrad WHERE IdVideoTrad = :IdVideoTrad");
+        $this->selectIfTradNull = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad is null");
+        $this->selectIfTradNotNull = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad is not null");
+        $this->deleteVideoTrad = $db->prepare("DELETE FROM VideoTrad WHERE IdVideoTrad = :IdVideoTrad");
 
     }
 
-    public function ajoutVideoInit($UrlVideo,$Titre,$DescriptionVideo){
+    public function ajoutVideoInit($IdUtilisateur,$Titre,$DescriptionVideo,$UrlVideo){
         $r = true;
-        $this->ajoutVideoInit->execute(array(':UrlInit'=>$UrlVideo,':Titre'=>$Titre,':DescriptionVideo'=>$DescriptionVideo));
+        $this->ajoutVideoInit->execute(array(':IdUtilisateur'=>$IdUtilisateur,':Titre'=>$Titre,':DescriptionVideo'=>$DescriptionVideo,':UrlInit'=>$UrlVideo));
         if ($this->ajoutVideoInit->errorCode()!=0){
             print_r($this->ajoutVideoInit->errorInfo());
             $r=false;
@@ -48,20 +51,29 @@ class Video{
 
     }
 
-    public function deuxVideos($idVideo){
-        $liste = $this->deuxVideos->execute(array(':idVideo'=>$idVideo));
-        if ($this->deuxVideos->errorCode()!=0){
-            print_r($this->deuxVideos->errorInfo());
+    public function selectByVideoInit($idVideo){
+        $liste = $this->selectByVideoInit->execute(array(':IdVideoInit'=>$idVideo));
+        if ($this->selectByVideoInit->errorCode()!=0){
+            print_r($this->selectByVideoInit->errorInfo());
         }
-        return $this->deuxVideos->fetch();
+        return $this->selectByVideoInit->fetch();
+
+    }
+
+    public function selectByVideoTrad($idVideo){
+        $liste = $this->selectByVideoTrad->execute(array(':IdVideoTrad'=>$idVideo));
+        if ($this->selectByVideoTrad->errorCode()!=0){
+            print_r($this->selectByVideoTrad->errorInfo());
+        }
+        return $this->selectByVideoTrad->fetch();
 
     }
 
     
-    public function ajoutVideoTrad($idVideo,$UrlTrad)
+    public function ajoutVideoTrad($IdUtilisateur,$idVideo,$UrlTrad)
     {
         $r = true;
-        $this->ajoutVideoTrad->execute(array(':idVideo'=>$idVideo, ':UrlTrad' => $UrlTrad));
+        $this->ajoutVideoTrad->execute(array(':IdUtilisateur'=>$IdUtilisateur,':IdVideoInit'=>$idVideo, ':UrlTrad' => $UrlTrad));
         if ($this->ajoutVideoTrad->errorCode() != 0) {
             print_r($this->ajoutVideoTrad->errorInfo());
             $r = false;
@@ -71,7 +83,7 @@ class Video{
 
     public function deleteVideo($idVideo){
         $r = true;
-        $this->deleteVideo->execute(array(':idVideo'=>$idVideo));
+        $this->deleteVideo->execute(array(':IdVideoInit'=>$idVideo));
         if ($this->deleteVideo->errorCode()!=0){
             print_r($this->deleteVideo->errorInfo());
             $r=false;
@@ -82,13 +94,25 @@ class Video{
     public function updateVideoInit($Titre,$DescriptionVideo,$UrlInit,$idVideo)
     {
         $r = true;
-        $this->updateVideoInit->execute(array(':Titre' => $Titre,":DescriptionVideo"=>$DescriptionVideo, ':UrlInit' => $UrlInit,':idVideo'=>$idVideo));
+        $this->updateVideoInit->execute(array(':Titre' => $Titre,":DescriptionVideo"=>$DescriptionVideo, ':UrlInit' => $UrlInit,':IdVideoInit'=>$idVideo));
         if ($this->updateVideoInit->errorCode() != 0) {
             print_r($this->updateVideoInit->errorInfo());
             $r = false;
         }
         return $r;
     }
+
+    public function updateVideoTrad($UrlTrad,$idVideo)
+    {
+        $r = true;
+        $this->updateVideoTrad->execute(array(':UrlTrad' => $UrlTrad,':IdVideoTrad'=>$idVideo));
+        if ($this->updateVideoTrad->errorCode() != 0) {
+            print_r($this->updateVideoTrad->errorInfo());
+            $r = false;
+        }
+        return $r;
+    }
+
     public function selectIfTradNull(){
         $liste = $this->selectIfTradNull->execute();
         if ($this->selectIfTradNull->errorCode()!=0){
@@ -109,7 +133,7 @@ class Video{
     public function deleteVideoTrad($idVideo)
     {
         $r = true;
-        $this->deleteVideoTrad->execute(array(':idVideo'=>$idVideo));
+        $this->deleteVideoTrad->execute(array(':IdVideoTrad'=>$idVideo));
         if ($this->deleteVideoTrad->errorCode() != 0) {
             print_r($this->deleteVideoTrad->errorInfo());
             $r = false;

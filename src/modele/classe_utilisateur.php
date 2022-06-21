@@ -7,7 +7,7 @@ class Utilisateur{
 
     public function __construct($db){
         $this->db = $db;
-        $this->connect = $db->prepare("select Email, Mdp, idRole from Utilisateur where Email=:email");
+        $this->connect = $db->prepare("select IdUtilisateur, Email, Mdp, idRole from Utilisateur where Email=:email");
         $this->insert = $db->prepare("INSERT INTO Utilisateur(Nom, Prenom, Email, Mdp, idRole) VALUES (:Nom,:Prenom,:Email,:Mdp,:idRole)");
     }
 

@@ -9,26 +9,26 @@
             {% if form.Trad == true %}
             <h3>Une vidéo traduite est disponible, souhaitez vous la visionner ?</h3>
             <br><br>
-            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn btn-danger">Non</button> </a>
-            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=1" style="text-decoration: none" ><button class="btn btn-success">Oui</button> </a>
+            <a href="index.php?page=listeVideo&id={{IdVideoInit}}&trad=0" style="text-decoration: none" ><button class="btn btn-danger">Non</button> </a>
+            <a href="index.php?page=listeVideo&id={{IdVideoTrad}}&trad=1" style="text-decoration: none" ><button class="btn btn-success">Oui</button> </a>
             {% else %}
             Il n'y pas encore de traduction disponible pour cette vidéo.
             <br>
-            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn btn-primary">Continuer</button> </a>
+            <a href="index.php?page=listeVideo&id={{IdVideoInit}}&trad=0" style="text-decoration: none" ><button class="btn btn-primary">Continuer</button> </a>
             {% endif %}
         {% elseif form.uneVideo is defined %}
         {% if trad == 0  %}
         <br>
-        <h3 style = "font-weight : bold" >{{videos.Titre}}</h3>
+        <h3 style = "font-weight : bold" >{{videos.Titre}} </h3>
         <br>
-        <video controls  width="500" height="350">
+        <video controls  width="800" height="500">
             <source src="{{videos.UrlInit}}" type="video/mp4">
         </video>
         {% else %}
         <br>
         <h3 style = "font-weight : bold">{{videos.Titre}}</h3>
         <br>
-        <video controls class ="col-md-6" width="500" height="350">
+        <video controls width="800" height="500">
             <source src="{{videos.UrlTrad}}" type="video/mp4">
         </video>
         {% endif %}
@@ -36,7 +36,7 @@
         
 <h3 style="font-weight : bold; margin-top : 10px;"> Liste des ressources </h3>
 {% for video in listeVideo %}
-<a href="index.php?page=listeVideo&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
+<a href="index.php?page=listeVideo&id={{video.IdVideoInit}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
     <div class="card mb-3" style="max-width: 1500px;">
   <div class="row g-0">
     <div class="col-md-4">

@@ -33,6 +33,7 @@ function actionConnexion($twig,$db){
             else{
                 $_SESSION['login'] = $email;
                 $_SESSION['role'] = $unUtilisateur['idRole'];
+                $_SESSION['id'] = $unUtilisateur['IdUtilisateur'];
                 header("Location:index.php");
             }
         }

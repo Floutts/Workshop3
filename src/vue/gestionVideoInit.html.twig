@@ -30,15 +30,15 @@
 </div>
 
 <h3 style="font-weight : bold; margin-top : 10px;">Que souhaitez vous faire ? </h3>
-<a href="index.php?page=modifVideoInit&id={{videos.idVideo}}" style="text-decoration: none" ><button class="btn-warning btn">Modifier</button> </a>
-<a href="index.php?page=supprimerVideo&id={{videos.idVideo}}" style="text-decoration: none" ><button class="btn-danger btn">Supprimer</button> </a>
+<a href="index.php?page=modifVideoInit&id={{videos.IdVideoInit}}" style="text-decoration: none" ><button class="btn-warning btn">Modifier</button> </a>
+<a href="index.php?page=supprimerVideo&id={{videos.IdVideoInit}}" style="text-decoration: none" ><button class="btn-danger btn">Supprimer</button> </a>
 
 {% else %}
 
-<h3 style="font-weight : bold; margin-top : 10px;"> Liste des ressources </h3>
+<h3 style="font-weight : bold; margin-top : 10px;"> Gestion des vidéos non traduites </h3>
 
 {% for video in listeVideo %}
-<a href="index.php?page=gestionVideoInit&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
+<a href="index.php?page=gestionVideoInit&id={{video.IdVideoInit}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
     <div class="card mb-3" style="max-width: 1500px;">
   <div class="row g-0">
     <div class="col-md-4">
