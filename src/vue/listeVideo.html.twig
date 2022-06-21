@@ -7,10 +7,15 @@
     
         {% if form.Trad is defined %}
             {% if form.Trad == true %}
-            <h3>Une vidéo traduite est disponible, souhaitez vous la visionner ?</h3>
+            <h3>Une vidéo traduite est disponible, souhaitez-vous la visionner ?</h3>
             <br><br>
+<<<<<<< HEAD
             <a href="index.php?page=listeVideo&id={{IdVideoInit}}&trad=0" style="text-decoration: none" ><button class="btn btn-danger">Non</button> </a>
             <a href="index.php?page=listeVideo&id={{IdVideoTrad}}&trad=1" style="text-decoration: none" ><button class="btn btn-success">Oui</button> </a>
+=======
+            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=0" style="text-decoration: none" ><button class="btn btn-danger" style="background-color : #C30000">Non</button> </a>
+            <a href="index.php?page=listeVideo&id={{idVideo}}&trad=1" style="text-decoration: none" ><button class="btn btn-success" style="background-color : #2BC016">Oui</button> </a>
+>>>>>>> 8be4ef4101a14f66c0c16cd21f39ecc7a2435bb7
             {% else %}
             Il n'y pas encore de traduction disponible pour cette vidéo.
             <br>
@@ -21,27 +26,52 @@
         <br>
         <h3 style = "font-weight : bold" >{{videos.Titre}} </h3>
         <br>
+<<<<<<< HEAD
         <video controls  width="800" height="500">
+=======
+        <video controls  width="50%">
+>>>>>>> 8be4ef4101a14f66c0c16cd21f39ecc7a2435bb7
             <source src="{{videos.UrlInit}}" type="video/mp4">
         </video>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text">{{video.DescriptionVideo}}</p>
+        </div>
+    </div>
         {% else %}
         <br>
         <h3 style = "font-weight : bold">{{videos.Titre}}</h3>
         <br>
+<<<<<<< HEAD
         <video controls width="800" height="500">
+=======
+        <video controls class ="col-md-6" width="50%">
+>>>>>>> 8be4ef4101a14f66c0c16cd21f39ecc7a2435bb7
             <source src="{{videos.UrlTrad}}" type="video/mp4">
         </video>
+        <br>
+        <div class="col-md-8 card">
+      <div class="card-body">
+        <h5 class="card-title">{{video.Titre}}</h5>
+        <p class="card-text">{{video.DescriptionVideo}}</p>
+      </div>
+    </div>
         {% endif %}
         {% else %}
         
-<h3 style="font-weight : bold; margin-top : 10px;"> Liste des ressources </h3>
+<h3 style="font-weight : bold; margin-top : 10px;"> <em>Liste des vidéos</em> </h3>
 {% for video in listeVideo %}
+<<<<<<< HEAD
 <a href="index.php?page=listeVideo&id={{video.IdVideoInit}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
     <div class="card mb-3" style="max-width: 1500px;">
+=======
+<a href="index.php?page=listeVideo&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
+    <div class="card mb-3" style="max-width: 1000px;">
+>>>>>>> 8be4ef4101a14f66c0c16cd21f39ecc7a2435bb7
   <div class="row g-0">
     <div class="col-md-4">
       
-      <video width="320" height="150">
+      <video width="100%" >
         <source src="{{video.UrlInit}}" type="video/mp4">
         </video>
     </div>

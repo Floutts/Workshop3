@@ -21,7 +21,7 @@ function actionAjoutVideoInit($twig,$db){
                 $file_extension,
                 $extension_autorisees
             )) {
-                //if (move_uploaded_file($file_tmp_name, $filedest)) {
+                if (move_uploaded_file($file_tmp_name, $filedest)) {
                 $videoInit = new Video($db);
                 var_dump($_SESSION);
                 
@@ -34,9 +34,9 @@ function actionAjoutVideoInit($twig,$db){
                 }
                 echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                 header("Location:index.php?page=listeVideo");
-            /*}else{
+            }else{
                 echo 'Erreur lors de l\'ajout de la vidéo dans le serveur';
-            }*/
+            }
 
             } else {
                 echo 'Uniquement .mp4, .MP4';
@@ -98,7 +98,7 @@ function actionAjoutVideoTrad($twig,$db){
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    //if (move_uploaded_file($file_tmp_name, $filedest)) {
+                    if (move_uploaded_file($file_tmp_name, $filedest)) {
                         $videoInit = new Video($db);
                         
                         $exec=$videoInit->ajoutVideoTrad($_SESSION['id'],$_GET['id'],$filedest);
@@ -109,12 +109,11 @@ function actionAjoutVideoTrad($twig,$db){
                             $form['ajouter'] = true;
                         }
 
-                        
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                         header("Location:index.php?page=ajoutVideoTrad");
-                    /*} else {
-                        echo 'Erreur lors de l'ajout du fichier dans le serveur';
-                    }*/
+                    } else {
+                        echo 'Erreur lors de l\'ajout du fichier dans le serveur';
+                    }
                 } else {
                     echo 'Uniquement .mp4, .MP4';
                 }
@@ -191,7 +190,7 @@ function actionModifVideoInit($twig,$db){
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    //if (move_uploaded_file($file_tmp_name, $filedest)) {
+                    if (move_uploaded_file($file_tmp_name, $filedest)) {
                         $videoInit = new Video($db);
                         
                         $exec=$videoInit->updateVideoInit($titre,$descriptionVideo,$filedest,$_GET['id']);
@@ -205,9 +204,9 @@ function actionModifVideoInit($twig,$db){
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                         header("Location:index.php?page=gestionVideoInit");
 
-                    /*} else {
-                        echo 'Erreur lors de l'ajout du fichier dans le serveur';
-                    }*/
+                    } else {
+                        echo 'Erreur lors de l\'ajout du fichier dans le serveur';
+                    }
                 } else {
                     echo 'Uniquement .mp4, .MP4';
                 }
@@ -239,7 +238,7 @@ function actionModifVideoTrad($twig,$db){
                     $file_extension,
                     $extension_autorisees
                 )) {
-                    //if (move_uploaded_file($file_tmp_name, $filedest)) {
+                    if (move_uploaded_file($file_tmp_name, $filedest)) {
                         $video = new Video($db);
                         
                         $exec=$video->updateVideoTrad($filedest,$_GET['id']);
@@ -253,9 +252,9 @@ function actionModifVideoTrad($twig,$db){
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                         header("Location:index.php?page=gestionVideoTrad");
 
-                    /*} else {
-                        echo 'Erreur lors de l'ajout du fichier dans le serveur';
-                    }*/
+                    } else {
+                        echo 'Erreur lors de l\'ajout du fichier dans le serveur';
+                    }
                 } else {
                     echo 'Uniquement .mp4, .MP4';
                 }

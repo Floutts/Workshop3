@@ -11,14 +11,14 @@
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Erreur : {{form.message}}</h1>
             </div>
             {% else %}
-                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Ajout réussi</h1>
+                <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"><em>Ajout réussi</em></h1>
             {% endif %}
         {% endif %}
-       <div class="mx-auto" style="width: 500px">
+       <div class="mx-auto" style="width: 100%">
             <form action="" method="post" enctype="multipart/form-data">
             <span>Importez votre vidéo </span>
             <input  type="file" accept=".mp4,.MP4" name="video" id="video"  style="margin-top : 10px;"/> <br> <br>
-            <input class="btn btn-primary" type="submit" name="submit" value="Ajouter" styke = "margin-top : 10px;" />
+            <input class="btn btn-success" type="submit" name="submit" value="Ajouter" styke = "margin-top : 10px;" />
             </form>
         </div>
 {% else %}
