@@ -25,6 +25,7 @@
 
 <h3 class="container"> Liste des vidéos n'ayant pas de traduction associée</h3>
 
+{% if listeVideo|length > 0 %}
 {% for video in listeVideo %}
 
 <a href="index.php?page=ajoutVideoTrad&id={{video.IdVideoInit}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
@@ -46,7 +47,9 @@
 </div>
 </a>
 {% endfor %}
-
+{% else %}
+<br><h4 style="font-weight : bold; margin-top : 10px;"> Aucune vidéo à afficher</h3>
+{% endif %}
 {% endif %}
 
 {% endblock %}

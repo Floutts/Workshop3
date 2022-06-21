@@ -12,9 +12,8 @@ class Video{
     private $selectIfTradNull;
     private $selectIfTradNotNull;
     private $deleteVideoTrad;
-
-
-    
+    private $selectInitByUtilisateur;
+    private $selectTradByUtilisateur;
 
     public function __construct($db){
         $this->db = $db;
@@ -29,7 +28,8 @@ class Video{
         $this->selectIfTradNull = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad is null");
         $this->selectIfTradNotNull = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad is not null");
         $this->deleteVideoTrad = $db->prepare("DELETE FROM VideoTrad WHERE IdVideoTrad = :IdVideoTrad");
-
+        $this->selectInitByUtilisateur = $db->prepare("SELECT * FROM VideoInit WHERE vi.IdUtilisateur = :IdUtilisateur");
+        $this->selectTradByUtilisateur = $db->prepare("SELECT *, vi.IdVideoInit as IdVideoInit FROM VideoInit vi LEFT JOIN VideoTrad vt ON vi.IdVideoInit = vt.IdVideoInit WHERE vt.IdVideoTrad is not null AND vt.IdUtilisateur = :IdUtilisateur");
     }
 
     public function ajoutVideoInit($IdUtilisateur,$Titre,$DescriptionVideo,$UrlVideo){
@@ -140,4 +140,24 @@ class Video{
         }
         return $r;
     }
+
+    public function selectInitByUtilisateur($idUtilisateur){
+        $liste = $this->selectInitByUtilisateur->execute(array(':IdUtilisateur'=>$idUtilisateur));
+        if ($this->selectInitByUtilisateur->errorCode()!=0){
+            print_r($this->selectInitByUtilisateur->errorInfo());
+        }
+        return $this->selectInitByUtilisateur->fetchAll();
+
+    }
+
+
+    public function selectTradByUtilisateur($idUtilisateur){
+        $liste = $this->selectTradByUtilisateur->execute(array(':IdUtilisateur'=>$idUtilisateur));
+        if ($this->selectTradByUtilisateur->errorCode()!=0){
+            print_r($this->selectTradByUtilisateur->errorInfo());
+        }
+        return $this->selectTradByUtilisateur->fetchAll();
+
+    }
+
 }

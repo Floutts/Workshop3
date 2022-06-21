@@ -37,6 +37,7 @@
 
 <h3 style="font-weight : bold; margin-top : 10px;"> Gestion des vidéos non traduites </h3>
 
+{% if listeVideo|length > 0 %}
 {% for video in listeVideo %}
 <a href="index.php?page=gestionVideoInit&id={{video.IdVideoInit}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
     <div class="card mb-3" style="max-width: 1500px;">
@@ -57,6 +58,9 @@
 </div>
 </a>
 {% endfor %}
+{% else %}
+<br><h4 style="font-weight : bold; margin-top : 10px;"> Aucune vidéo à afficher</h3>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endblock %}

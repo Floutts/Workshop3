@@ -36,32 +36,30 @@
 {% else %}
 
 <h3 style="font-weight : bold; margin-top : 10px;"> Gestion des vidéos traduites </h3>
-
-{% for video in listeVideo %}
-<<<<<<< HEAD
-<a href="index.php?page=gestionVideoTrad&id={{video.IdVideoTrad}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
-    <div class="card mb-3" width="320" height="150">
-=======
-<a href="index.php?page=gestionVideoTrad&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" width="50%" style="margin-left : 10px; margin-right : 10px">
-    <div class="card mb-3" width="50%" >
->>>>>>> 8be4ef4101a14f66c0c16cd21f39ecc7a2435bb7
-  <div class="row g-0">
-    <div class="col-md-4">
-      
-      <video class ="class="img-fluid rounded-start"" style="max-height:200px; max-width:300px">
-        <source src="{{video.UrlInit}}" type="video/mp4">
-        </video>
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{video.Titre}}</h5>
-        <p class="card-text">{{video.DescriptionVideo}}</p>
+{% if listeVideo|length > 0 %}
+  {% for video in listeVideo %}
+  <a href="index.php?page=gestionVideoTrad&id={{video.IdVideoTrad}}" class="blackText" title="{{video.Titre}}" width="50%" style="margin-left : 10px; margin-right : 10px">
+      <div class="card mb-3" width="50%" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        
+        <video class ="class="img-fluid rounded-start"" style="max-height:200px; max-width:300px">
+          <source src="{{video.UrlInit}}" type="video/mp4">
+          </video>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{video.Titre}}</h5>
+          <p class="card-text">{{video.DescriptionVideo}}</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</a>
-{% endfor %}
+  </a>
+  {% endfor %}
+{% else %}
+<br><h4 style="font-weight : bold; margin-top : 10px;"> Aucune vidéo à afficher</h3>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endblock %}

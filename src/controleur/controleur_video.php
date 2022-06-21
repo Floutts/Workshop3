@@ -104,7 +104,7 @@ function actionAjoutVideoTrad($twig,$db){
                         $exec=$videoInit->ajoutVideoTrad($_SESSION['id'],$_GET['id'],$filedest);
                         if (!$exec){
                             $form['ajouter'] = false;
-                            $form['message'] = 'Problème de d\'ajout d\'une vidéo non traduite';
+                            $form['message'] = 'Problème de d\'ajout d\'une vidéo traduite';
                         }else{
                             $form['ajouter'] = true;
                         }
@@ -136,7 +136,7 @@ function actionGestionVideoInit($twig,$db){
         $videos = $video->selectByVideoInit($idVideo);
         echo $twig->render('gestionVideoInit.html.twig',array("form"=>$form,"videos"=>$videos)); 
     }else{
-        $listeVideo = $video->selectVideoInit();
+        $listeVideo = $video->selectInitByUtilisateur($_SESSION['id']);
         echo $twig->render('gestionVideoInit.html.twig',array("form"=>$form,"listeVideo"=>$listeVideo)); 
     }
 
@@ -273,7 +273,7 @@ function actionGestionVideoTrad($twig,$db){
         $videos = $video->selectByVideoTrad($idVideo);
         echo $twig->render('gestionVideoTrad.html.twig',array("form"=>$form,"videos"=>$videos)); 
     }else{
-        $listeVideo = $video->selectIfTradNotNull();
+        $listeVideo = $video->selectTradByUtilisateur($_SESSION['id']);
         echo $twig->render('gestionVideoTrad.html.twig',array("form"=>$form,"listeVideo"=>$listeVideo)); 
     }
 
