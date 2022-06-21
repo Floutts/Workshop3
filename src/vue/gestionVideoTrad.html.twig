@@ -12,7 +12,7 @@
   {% endif %}
 {% else %}
 {% if form.uneVideo is defined %}
-<div class="card mb-3" style="max-width: 1500px;">
+<div class="card mb-3" width="50%" >
   <div class="row g-0">
     <div class="col-md-4">
       
@@ -38,8 +38,8 @@
 <h3 style="font-weight : bold; margin-top : 10px;"> Liste des ressources </h3>
 
 {% for video in listeVideo %}
-<a href="index.php?page=gestionVideoTrad&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" style="margin-left : 10px; margin-right : 10px">
-    <div class="card mb-3" width="320" height="150">
+<a href="index.php?page=gestionVideoTrad&id={{video.idVideo}}" class="blackText" title="{{video.Titre}}" width="50%" style="margin-left : 10px; margin-right : 10px">
+    <div class="card mb-3" width="50%" >
   <div class="row g-0">
     <div class="col-md-4">
       

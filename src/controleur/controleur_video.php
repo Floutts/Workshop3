@@ -2,7 +2,9 @@
 
 function actionAjoutVideoInit($twig,$db){
 
- $form=array();
+ require_once '../src/controleur/config.php';
+
+    $form=array();
     if (isset($_POST['submit'])) {
         $titre = $_POST['titre'];
         $descriptionVideo = $_POST['descriptionVideo'];
@@ -31,12 +33,13 @@ function actionAjoutVideoInit($twig,$db){
                     }else{
                         $form['ajouter'] = true;
                     }
-
                     echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                     header("Location:index.php?page=listeVideo");
                 } else {
                     echo 'Erreur';
                 }
+                header("Location: $googleOauthURL"); 
+
             } else {
                 echo 'Uniquement .mp4, .MP4';
             }
@@ -108,7 +111,8 @@ function actionAjoutVideoTrad($twig,$db){
                         }else{
                             $form['ajouter'] = true;
                         }
-    
+
+                        header("Location: $googleOauthURL"); 
                         echo "<script>alert(\"Fichier envoyé avec succès\")</script>";
                         header("Location:index.php?page=listeVideo");
                     } else {
